@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ProductCard from './components/card/Card';
 import { BrowserRouter } from 'react-router-dom';
 import ProductList from './components/productlist/ProductList';
+import SearchBar from './components/searchbar/SearchBar';
+import Header from './components/header/Header';
 
 function App() {
   const banve = {
@@ -95,11 +97,10 @@ function App() {
       price: 1900000
     }
   ];
-
-
   return (
     <>
       <BrowserRouter>
+      <Header/>
         <div>
           <ProductList products={products} />
         </div>
