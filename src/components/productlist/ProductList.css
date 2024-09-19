@@ -1,0 +1,26 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow: hidden;
+    /* Ẩn phần nhô ra của thanh trượt */
+}
+
+.product-list-item {
+    flex: 1 1 calc(33.33% - 1rem);
+    /* Mỗi phần tử chiếm 1/3 chiều rộng, trừ đi khoảng cách */
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+}
+
+/* Ẩn thanh trượt */
+.product-list::-webkit-scrollbar {
+    display: none;
+}
+
+.product-list {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
