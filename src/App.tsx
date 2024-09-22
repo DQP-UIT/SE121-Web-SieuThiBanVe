@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import ProductCard from './components/card/Card';
 import { BrowserRouter } from 'react-router-dom';
 import ProductList from './components/productlist/ProductList';
-import SearchBar from './components/searchbar/SearchBar';
 import Header from './components/header/Header';
+import HouseSearchBar from './components/searchbar/HouseSearchBar';
+import LoginForm from './components/loginform/LoginForm';
 
 function App() {
+  const inURL = "src/assets/entypo_login.svg"
   const banve = {
     name: "Nhà phố hiện đại",
     price: 5000000,
@@ -100,7 +100,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Header/>
+      <Header inout_url={inURL}/>
+      <LoginForm/>
+      {/* <HouseSearchBar /> */}
         <div>
           <ProductList products={products} />
         </div>
