@@ -3,17 +3,22 @@ import ProductList from './components/productlist/ProductList';
 import Header from './components/header/Header';
 import HouseSearchBar from './components/searchbar/HouseSearchBar';
 import LoginForm from './components/loginform/LoginForm';
+import Carousel from './components/carousel/Carousel';
+import UserTable from './components/table/UserTable';
+import ProductTable from './components/table/ProductTable';
 
 function App() {
   const inURL = "src/assets/entypo_login.svg"
-  const banve = {
-    name: "Nhà phố hiện đại",
-    price: 5000000,
-    img: "https://react.dev/images/home/conf2019/cover.svg",
-    tang: 3,
-    phongngu: 4,
-    dientich: 120
-  };
+  const imglist = [
+    'src/assets/react.svg',
+   'src/assets/react.svg',
+    'src/assets/react.svg',
+    'src/assets/solar_home-bold.svg',
+    'src/assets/react.svg',
+    'src/assets/solar_home-bold.svg',
+    'src/assets/react.svg',
+    'src/assets/solar_home-bold.svg'
+  ];
   const products = [
     {
       id: 1,
@@ -97,12 +102,22 @@ function App() {
       price: 1900000
     }
   ];
+  const user = {
+    _id: "12345",
+    name: "John Doe",
+    birthday: "1990-01-01",
+    numofdesign: 10,
+    email: "john.doe@example.com",
+    phoneNumber: "123-456-7890"
+  };
   return (
     <>
       <BrowserRouter>
-      <Header inout_url={inURL}/>
-      <LoginForm/>
-      {/* <HouseSearchBar /> */}
+        <Header inout_url={inURL} />
+        <LoginForm />
+        {/* <HouseSearchBar /> */}
+        <Carousel imglist={imglist} />
+        <UserTable user={user}/>
         <div>
           <ProductList products={products} />
         </div>
