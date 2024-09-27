@@ -2,16 +2,24 @@ import { BrowserRouter } from 'react-router-dom';
 import ProductList from './components/productlist/ProductList';
 import Header from './components/header/Header';
 import HouseSearchBar from './components/searchbar/HouseSearchBar';
-import LoginForm from './components/loginform/LoginForm';
+import LoginForm from './components/forms/LoginForm';
 import Carousel from './components/carousel/Carousel';
 import UserTable from './components/table/UserTable';
-import ProductTable from './components/table/ProductTable';
+import ProductDesign from './components/productdesign/ProductDesign';
+import Avatar from './components/avatar/Avatar';
 
 function App() {
+  const images = [
+    "/src/assets/formkit_dollar.svg",
+    "/src/assets/formkit_dollar.svg",
+    "/src/assets/formkit_dollar.svg",
+    "/src/assets/formkit_dollar.svg",
+    // Thêm các URL ảnh khác vào đây
+  ];
   const inURL = "src/assets/entypo_login.svg"
   const imglist = [
     'src/assets/react.svg',
-   'src/assets/react.svg',
+    'src/assets/react.svg',
     'src/assets/react.svg',
     'src/assets/solar_home-bold.svg',
     'src/assets/react.svg',
@@ -110,14 +118,20 @@ function App() {
     email: "john.doe@example.com",
     phoneNumber: "123-456-7890"
   };
+  const listofkind = ["Nhà phố", "Biệt thự", "Căn hộ", "Nhà cấp 4"];
+  const listofflr = ["1 tầng", "2 tầng", "3 tầng", "4 tầng"];
+  const listoflength = ["10m", "15m", "20m", "25m"];
+  const listofwidth = ["5m", "7m", "10m", "12m"];
   return (
     <>
       <BrowserRouter>
         <Header inout_url={inURL} />
+        <Avatar url={"/src/assets/formkit_dollar.svg"}/>
         <LoginForm />
-        {/* <HouseSearchBar /> */}
+        <ProductDesign images={images}/>
+        <HouseSearchBar listofkind={listofkind} listofflr={listofflr} listoflength={listoflength} listofwidth={listofwidth} />
         <Carousel imglist={imglist} />
-        <UserTable user={user}/>
+        <UserTable user={user} />
         <div>
           <ProductList products={products} />
         </div>
