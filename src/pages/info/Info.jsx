@@ -24,6 +24,7 @@ const Info = ({ product }) => {
         <ProductTable product={product} />
       </div>
     </BrowserRouter>
+
   );
 };
 
