@@ -111,8 +111,8 @@ const Home = () => {
   const listoflength = ["10m", "15m", "20m", "25m"];
   const listofwidth = ["5m", "7m", "10m", "12m"];
   return (
-    <div>
-      <BrowserRouter>
+    <BrowserRouter>
+      <div>
         <Header inout_url="src/assets/entypo_login.svg" />
         <div>
           <img src="src/assets/HomePott.svg" />
@@ -127,13 +127,15 @@ const Home = () => {
         </div>
         <SuggestCardList />
         <div className="pl-20">
-          <span className="font-mono text-3xl font-semibold ">Những mẫu nhà thiết kế đẹp tại Việt Nam</span>
+          <span className="font-mono text-3xl font-semibold">
+            Những mẫu nhà thiết kế đẹp tại Việt Nam
+          </span>
         </div>
-        <div className="flex pt-10 w-full min-w-fit items-center justify-center">
+        <div className="flex w-full min-w-fit items-center justify-center pt-10">
           <ProductList products={products} />
         </div>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 };
 

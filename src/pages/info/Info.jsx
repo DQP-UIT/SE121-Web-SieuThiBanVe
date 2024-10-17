@@ -3,10 +3,11 @@ import Header from "../../components/header/Header";
 import Carousel from "../../components/carousel/Carousel";
 import ProductTable from "../../components/table/ProductTable";
 import ContactCard from "../../components/contact/ContactCard";
+import { BrowserRouter } from "react-router-dom";
 
 const Info = ({ product }) => {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
       <div>
         <span>{product.name}</span>
@@ -22,7 +23,7 @@ const Info = ({ product }) => {
       <div>
         <ProductTable product={product} />
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
 
