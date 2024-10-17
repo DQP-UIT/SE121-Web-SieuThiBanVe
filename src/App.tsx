@@ -1,6 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
 import Info from './pages/info/Info';
-import Home from './pages/home/Home';
 
 function App() {
   const product = {
@@ -22,7 +21,9 @@ function App() {
     companyName: "Công ty Thiết kế ABC"
   };
   return(
-    <Home />
+    <BrowserRouter>
+      <Info product={product}/>
+    </BrowserRouter>
   )
 }
 
