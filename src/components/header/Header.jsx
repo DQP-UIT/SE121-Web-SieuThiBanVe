@@ -2,7 +2,6 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import Link from "../link/Link";
 
 const data = [
     {

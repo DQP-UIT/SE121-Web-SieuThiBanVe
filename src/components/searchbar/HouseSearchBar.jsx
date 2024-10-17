@@ -7,9 +7,9 @@ const HouseSearchBar = ({ listofkind, listofflr, listoflength, listofwidth }) =>
     const [width, setwidth] = useState("");
 
     return (
-        <div>
-            <div className="w-1/2 h-fit flex flex-row border-solid border-2 border-gray-900 rounded-full p-4 space-x-5 justify-center">
-                <div className="basis-1/4 ">
+        <div className="min-w-fit">
+            <div className="w-1/2 min-w-fit h-fit flex flex-row border-solid border-2 border-gray-900 rounded-full p-4 space-x-5 justify-center">
+                <div className="basis-1/4 min-w-28 ">
                     <select
                         value={kindofhouse}
                         onChange={(e) => setkindofhouse(e.target.value)}
@@ -21,7 +21,7 @@ const HouseSearchBar = ({ listofkind, listofflr, listoflength, listofwidth }) =>
                         ))}
                     </select>
                 </div>
-                <div className="basis-1/4  ">
+                <div className="basis-1/4 min-w-28 ">
                     <select
                         value={numberofflr}
                         onChange={(e) => setnumberofflr(e.target.value)}
@@ -33,7 +33,7 @@ const HouseSearchBar = ({ listofkind, listofflr, listoflength, listofwidth }) =>
                         ))}
                     </select>
                 </div>
-                <div className="basis-1/4  ">
+                <div className="basis-1/4 min-w-28 ">
                     <select
                         value={length}
                         onChange={(e) => setlength(e.target.value)}
@@ -45,7 +45,7 @@ const HouseSearchBar = ({ listofkind, listofflr, listoflength, listofwidth }) =>
                         ))}
                     </select>
                 </div>
-                <div className="basis-1/4  ">
+                <div className="basis-1/4 min-w-28 ">
                     <select
                         value={width}
                         onChange={(e) => setwidth(e.target.value)}
@@ -57,7 +57,7 @@ const HouseSearchBar = ({ listofkind, listofflr, listoflength, listofwidth }) =>
                         ))}
                     </select>
                 </div>
-                <div className="basis-1/12">
+                <div className="basis-1/12 min-w-16">
                     <div className="relative h-full">
                         <img src="/src/assets/streamline_magnifying-glass-circle.svg" alt="find" className="h-full absolute inset-y-0 right-0" />
                     </div>
