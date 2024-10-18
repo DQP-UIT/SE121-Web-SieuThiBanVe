@@ -48,7 +48,9 @@ const Header = ({ inout_url }) => {
             className="float-left h-8 w-8"
           />
           <span className="text-xl font-medium">0975207829</span>
-          <img src={inout_url} alt="Login" className="float-right h-8 w-8" />
+          {inout_url && (
+            <img src={inout_url} alt="Login" className="float-right h-8 w-8" />
+          )}
         </div>
       </div>
       <div className="flex flex-row bg-blue-400 p-4">
