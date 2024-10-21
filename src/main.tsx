@@ -1,9 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Home from './pages/home/Home.jsx'
+
+import FengShuiResult from './pages/fengshui/FengShuiResult'
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <Home />
+      <FengShuiResult />
   </StrictMode>,
 )

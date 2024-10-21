@@ -1,45 +1,89 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ContactCard = () => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Xử lý logic khi người dùng nhấn nút "Liên hệ đặt hàng"
+    console.log({
+      name,
+      phone,
+      city,
+      district,
+    });
+  };
+
   return (
-    <div>
-      <div className="relative h-[746px] w-[442px]">
-        <div className="absolute left-0 top-0 h-[746px] w-[442px] border border-black/50 bg-white shadow" />
-        <div className="absolute left-[48px] top-[156px] h-[63px] w-[333px] border border-black bg-white" />
-        <div className="absolute left-[48px] top-[281px] h-[63px] w-[333px] border border-black bg-white" />
-        <div className="absolute left-[48px] top-[406px] h-[42px] w-[147px] border border-black bg-white" />
-        <div className="absolute left-[241px] top-[406px] h-[42px] w-[147px] border border-black bg-white" />
-        <div className="absolute left-[50px] top-[48px] h-16 w-[323px] font-['Inter'] text-[32px] font-medium text-black">
+    <div className="relative h-[600px] w-[350px]">
+      <div className="absolute left-0 top-0 h-[600px] w-[350px] border border-black/50 bg-white shadow" />
+
+      <div className="absolute left-[40px] top-[40px] h-14 w-[270px] font-['Inter'] text-[28px] font-medium text-black">
+        Liên hệ đặt hàng
+      </div>
+
+      <div className="absolute left-[40px] top-[110px] h-[25px] w-[270px] font-['Inter'] text-base font-normal text-black">
+        Tên của bạn (*)
+      </div>
+      <input
+        className="absolute left-[40px] top-[130px] h-[50px] w-[270px] border border-black bg-white px-2"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        type="text"
+        placeholder="Nhập tên của bạn"
+      />
+
+      <div className="absolute left-[40px] top-[210px] h-[25px] w-[270px] font-['Inter'] text-base font-normal text-black">
+        Số điện thoại (*)
+      </div>
+      <input
+        className="absolute left-[40px] top-[230px] h-[50px] w-[270px] border border-black bg-white px-2"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        type="text"
+        placeholder="Nhập số điện thoại"
+      />
+
+      <div className="absolute left-[40px] top-[310px] h-[25px] w-[150px] font-['Inter'] text-base font-normal text-black">
+        Tỉnh/ Thành phố (*)
+      </div>
+      <input
+        className="absolute left-[40px] top-[330px] h-[35px] w-[120px] border border-black bg-white px-2"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        type="text"
+        placeholder="Tỉnh/ Thành phố"
+      />
+
+      <div className="absolute left-[180px] top-[310px] h-[25px] w-[150px] font-['Inter'] text-base font-normal text-black">
+        Quận/ Huyện (*)
+      </div>
+      <input
+        className="absolute left-[180px] top-[330px] h-[35px] w-[120px] border border-black bg-white px-2"
+        value={district}
+        onChange={(e) => setDistrict(e.target.value)}
+        type="text"
+        placeholder="Quận/ Huyện"
+      />
+
+      <div className="absolute left-[40px] top-[450px] h-[40px] w-[270px] text-center font-['Inter'] text-xl font-medium text-black">
+        Tổng tiền: 5.000.000
+      </div>
+
+      <div className="absolute left-[50px] top-[500px] h-[50px] w-[250px]">
+        <button
+          onClick={handleSubmit}
+          className="absolute left-0 top-0 h-[50px] w-[250px] bg-[#6c95fc] text-center font-['Inter'] text-xl font-medium text-white"
+        >
           Liên hệ đặt hàng
-        </div>
-        <div className="absolute left-[49px] top-[127px] h-[29px] w-[322px] font-['Inter'] text-base font-normal text-black">
-          Tên của bạn (*)
-        </div>
-        <div className="absolute left-[48px] top-[252px] h-[29px] w-[322px] font-['Inter'] text-base font-normal text-black">
-          Số điện thoại (*)
-        </div>
-        <div className="absolute left-[47px] top-[377px] h-[29px] w-[148px] font-['Inter'] text-base font-normal text-black">
-          Tỉnh/ Thành phố (*)
-        </div>
-        <div className="absolute left-[240px] top-[377px] h-[29px] w-[148px] font-['Inter'] text-base font-normal text-black">
-          Quận/ Huyện (*)
-        </div>
-        <div className="absolute left-[49px] top-[463px] h-5 w-5" />
-        <div className="absolute left-[74px] top-[468px] h-[22px] w-[167px] font-['Inter'] text-base font-normal text-[#356fee]">
-          Cửa hàng gần bạn
-        </div>
-        <div className="absolute left-[60px] top-[615px] h-[59px] w-[321px]">
-          <div className="absolute left-0 top-0 h-[59px] w-[321px] bg-[#6c95fc]" />
-          <div className="absolute left-[24px] top-0 h-[59px] w-[273px] text-center font-['Inter'] text-2xl font-medium text-black">
-            Liên hệ đặt hàng
-          </div>
-        </div>
-        <div className="absolute left-[47px] top-[510px] h-[52px] w-[341px] text-center font-['Inter'] text-2xl font-medium text-black">
-          Tổng tiền: 5.000.000
-        </div>
-        <div className="absolute left-[49px] top-[562px] h-[17px] w-[295px] font-['Inter'] text-[13px] font-normal text-black/70">
-          Bạn chưa phải thanh toán ở bước này
-        </div>
+        </button>
+      </div>
+
+      <div className="absolute left-[40px] top-[390px] h-[15px] w-[270px] font-['Inter'] text-[14px] font-normal text-black/70">
+        Bạn chưa phải thanh toán ở bước này
       </div>
     </div>
   );
