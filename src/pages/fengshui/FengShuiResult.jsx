@@ -1,9 +1,21 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { checkTamTai, checkKimLau, checkHoangOc } from "./FengShuiAlgorithm";
+import Header from "../../components/header/Header";
 
 const FengShuiResult = () => {
+  // const location = useLocation();
+  // const params = new URLSearchParams(location.search);
+  // const birthYear = parseInt(params.get("birthYear"), 10);
+  // const houseYear = parseInt(params.get("houseYear"), 10);
+
+  const tamTaiResult = checkTamTai(2004, 2034);
+  const kimLauResult = checkKimLau(2004, 2034);
+  const hoangOcResult = checkHoangOc(2004, 2034);
+
   return (
     <BrowserRouter>
+      <Header />
       <div className="relative h-[1140px] w-[858px]">
         <div className="absolute left-0 top-0 h-20 w-[417px] font-['Inter'] text-5xl font-semibold text-black">
           Xem tuổi làm nhà
@@ -36,22 +48,22 @@ const FengShuiResult = () => {
           Cung mệnh
         </div>
         <div className="absolute left-0 top-[190px] h-[53px] w-[265px] font-['Inter'] text-[32px] font-medium text-black">
-          2004
+          {birthYear}
         </div>
         <div className="absolute left-[512px] top-[190px] h-[53px] w-[276px] font-['Inter'] text-[32px] font-medium text-black">
-          2004
+          {birthYear}
         </div>
         <div className="absolute left-[512px] top-[300px] h-[53px] w-[276px] font-['Inter'] text-[32px] font-medium text-black">
-          Giáp Dần
+          {/* Thêm logic để tính năm âm lịch */}
         </div>
         <div className="absolute left-[512px] top-[393px] h-[53px] w-[346px] font-['Inter'] text-[32px] font-medium text-black">
-          Tuyền Trung Thủy
+          {/* Thêm logic để tính cung mệnh */}
         </div>
         <div className="absolute left-[2px] top-[300px] h-[53px] w-[265px] font-['Inter'] text-[32px] font-medium text-black">
-          2034
+          {houseYear}
         </div>
         <div className="absolute left-[2px] top-[396px] h-[53px] w-[265px] font-['Inter'] text-[32px] font-medium text-black">
-          31
+          {houseYear - birthYear + 1}
         </div>
         <div className="absolute left-[2px] top-[516px] h-[105px] w-[856px]">
           <div className="absolute left-0 top-0 h-[105px] w-[856px] rounded-[5px] bg-[#cafbbf]" />
@@ -59,25 +71,25 @@ const FengShuiResult = () => {
             Tam tai
           </div>
           <div className="absolute left-[14.93px] top-[53px] h-[31px] w-[751.49px] font-['Inter'] text-[32px] font-normal text-[#1e5300]">
-            Không phạm tam tai
+            {tamTaiResult}
           </div>
         </div>
         <div className="absolute left-[2px] top-[677px] h-[105px] w-[856px]">
           <div className="absolute left-0 top-0 h-[105px] w-[856px] rounded-[5px] bg-[#cafbbf]" />
           <div className="absolute left-[14.93px] top-0 h-[35px] w-[162.99px] font-['Inter'] text-[28px] font-medium text-[#1e5300]">
-            Tam tai
+            Kim Lâu
           </div>
           <div className="absolute left-[14.93px] top-[53px] h-[31px] w-[751.49px] font-['Inter'] text-[32px] font-normal text-[#1e5300]">
-            Không phạm tam tai
+            {kimLauResult}
           </div>
         </div>
         <div className="absolute left-[2px] top-[888px] h-[105px] w-[856px]">
           <div className="absolute left-0 top-0 h-[105px] w-[856px] rounded-[5px] bg-[#cafbbf]" />
           <div className="absolute left-[14.93px] top-0 h-[35px] w-[162.99px] font-['Inter'] text-[28px] font-medium text-[#1e5300]">
-            Tam tai
+            Hoang ốc
           </div>
           <div className="absolute left-[14.93px] top-[53px] h-[31px] w-[751.49px] font-['Inter'] text-[32px] font-normal text-[#1e5300]">
-            Không phạm tam tai
+            {hoangOcResult}
           </div>
         </div>
       </div>
