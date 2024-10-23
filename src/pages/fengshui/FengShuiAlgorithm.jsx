@@ -1,5 +1,4 @@
 export function checkTamTai(namSinh, namXayNha) {
-
   const conGiap = (namSinh - 4) % 12; // Tính con giáp dựa vào năm sinh
   const tamTai = {
     0: [6, 7, 8], // Tý (Thân, Dậu, Tuất)
