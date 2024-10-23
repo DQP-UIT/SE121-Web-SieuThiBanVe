@@ -1,4 +1,4 @@
-function checkTamTai(namSinh, namXayNha) {
+export function checkTamTai(namSinh, namXayNha) {
   const conGiap = (namSinh - 4) % 12; // Tính con giáp dựa vào năm sinh
   const tamTai = {
     0: [6, 7, 8], // Tý (Thân, Dậu, Tuất)
@@ -24,7 +24,7 @@ function checkTamTai(namSinh, namXayNha) {
 }
 
 // Tính toán Kim Lâu
-function checkKimLau(namSinh, namXayNha) {
+export function checkKimLau(namSinh, namXayNha) {
   const tuoiAmLich = namXayNha - namSinh + 1;
   const du = tuoiAmLich % 9;
 
@@ -37,7 +37,7 @@ function checkKimLau(namSinh, namXayNha) {
 }
 
 // Tính toán Hoang Ốc
-function checkHoangOc(namSinh, namXayNha) {
+export function checkHoangOc(namSinh, namXayNha) {
   const tuoiAmLich = namXayNha - namSinh + 1;
   const cung = (tuoiAmLich - 1) % 6;
 
@@ -58,9 +58,3 @@ function checkHoangOc(namSinh, namXayNha) {
       return "Không xác định";
   }
 }
-
-export default {
-  checkTamTai,
-  checkKimLau,
-  checkHoangOc,
-};

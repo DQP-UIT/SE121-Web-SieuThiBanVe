@@ -111,7 +111,7 @@ const Home = () => {
   const listoflength = ["10m", "15m", "20m", "25m"];
   const listofwidth = ["5m", "7m", "10m", "12m"];
   return (
-    <BrowserRouter>
+    <div>
       <div>
         <Header inout_url="src/assets/entypo_login.svg" />
         <div>
@@ -135,7 +135,7 @@ const Home = () => {
           <ProductList products={products} />
         </div>
       </div>
-    </BrowserRouter>
+    </div>
   );
 };
 
