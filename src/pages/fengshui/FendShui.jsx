@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { BrowserRouter, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 
-const FendShui = () => {
+const FengShui = () => {
   const [birthYear, setBirthYear] = useState("");
   const [houseYear, setHouseYear] = useState("");
-
-  //   const handleSubmit = () => {
-  //      Điều hướng đến màn hình kết quả với các tham số
-  //    const navigate = useNavigate();
-  //     navigate(`/result?birthYear=${birthYear}&houseYear=${houseYear}`);
-  //   };
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    //Điều hướng đến màn hình kết quả với các tham số
+    navigate(`/fengshuiresult?birthYear=${birthYear}&houseYear=${houseYear}`);
+  };
 
   return (
-    <BrowserRouter>
+    <div>
+
       <Header />
       <div className="mt-8 flex items-center justify-center">
         <div className="relative h-[680px] w-[600px]">
@@ -29,7 +29,7 @@ const FendShui = () => {
           </div>
           <div className="absolute left-[100px] top-[600px]">
             <button
-              //   onClick={handleSubmit}
+              onClick={handleSubmit}
               className="h-12 w-[300px] rounded-[10px] bg-[#6c95fc] text-xl font-normal text-black hover:bg-[#5a7de0] focus:outline-none focus:ring-2 focus:ring-[#5a7de0] focus:ring-opacity-50"
             >
               Xem ngay
@@ -61,8 +61,9 @@ const FendShui = () => {
           </div>
         </div>
       </div>
-    </BrowserRouter>
+    </div>
   );
 };
 
-export default FendShui;
+export default FengShui;
+

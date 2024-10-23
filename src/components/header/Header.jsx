@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
@@ -27,6 +27,7 @@ const data = [
 ];
 
 const Header = ({ inout_url }) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex h-1/6 min-h-fit items-center justify-between bg-gray-100 p-4">
@@ -56,7 +57,11 @@ const Header = ({ inout_url }) => {
       <div className="flex flex-row bg-blue-400 p-4">
         <div className="grow"></div>
         <div className="min-w-fit basis-1/12 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white">
+          <span className="cursor-pointer font-sans text-xl hover:text-white"
+                onClick={()=>{
+                  navigate(`/`)
+                }}
+          >
             {" "}
             Trang chủ{" "}
           </span>
@@ -119,7 +124,11 @@ const Header = ({ inout_url }) => {
           </span>
         </div>
         <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white">
+          <span className="cursor-pointer font-sans text-xl hover:text-white"
+            onClick={() => {
+              navigate(`/fengshui`)
+            }}
+          >
             {" "}
             Phong thủy
           </span>

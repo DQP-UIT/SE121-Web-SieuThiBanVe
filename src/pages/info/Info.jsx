@@ -26,7 +26,7 @@ const product = {
 const Info = () => {
   const inout_url = "src/assets/entypo_login.svg";
   return (
-    <BrowserRouter>
+    <div>
       <Header inout_url={inout_url} />
       <div>
         <span className="ml-8 font-sans text-3xl font-semibold">
@@ -56,7 +56,8 @@ const Info = () => {
         </span>
         <div>{/* Product Tags as recommendation*/}</div>
       </div>
-    </BrowserRouter>
+    </div>
+
   );
 };
 
