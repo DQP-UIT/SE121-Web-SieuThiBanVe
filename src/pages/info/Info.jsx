@@ -57,6 +57,7 @@ const Info = () => {
         <div>{/* Product Tags as recommendation*/}</div>
       </div>
     </div>
+
   );
 };
 

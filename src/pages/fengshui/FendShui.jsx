@@ -13,6 +13,7 @@ const FengShui = () => {
 
   return (
     <div>
+
       <Header />
       <div className="mt-8 flex items-center justify-center">
         <div className="relative h-[680px] w-[600px]">
@@ -65,3 +66,4 @@ const FengShui = () => {
 };
 
 export default FengShui;
+
