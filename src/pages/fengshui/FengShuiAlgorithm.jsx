@@ -1,5 +1,4 @@
 export function checkTamTai(namSinh, namXayNha) {
-
   const conGiap = (namSinh - 4) % 12; // Tính con giáp dựa vào năm sinh
   const tamTai = {
     0: [6, 7, 8], // Tý (Thân, Dậu, Tuất)
@@ -26,7 +25,6 @@ export function checkTamTai(namSinh, namXayNha) {
 
 // Tính toán Kim Lâu
 export function checkKimLau(namSinh, namXayNha) {
-
   const tuoiAmLich = namXayNha - namSinh + 1;
   const du = tuoiAmLich % 9;
 
@@ -40,7 +38,6 @@ export function checkKimLau(namSinh, namXayNha) {
 
 // Tính toán Hoang Ốc
 export function checkHoangOc(namSinh, namXayNha) {
-
   const tuoiAmLich = namXayNha - namSinh + 1;
   const cung = (tuoiAmLich - 1) % 6;
 
@@ -60,4 +57,64 @@ export function checkHoangOc(namSinh, namXayNha) {
     default:
       return "Không xác định";
   }
+}
+
+export function chuyenDoiNamAmLich(namDuongLich) {
+  // Bảng Thiên Can
+  // prettier-ignore
+  const thienCan = [
+    "Giáp","Ất",
+    "Bính","Đinh",
+    "Mậu","Kỷ",
+    "Canh","Tân",
+    "Nhâm","Quý",
+  ];
+  // Bảng địa chi
+  // prettier-ignore
+  const diaChi = [
+    "Tý","Sửu","Dần","Mão",
+    "Thìn","Tỵ","Ngọ","Mùi",
+    "Thân","Dậu","Tuất","Hợi",
+  ];
+  // Tính Thiên Can
+  const can = thienCan[(namDuongLich - 4) % 10];
+  // Tính Địa Chi
+  const chi = diaChi[(namDuongLich - 4) % 12];
+
+  // Trả về kết quả là năm âm lịch theo Thiên Can và Địa Chi
+  return `${can} ${chi}`;
+}
+
+export function getCungMenh(namSinh) {
+  // prettier-ignore
+  const canChi = [
+    "Giáp Tý", "Ất Sửu", "Bính Dần", "Đinh Mão", "Mậu Thìn", "Kỷ Tỵ",
+    "Canh Ngọ", "Tân Mùi", "Nhâm Thân", "Quý Dậu", "Giáp Tuất", "Ất Hợi",
+    "Bính Tý", "Đinh Sửu", "Mậu Dần", "Kỷ Mão", "Canh Thìn", "Tân Tỵ",
+    "Nhâm Ngọ", "Quý Mùi", "Giáp Thân", "Ất Dậu", "Bính Tuất", "Đinh Hợi",
+    "Mậu Tý", "Kỷ Sửu", "Canh Dần", "Tân Mão", "Nhâm Thìn", "Quý Tỵ",
+    "Giáp Ngọ", "Ất Mùi", "Bính Thân", "Đinh Dậu", "Mậu Tuất", "Kỷ Hợi",
+    "Canh Tý", "Tân Sửu", "Nhâm Dần", "Quý Mão", "Giáp Thìn", "Ất Tỵ",
+    "Bính Ngọ", "Đinh Mùi", "Mậu Thân", "Kỷ Dậu", "Canh Tuất", "Tân Hợi",
+    "Nhâm Tý", "Quý Sửu", "Giáp Dần", "Ất Mão", "Bính Thìn", "Đinh Tỵ",
+    "Mậu Ngọ", "Kỷ Mùi", "Canh Thân", "Tân Dậu", "Nhâm Tuất", "Quý Hợi"
+  ];
+
+  // prettier-ignore
+  const nguHanh = [
+    "Hải Trung Kim", "Hải Trung Kim", "Lư Trung Hỏa", "Lư Trung Hỏa", "Đại Lâm Mộc", "Đại Lâm Mộc",
+    "Lộ Bàng Thổ", "Lộ Bàng Thổ", "Kiếm Phong Kim", "Kiếm Phong Kim", "Sơn Đầu Hỏa", "Sơn Đầu Hỏa",
+    "Giản Hạ Thủy", "Giản Hạ Thủy", "Thành Đầu Thổ", "Thành Đầu Thổ", "Bạch Lạp Kim", "Bạch Lạp Kim",
+    "Dương Liễu Mộc", "Dương Liễu Mộc", "Tuyền Trung Thủy", "Tuyền Trung Thủy", "Ốc Thượng Thổ", "Ốc Thượng Thổ",
+    "Tích Lịch Hỏa", "Tích Lịch Hỏa", "Tùng Bách Mộc", "Tùng Bách Mộc", "Trường Lưu Thủy", "Trường Lưu Thủy",
+    "Sa Trung Kim", "Sa Trung Kim", "Sơn Hạ Hỏa", "Sơn Hạ Hỏa", "Bình Địa Mộc", "Bình Địa Mộc",
+    "Bích Thượng Thổ", "Bích Thượng Thổ", "Kim Bạch Kim", "Kim Bạch Kim", "Phú Đăng Hỏa", "Phú Đăng Hỏa",
+    "Thiên Hà Thủy", "Thiên Hà Thủy", "Đại Trạch Thổ", "Đại Trạch Thổ", "Thoa Xuyến Kim", "Thoa Xuyến Kim",
+    "Tang Đố Mộc", "Tang Đố Mộc", "Đại Khê Thủy", "Đại Khê Thủy", "Sa Trung Thổ", "Sa Trung Thổ",
+    "Thiên Thượng Hỏa", "Thiên Thượng Hỏa", "Thạch Lựu Mộc", "Thạch Lựu Mộc", "Đại Hải Thủy", "Đại Hải Thủy"
+  ];
+
+  const index = (namSinh - 1924) % 60;
+  const menh = nguHanh[index];
+  return menh;
 }
