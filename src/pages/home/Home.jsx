@@ -113,7 +113,7 @@ const Home = () => {
   return (
     <div>
       <div>
-        <Header inout_url="src/assets/entypo_login.svg" />
+        <Header />
         <div>
           <img src="src/assets/HomePott.svg" />
         </div>

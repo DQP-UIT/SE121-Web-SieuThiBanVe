@@ -1,7 +1,9 @@
-import React from "react";
-import {useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+import PopoverBar from "./PopoverBar";
+import Swal from "sweetalert2";
+import LoginForm from "../forms/LoginForm";
 
 const data = [
   {
@@ -26,8 +28,32 @@ const data = [
   },
 ];
 
-const Header = ({ inout_url }) => {
+const Header = () => {
   const navigate = useNavigate();
+  const [wasIn, setWasIn] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  const handleOnLogin = () => {
+    setShowLoginForm(true);
+  };
+
+  const handleOnLogout = () => {
+    Swal.fire({
+      title: "Bạn có chắc bạn muốn đăng xuất?",
+      text: "Nếu bạn chưa lưu những thay đổi, chúng có thể sẽ không được áp dụng!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Đăng xuất",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // logout API
+        setWasIn(false);
+      }
+    });
+  };
+
   return (
     <div>
       <div className="flex h-1/6 min-h-fit items-center justify-between bg-gray-100 p-4">
@@ -49,104 +75,25 @@ const Header = ({ inout_url }) => {
             className="float-left h-8 w-8"
           />
           <span className="text-xl font-medium">0975207829</span>
-          {inout_url && (
-            <img src={inout_url} alt="Login" className="float-right h-8 w-8" />
+          {wasIn ? (
+            <img
+              src="src/assets/entypo_log-out.svg"
+              alt="Logout"
+              className="float-right h-8 w-8 hover:cursor-pointer"
+              onClick={handleOnLogout}
+            />
+          ) : (
+            <img
+              src="src/assets/entypo_login.svg"
+              alt="Login"
+              className="float-right h-8 w-8 hover:cursor-pointer"
+              onClick={handleOnLogin}
+            />
           )}
         </div>
       </div>
-      <div className="flex flex-row bg-blue-400 p-4">
-        <div className="grow"></div>
-        <div className="min-w-fit basis-1/12 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white"
-                onClick={()=>{
-                  navigate(`/`)
-                }}
-          >
-            {" "}
-            Trang chủ{" "}
-          </span>
-        </div>
-        <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <Popover>
-            <PopoverButton className="block text-center font-sans text-xl text-black focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
-              Mẫu nhà đẹp
-            </PopoverButton>
-            <PopoverPanel
-              transition
-              anchor="bottom"
-              className="divide-y divide-white rounded-xl bg-white text-sm/6 transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0"
-            >
-              <div className="p-3">
-                <a
-                  className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                  href="#"
-                >
-                  <p className="font-semibold text-black">Insights</p>
-                  <p className="text-black/50">
-                    Measure actions your users take
-                  </p>
-                </a>
-                <a
-                  className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                  href="#"
-                >
-                  <p className="font-semibold text-black">Automations</p>
-                  <p className="text-black/50">
-                    Create your own targeted content
-                  </p>
-                </a>
-                <a
-                  className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                  href="#"
-                >
-                  <p className="font-semibold text-black">Reports</p>
-                  <p className="text-black/50">Keep track of your growth</p>
-                </a>
-              </div>
-              <div className="p-3">
-                <a
-                  className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                  href="#"
-                >
-                  <p className="font-semibold text-black">Documentation</p>
-                  <p className="text-black/50">
-                    Start integrating products and tools
-                  </p>
-                </a>
-              </div>
-            </PopoverPanel>
-          </Popover>
-        </div>
-        <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white">
-            {" "}
-            Báo giá
-          </span>
-        </div>
-        <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white"
-            onClick={() => {
-              navigate(`/fengshui`)
-            }}
-          >
-            {" "}
-            Phong thủy
-          </span>
-        </div>
-        <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white">
-            {" "}
-            Ứng dụng
-          </span>
-        </div>
-        <div className="min-w-fit basis-1/12 ps-24 text-center">
-          <span className="cursor-pointer font-sans text-xl hover:text-white">
-            {" "}
-            Về Chúng tôi
-          </span>
-        </div>
-        <div className="grow"></div>
-      </div>
+      <PopoverBar />
+      {showLoginForm && <LoginForm onClose={() => setShowLoginForm(false)} />}
     </div>
   );
 };
