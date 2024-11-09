@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Swal from "sweetalert2";
 const FengShui = () => {
@@ -7,11 +7,11 @@ const FengShui = () => {
   const [houseYear, setHouseYear] = useState("");
   const navigate = useNavigate();
   const handleSubmit = () => {
-    if(birthYear < 1950 || houseYear < 2023 ){
+    if(birthYear <= 1950 || houseYear <= 2023 ){
       Swal.fire({
         icon: 'error',
         title: 'Kiểm tra lại năm nhập vào',
-        text: 'Năm sinh phải lớn hơn 1950 và năm làm nhà phải lớn hơn 2024',
+        text: 'Năm sinh phải lớn hơn 1950 và năm làm nhà phải lớn hơn 2023',
       });
       return;
     }
@@ -20,7 +20,6 @@ const FengShui = () => {
 
   return (
     <div>
-      <Header />
       <div className="mt-8 flex items-center justify-center">
         <div className="relative h-[680px] w-[600px]">
           <div className="absolute left-[8px] top-0 h-16 w-[400px] font-['Inter'] text-4xl font-semibold text-black">

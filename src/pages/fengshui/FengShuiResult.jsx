@@ -43,7 +43,6 @@ const FengShuiResult = () => {
 
   return (
     <div>
-      <Header />
       <div className="mt-8 flex items-center justify-center">
         <div className="relative h-auto w-[600px] rounded-lg bg-white p-4 shadow-lg">
           <div className="mb-4 text-center font-['Inter'] text-3xl font-semibold text-black">

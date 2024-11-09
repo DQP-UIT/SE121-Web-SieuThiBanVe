@@ -113,7 +113,6 @@ const Home = () => {
   return (
     <div>
       <div>
-        <Header />
         <div>
           <img src="src/assets/HomePott.svg" />
         </div>

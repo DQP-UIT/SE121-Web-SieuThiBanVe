@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
 const PopoverBar = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-row bg-blue-400 p-4">
       <div className="grow"></div>
