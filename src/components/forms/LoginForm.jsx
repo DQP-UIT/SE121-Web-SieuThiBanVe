@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const LoginForm = ({ onClose }) => {
   const [account, setAccount] = useState({
@@ -6,17 +6,19 @@ const LoginForm = ({ onClose }) => {
     password: "",
   });
 
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-
-  const handleOnBlur = (e) => {
-    if (
-      !emailRef.current.contains(e.relatedTarget) &&
-      !passwordRef.current.contains(e.relatedTarget)
-    ) {
-      onClose;
+  const formRef = useRef(null);
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      onClose();
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleOnChange = (e) => {
     setAccount({
@@ -24,12 +26,11 @@ const LoginForm = ({ onClose }) => {
       [e.target.name]: e.target.value,
     });
     console.log(account);
-    
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+      <div ref={formRef} className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
         <h2 className="mb-6 text-center text-2xl font-bold">
           Sign in to your account
         </h2>
@@ -43,7 +44,7 @@ const LoginForm = ({ onClose }) => {
           action="#"
           method="POST"
           onSubmit={(e) => {
-            console.log(account)
+            console.log(account);
             e.preventDefault();
             // Login API
             onClose;
@@ -62,12 +63,10 @@ const LoginForm = ({ onClose }) => {
                 id="email"
                 value={account.email}
                 autoFocus={true}
-                ref={emailRef}
                 name="email"
                 type="email"
                 autoComplete="email"
                 onChange={handleOnChange}
-                onBlur={handleOnBlur}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -97,10 +96,8 @@ const LoginForm = ({ onClose }) => {
                 value={account.password}
                 name="password"
                 type="password"
-                ref={passwordRef}
                 autoComplete="current-password"
                 onChange={handleOnChange}
-                onBlur={handleOnBlur}
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
