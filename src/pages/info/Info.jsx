@@ -24,10 +24,8 @@ const product = {
   companyName: "Công ty Thiết kế ABC",
 };
 const Info = () => {
-  const inout_url = "src/assets/entypo_login.svg";
   return (
     <div>
-      <Header inout_url={inout_url} />
       <div>
         <span className="ml-8 font-sans text-3xl font-semibold">
           {product.name}

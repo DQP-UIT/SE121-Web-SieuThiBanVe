@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import PopoverBar from "./PopoverBar";
 import Swal from "sweetalert2";
@@ -29,7 +29,7 @@ const data = [
 ];
 
 const Header = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [wasIn, setWasIn] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
 

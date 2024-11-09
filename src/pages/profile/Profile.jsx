@@ -13,7 +13,6 @@ const Profile = () => {
 
   return (
     <div>
-      <Header inout_url="src/assets/entypo_login.svg" />
       <div style={styles.container}>
         <div style={styles.profileContainer}>
           <div style={styles.profileHeader}>
