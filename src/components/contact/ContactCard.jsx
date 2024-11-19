@@ -1,20 +1,50 @@
 import React, { useState } from "react";
+import axios from "axios";
+import axiosInstance from "../../axios";
+import { useAuth } from "../../store";
 
-const ContactCard = () => {
+const ContactCard = ({ product }) => {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
-
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Xử lý logic khi người dùng nhấn nút "Liên hệ đặt hàng"
-    console.log({
+    setLoading(true);
+    setError("");
+    setSuccess(false);
+
+    // Prepare the payload data
+    const payload = {
       name,
-      phone,
-      city,
-      district,
-    });
+      orderUserName: name,
+      orderPhoneNumber: phone,
+      orderCity: city,
+      orderAdress: `${district}, ${city}`, // Assuming you want to combine district and city
+      userId: user.id, // Replace with actual user ID if needed
+      productId: product.id, // Replace with the correct product ID
+      createAt: new Date().toISOString(), // Use the current time for creation
+    };
+
+    try {
+      const response = await axiosInstance.post(
+        "http://localhost:8000/api/v1/order",
+        payload,
+      );
+      // Handle the response (e.g., show a success message)
+      console.log(response.data);
+      setSuccess(true);
+    } catch (error) {
+      // Handle error (e.g., show an error message)
+      console.error("Error:", error);
+      setError("Đặt hàng thất bại. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -70,17 +100,30 @@ const ContactCard = () => {
       />
 
       <div className="absolute left-[40px] top-[450px] h-[40px] w-[270px] text-center font-['Inter'] text-xl font-medium text-black">
-        Tổng tiền: 5.000.000
+        Tổng tiền: {product.cost}
       </div>
 
       <div className="absolute left-[50px] top-[500px] h-[50px] w-[250px]">
         <button
           onClick={handleSubmit}
           className="absolute left-0 top-0 h-[50px] w-[250px] bg-[#6c95fc] text-center font-['Inter'] text-xl font-medium text-white"
+          disabled={loading}
         >
-          Liên hệ đặt hàng
+          {loading ? "Đang xử lý..." : "Liên hệ đặt hàng"}
         </button>
       </div>
+
+      {error && (
+        <div className="absolute left-[40px] top-[550px] text-center text-red-500">
+          {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="absolute left-[40px] top-[550px] text-center text-green-500">
+          Đặt hàng thành công!
+        </div>
+      )}
 
       <div className="absolute left-[40px] top-[390px] h-[15px] w-[270px] font-['Inter'] text-[14px] font-normal text-black/70">
         Bạn chưa phải thanh toán ở bước này

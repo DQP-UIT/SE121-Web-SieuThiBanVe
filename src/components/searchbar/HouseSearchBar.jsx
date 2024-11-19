@@ -81,7 +81,7 @@ const HouseSearchBar = ({
         <div className="min-w-16 basis-1/12">
           <div className="relative h-full">
             <img
-              src="/src/assets/streamline_magnifying-glass-circle.svg"
+              src="src/assets//streamline_magnifying-glass-circle.svg"
               alt="find"
               className="absolute inset-y-0 right-0 h-full"
             />

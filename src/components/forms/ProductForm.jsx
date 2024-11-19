@@ -1,128 +1,278 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axiosInstance from "../../axios";
+import { useAuth } from "../../store";
 
-const ProductForm = () => {
-    const [formData, setFormData] = useState({
-        floors: "",
-        bedrooms: "",
-        area: "",
-        facade: "",
-        length: "",
-        type: "",
-        style: "",
-        investment: "",
-        designed_by: "",
-        product_code: ""
+const ProductForm = ({ onClose }) => {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    axiosInstance
+      .get("product-type", { params: { page: 1, pageSize: 100 } })
+      .then((res) => {
+        setCards(res.data.data);
+      });
+  }, []);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    size: "",
+    cost: "",
+    images: null,
+    floor: "",
+    square: "",
+    style: "",
+    designedBy: "",
+    numberBedRoom: "",
+    productTypeId: "",
+  });
+  const { user } = useAuth();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      images: e.target.files,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Initialize FormData
+    const data = new FormData();
+    data.append("name", formData.name);
+    data.append("size", formData.size);
+    data.append("cost", formData.cost);
+    data.append("floor", formData.floor);
+    data.append("square", formData.square);
+    data.append("userId", user.id);
+    data.append("style", formData.style);
+    data.append("designedBy", formData.designedBy);
+    data.append("numberBedRoom", formData.numberBedRoom);
+    data.append("productTypeId", formData.productTypeId);
+
+    // Append each image file to FormData
+    if (formData.images) {
+      Array.from(formData.images).forEach((file) => {
+        data.append("images", file);
+      });
+    }
+
+    // Make the API request
+    axiosInstance
+      .post("/product", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log("Form submitted successfully:", response.data);
+        onClose();
         setFormData({
-            ...formData,
-            [name]: value
+          name: "",
+          size: "",
+          cost: "",
+          images: null,
+          floor: "",
+          square: "",
+          style: "",
+          designedBy: "",
+          numberBedRoom: "",
         });
-    };
+        alert("create design successfully!");
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+        alert("Failed to submit form");
+      });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <form
+        className="mx-auto w-full max-w-lg rounded-lg bg-white p-8 shadow-lg"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="mb-6 text-center text-2xl font-semibold text-gray-800">
+          Product Information Form
+        </h2>
 
-        // Regex patterns
-        const patterns = {
-            floors: /^[0-9]+$/,
-            bedrooms: /^[0-9]+$/,
-            area: /^[0-9]+(\.[0-9]+)?$/,
-            facade: /^[a-zA-Z0-9\s]+$/,
-            length: /^[0-9]+(\.[0-9]+)?$/,
-            type: /^[a-zA-Z\s]+$/,
-            style: /^[a-zA-Z\s]+$/,
-            investment: /^[0-9]+(\.[0-9]+)?$/,
-            designed_by: /^[a-zA-Z\s]+$/,
-            product_code: /^[a-zA-Z0-9]+$/
-        };
+        {/* Form Fields */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Name Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Tên sản phẩm
+            </label>
+            <input
+              type="text"
+              name="name"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
 
-        // Validate form data
-        for (const field in formData) {
-            if (!patterns[field].test(formData[field])) {
-                alert(`Invalid input for ${field}`);
-                return;
-            }
-        }
+          {/* Size Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Kích thước
+            </label>
+            <input
+              type="text"
+              name="size"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.size}
+              onChange={handleChange}
+            />
+          </div>
 
-        // If all inputs are valid
-        alert("All inputs are valid!");
-    };
-    return (
-        <form className="max-w-md mx-auto">
-            {/* Hàng đầu */}
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="number" name="floors" id="floors" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                           placeholder=" " required value={formData.floors} onChange={handleChange} />
-                    <label htmlFor="floors" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Số tầng</label>
-                </div>
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="number" name="bedrooms" id="bedrooms" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.bedrooms} onChange={handleChange} />
-                    <label htmlFor="bedrooms" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Số phòng ngủ</label>
-                </div>
-            </div>
-            {/* Hàng 2 */}
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="area" id="area" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.area} onChange={handleChange} />
-                    <label htmlFor="area" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Diện tích</label>
-                </div>
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="facade" id="facade" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.facade} onChange={handleChange} />
-                    <label htmlFor="facade" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mặt tiền</label>
-                </div>
-            </div>
-            {/* Hàng 3 */}
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="length" id="length" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.length} onChange={handleChange} />
-                    <label htmlFor="length" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Chiều dài</label>
-                </div>
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="type" id="type" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.type} onChange={handleChange} />
-                    <label htmlFor="type" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Loại hình</label>
-                </div>
-            </div>
-            {/* Hàng 4 */}
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="style" id="style" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.style} onChange={handleChange} />
-                    <label htmlFor="style" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phong cách</label>
-                </div>
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="investment" id="investment" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.investment} onChange={handleChange}/>
-                    <label htmlFor="investment" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tổng mức đầu tư</label>
-                </div>
-            </div>
-            {/* Hàng 5 */}
-            <div class="grid md:grid-cols-2 md:gap-6">
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="designed_by" id="designed_by" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.designed_by} onChange={handleChange} />
-                    <label htmlFor="designed_by" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Thiết kế bởi</label>
-                </div>
-                <div className="relative z-0 w-full mb-5 group">
-                    <input type="text" name="product_code" id="product_code" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required value={formData.product_code} onChange={handleChange} />
-                    <label htmlFor="product_code" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mã sản phẩm</label>
-                </div>
-            </div>
-            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    onClick={handleSubmit} >
-                Submit
-            </button>
-        </form>
-    );
-}
+          {/* Cost Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Chi phí
+            </label>
+            <input
+              type="number"
+              name="cost"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.cost}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Floor Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Số tầng
+            </label>
+            <input
+              type="number"
+              name="floor"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.floor}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Square Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Diện tích
+            </label>
+            <input
+              type="text"
+              name="square"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.square}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Style Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Phong cách
+            </label>
+            <input
+              type="text"
+              name="style"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.style}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Designed By Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Thiết kế bởi
+            </label>
+            <input
+              type="text"
+              name="designedBy"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.designedBy}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Number of Bedrooms Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Số phòng ngủ
+            </label>
+            <input
+              type="number"
+              name="numberBedRoom"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.numberBedRoom}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Product Type ID Field */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Loại
+            </label>
+            <select
+              name="productTypeId"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              required
+              value={formData.productTypeId}
+              onChange={handleChange}
+            >
+              <option value={""}>{"chọn loại thiết kế"}</option>
+              {cards.map((card) => (
+                <option key={card.id} value={card.id}>
+                  {card.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Images Upload Field */}
+          <div className="col-span-2">
+            <label className="block text-sm font-medium text-gray-600">
+              Upload Images
+            </label>
+            <input
+              type="file"
+              name="images"
+              multiple
+              onChange={handleFileChange}
+              className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 bg-gray-50 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="mt-6 w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default ProductForm;
