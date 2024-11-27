@@ -100,7 +100,7 @@ const Header = () => {
             </div>
           ) : (
             <Button
-              className="float-right rounded bg-blue-500 px-4 py-2 text-sm text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-500"
+              className="float-right rounded bg-light-blue-600 px-4 py-2 text-sm text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-500"
               onClick={handleOnLogin}
             >
               Login
