@@ -1,29 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // Để lấy id từ URL
 import Header from "../../components/header/Header";
 import Carousel from "../../components/carousel/Carousel";
 import ProductTable from "../../components/table/ProductTable";
 import ContactCard from "../../components/contact/ContactCard";
-import { BrowserRouter } from "react-router-dom";
+import axios from "axios";
+import testpic3d from "../../assets/testpic3d.jpg";
+import test3d_1 from "../../assets/test3d_1.jpg"
 
-const product = {
-  _id: "123456",
-  name: "Nhà Cấp 4",
-  price: "500,000,000 VND",
-  imglist: [
-    "https://example.com/image1.jpg",
-    "https://example.com/image2.jpg",
-    "https://example.com/image3.jpg",
+const fakeProduct = {
+  id: "1",
+  name: "Sản phẩm giả",
+  images: [
+    { src: testpic3d, type: "2d" },
+    { src: testpic3d, type: "2d" },
+    { src: testpic3d, type: "panorama" },
+    { src: testpic3d, type: "2d" },
+    { src: test3d_1, type: "panorama" },
   ],
-  floors: 2,
-  bedrooms: 3,
-  area: "120m²",
-  frontage: "10m",
-  length: "12m",
-  type: "Nhà phố",
-  style: "Hiện đại",
-  companyName: "Công ty Thiết kế ABC",
+  description: "Mô tả sản phẩm giả",
+  price: "1000000",
+  contact: {
+    phone: "0975207829",
+    email: "contact@example.com",
+  },
+  details: {
+    size: "10x10",
+    material: "Gỗ",
+    color: "Nâu",
+  },
 };
 const Info = () => {
+  // State lưu trữ thông tin sản phẩm
+  const [product, setProduct] = useState(fakeProduct);
+  const [loading, setLoading] = useState(true); // Để hiển thị trạng thái loading
+  const [error, setError] = useState(null); // Để xử lý lỗi
+
+  // Lấy id từ URL
+  const { id } = useParams();
+
+  // Hàm gọi API để lấy thông tin sản phẩm
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       // Gọi API với id sản phẩm
+  //       const response = await axios.get(
+  //         `http://localhost:8000/api/v1/product/${id}`,
+  //       );
+  //       setProduct(response.data.data); // Lưu dữ liệu vào state
+  //     } catch (err) {
+  //       setError("Có lỗi xảy ra khi tải sản phẩm.");
+  //     } finally {
+  //       setLoading(false); // Sau khi hoàn thành gọi API, set loading = false
+  //     }
+  //   };
+
+  //   fetchProduct(); // Gọi hàm fetch khi component mount
+  // }, [id]); // Chạy lại khi id thay đổi
+
+  // Hiển thị loading hoặc lỗi
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>{error}</div>;
+  // }
+
+  // // Nếu không có dữ liệu sản phẩm
+  // if (!product) {
+  //   return <div>Sản phẩm không tồn tại.</div>;
+  // }
+
   return (
     <div>
       <div>
@@ -33,10 +81,10 @@ const Info = () => {
       </div>
       <div className="mt-12 flex">
         <div className="ml-28 basis-2/3">
-          <Carousel imglist={product.imglist} />
+          <Carousel imglist={product.images} />
         </div>
         <div>
-          <ContactCard />
+          <ContactCard product={product} />
         </div>
       </div>
       <div className="ml-8">

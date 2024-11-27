@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "../../components/header/Header";
+import { useAuth } from "../../store";
+import moment from "moment";
+import ProductForm from "../../components/forms/ProductForm";
 const Profile = () => {
+  const { user } = useAuth();
+  console.log(user);
+  const [showCreateProductForm, setShowCreateProductForm] = useState(false);
+
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -9,6 +16,7 @@ const Profile = () => {
 
   const handleNewDesignUpload = () => {
     console.log("New design button clicked");
+    setShowCreateProductForm(true);
   };
 
   return (
@@ -24,22 +32,24 @@ const Profile = () => {
               />
               <span style={styles.cameraIcon}>📷</span>
             </div>
-            <h2 style={styles.profileName}>Lê Quang Phúc</h2>
+            <h2 style={styles.profileName}>{user.fullName}</h2>
           </div>
 
           <div style={styles.profileInfo}>
             <div style={styles.infoSection}>
               <div style={styles.infoItem}>
                 <label style={styles.label}>ID</label>
-                <p style={styles.text}>2</p>
+                <p style={styles.text}>{user.id}</p>
               </div>
               <div style={styles.infoItem}>
                 <label style={styles.label}>Tên</label>
-                <p style={styles.text}>Lê Quang Phúc</p>
+                <p style={styles.text}>{user?.fullName}</p>
               </div>
               <div style={styles.infoItem}>
                 <label style={styles.label}>Ngày sinh</label>
-                <p style={styles.text}>11/11/2004</p>
+                <p style={styles.text}>
+                  {moment(user.dob).format("DD/MM/YYYY")}
+                </p>
               </div>
             </div>
             <div style={styles.infoSection}>
@@ -49,7 +59,7 @@ const Profile = () => {
               </div>
               <div style={styles.infoItem}>
                 <label style={styles.label}>Email</label>
-                <p style={styles.text}>22521118@gm.uit.edu.vn</p>
+                <p style={styles.text}>{user.email}</p>
               </div>
               <div style={styles.infoItem}>
                 <label style={styles.label}>Số điện thoại</label>
@@ -63,6 +73,13 @@ const Profile = () => {
           Đăng bản vẽ mới
         </button>
       </div>
+      {showCreateProductForm && (
+        <ProductForm
+          onClose={() => {
+            setShowCreateProductForm(false);
+          }}
+        />
+      )}
     </div>
   );
 };

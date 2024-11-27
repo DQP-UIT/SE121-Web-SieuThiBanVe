@@ -27,7 +27,7 @@ export const AppRoutes = createBrowserRouter([
         element: <FileUploader />,
       },
       {
-        path: "info",
+        path: "product",
         element: <Info />,
       },
       {

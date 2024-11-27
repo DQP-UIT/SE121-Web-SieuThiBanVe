@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
+import axiosInstance from "../../axios";
+import { useAuth } from "../../store";
+import { Button } from "@headlessui/react";
+import Swal from "sweetalert2";
 
 const LoginForm = ({ onClose }) => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
-
+  const { setUser } = useAuth();
   const formRef = useRef(null);
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
@@ -25,12 +29,14 @@ const LoginForm = ({ onClose }) => {
       ...account,
       [e.target.name]: e.target.value,
     });
-    console.log(account);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div ref={formRef} className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+      <div
+        ref={formRef}
+        className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg"
+      >
         <h2 className="mb-6 text-center text-2xl font-bold">
           Sign in to your account
         </h2>
@@ -39,17 +45,11 @@ const LoginForm = ({ onClose }) => {
           src="src/assets/solar_home-bold.svg"
           alt="Your Company"
         />
-        <form
+        <div
           className="space-y-6"
-          action="#"
-          method="POST"
-          onSubmit={(e) => {
-            console.log(account);
-            e.preventDefault();
-            // Login API
-            onClose;
-            onClose();
-          }}
+          // action="#"
+          // method="POST"
+          // onSubmit={}
         >
           <div>
             <label
@@ -105,14 +105,29 @@ const LoginForm = ({ onClose }) => {
           </div>
 
           <div>
-            <button
-              type="submit"
+            <Button
+              // type="submit"
+              onClick={async (e) => {
+                try {
+                  const res = await axiosInstance.post("/auth/login", {
+                    ...account,
+                  });
+                  setUser(res.data.user);
+                  localStorage.setItem("token", res.data.accessToken);
+                  alert("Đăng nhập thành công");
+
+                  onClose();
+                } catch (error) {
+                  console.log(error);
+                  alert("Email hoặc mật khẩu không đúng");
+                }
+              }}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Sign in
-            </button>
+            </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
