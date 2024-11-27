@@ -61,6 +61,7 @@ const Info = () => {
         </div>
         <div>
           <ContactCard product={product} />
+          <ContactCard product={product} />
         </div>
       </div>
       <div className="ml-8">

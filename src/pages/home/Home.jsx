@@ -135,8 +135,8 @@ const Home = () => {
   return (
     <div>
       <div>
-        <div>
-          <img src="src/assets/HomePott.svg" />
+        <div className="w-full">
+          <img src="src/assets/HomePott.svg" className="w-full object-fill" />
         </div>
         <div className="flex w-full justify-center">
           <HouseSearchBar
