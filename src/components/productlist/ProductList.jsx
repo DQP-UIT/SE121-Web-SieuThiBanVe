@@ -2,11 +2,12 @@ import React from "react";
 import { VariableSizeGrid } from "react-window";
 import ProductCard from "../card/Card";
 import "./ProductList.css";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = ({ products }) => {
   const columnCount = 4;
   const rowCount = Math.ceil(products.length / columnCount);
-
+  const navigate = useNavigate();
   const gap = 35;
 
   const getColumnWidth = (index) => {
@@ -41,6 +42,9 @@ const ProductList = ({ products }) => {
               style={{
                 ...style,
                 left: style.left + gap * columnIndex,
+              }}
+              onClick={() => {
+                navigate(`product/${product.id}`);
               }}
               className="product-list-item"
             >

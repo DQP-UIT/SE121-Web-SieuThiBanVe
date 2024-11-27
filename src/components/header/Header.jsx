@@ -4,6 +4,9 @@ import SearchBar from "../searchbar/SearchBar";
 import PopoverBar from "./PopoverBar";
 import Swal from "sweetalert2";
 import LoginForm from "../forms/LoginForm";
+import { Button } from "@headlessui/react";
+import { useAuth } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -31,8 +34,9 @@ const data = [
 const Header = () => {
   //const navigate = useNavigate();
   const [wasIn, setWasIn] = useState(false);
+  const { user, logout } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
-
+  const navigate = useNavigate();
   const handleOnLogin = () => {
     setShowLoginForm(true);
   };
@@ -49,6 +53,8 @@ const Header = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // logout API
+        logout();
+        localStorage.removeItem("token");
         setWasIn(false);
       }
     });
@@ -75,25 +81,41 @@ const Header = () => {
             className="float-left h-8 w-8"
           />
           <span className="text-xl font-medium">0975207829</span>
-          {wasIn ? (
-            <img
-              src="src/assets/entypo_log-out.svg"
-              alt="Logout"
-              className="float-right h-8 w-8 hover:cursor-pointer"
-              onClick={handleOnLogout}
-            />
+          {user ? (
+            <div className="float-right flex gap-4">
+              <img
+                src="src/assets/user.svg"
+                alt="user"
+                className="h-8 w-8 hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              />
+              <img
+                src="src/assets/entypo_log-out.svg"
+                alt="Logout"
+                className="h-8 w-8 hover:cursor-pointer"
+                onClick={handleOnLogout}
+              />
+            </div>
           ) : (
-            <img
-              src="src/assets/entypo_login.svg"
-              alt="Login"
-              className="float-right h-8 w-8 hover:cursor-pointer"
+            <Button
+              className="float-right rounded bg-sky-600 px-4 py-2 text-sm text-white data-[active]:bg-sky-700 data-[hover]:bg-sky-500"
               onClick={handleOnLogin}
-            />
+            >
+              Login
+            </Button>
           )}
         </div>
       </div>
       <PopoverBar />
-      {showLoginForm && <LoginForm onClose={() => setShowLoginForm(false)} />}
+      {showLoginForm && (
+        <LoginForm
+          onClose={() => {
+            setShowLoginForm(false);
+          }}
+        />
+      )}
     </div>
   );
 };
