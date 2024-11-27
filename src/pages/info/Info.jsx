@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Để lấy id từ URL
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Để lấy id từ URL
+import { useParams } from "react-router-dom"; 
 import Header from "../../components/header/Header";
 import Carousel from "../../components/carousel/Carousel";
 import ProductTable from "../../components/table/ProductTable";
