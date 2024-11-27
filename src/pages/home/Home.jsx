@@ -132,10 +132,10 @@ const Home = () => {
   const listoflength = ["10m", "15m", "20m", "25m"];
   const listofwidth = ["5m", "7m", "10m", "12m"];
   return (
-    <div>
-      <div>
-        <div>
-          <img src="src/assets/HomePott.svg" />
+    <div className="w-full">
+      <div className="w-full">
+        <div className="w-full">
+          <img src="src/assets/HomePott.svg" className="w-full h-full object-fill" />
         </div>
         <div className="flex w-full justify-center">
           <HouseSearchBar
