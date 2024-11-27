@@ -33,36 +33,34 @@ const PopoverBar = () => {
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 href="#"
               >
-                <p className="font-semibold text-black">Nhà phố</p>
+                <p className="font-semibold text-black">Insights</p>
+                <p className="text-black/50">Measure actions your users take</p>
+              </a>
+              <a
+                className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
+                href="#"
+              >
+                <p className="font-semibold text-black">Automations</p>
                 <p className="text-black/50">
-                  Những mẫu nhà phố hiện đại theo xu hướng
+                  Create your own targeted content
                 </p>
               </a>
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 href="#"
               >
-                <p className="font-semibold text-black">Nhà cấp 4</p>
-                <p className="text-black/50">
-                  Thiết kế thông minh, tận dụng tối đa không gian
-                </p>
+                <p className="font-semibold text-black">Reports</p>
+                <p className="text-black/50">Keep track of your growth</p>
               </a>
+            </div>
+            <div className="p-3">
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 href="#"
               >
-                <p className="font-semibold text-black">Biệt thự</p>
+                <p className="font-semibold text-black">Documentation</p>
                 <p className="text-black/50">
-                  Thiết kế sang trọng và không thiếu tiện nghi
-                </p>
-              </a>
-              <a
-                className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                href="#"
-              >
-                <p className="font-semibold text-black">Khách sạn</p>
-                <p className="text-black/50">
-                  Ý tưởng độc đáo, thu hút thị hiếu
+                  Start integrating products and tools
                 </p>
               </a>
             </div>

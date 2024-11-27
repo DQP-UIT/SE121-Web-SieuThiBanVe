@@ -4,35 +4,11 @@ import Header from "../../components/header/Header";
 import Carousel from "../../components/carousel/Carousel";
 import ProductTable from "../../components/table/ProductTable";
 import ContactCard from "../../components/contact/ContactCard";
-import axios from "axios";
-import testpic3d from "../../assets/testpic3d.jpg";
-import test3d_1 from "../../assets/test3d_1.jpg"
+import axios from "axios"; // Cần cài đặt axios nếu chưa có
 
-const fakeProduct = {
-  id: "1",
-  name: "Sản phẩm giả",
-  images: [
-    { src: testpic3d, type: "2d" },
-    { src: testpic3d, type: "2d" },
-    { src: testpic3d, type: "panorama" },
-    { src: testpic3d, type: "2d" },
-    { src: test3d_1, type: "panorama" },
-  ],
-  description: "Mô tả sản phẩm giả",
-  price: "1000000",
-  contact: {
-    phone: "0975207829",
-    email: "contact@example.com",
-  },
-  details: {
-    size: "10x10",
-    material: "Gỗ",
-    color: "Nâu",
-  },
-};
 const Info = () => {
   // State lưu trữ thông tin sản phẩm
-  const [product, setProduct] = useState(fakeProduct);
+  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true); // Để hiển thị trạng thái loading
   const [error, setError] = useState(null); // Để xử lý lỗi
 
@@ -40,37 +16,37 @@ const Info = () => {
   const { id } = useParams();
 
   // Hàm gọi API để lấy thông tin sản phẩm
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     try {
-  //       // Gọi API với id sản phẩm
-  //       const response = await axios.get(
-  //         `http://localhost:8000/api/v1/product/${id}`,
-  //       );
-  //       setProduct(response.data.data); // Lưu dữ liệu vào state
-  //     } catch (err) {
-  //       setError("Có lỗi xảy ra khi tải sản phẩm.");
-  //     } finally {
-  //       setLoading(false); // Sau khi hoàn thành gọi API, set loading = false
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        // Gọi API với id sản phẩm
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/product/${id}`,
+        );
+        setProduct(response.data.data); // Lưu dữ liệu vào state
+      } catch (err) {
+        setError("Có lỗi xảy ra khi tải sản phẩm.");
+      } finally {
+        setLoading(false); // Sau khi hoàn thành gọi API, set loading = false
+      }
+    };
 
-  //   fetchProduct(); // Gọi hàm fetch khi component mount
-  // }, [id]); // Chạy lại khi id thay đổi
+    fetchProduct(); // Gọi hàm fetch khi component mount
+  }, [id]); // Chạy lại khi id thay đổi
 
   // Hiển thị loading hoặc lỗi
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  // if (error) {
-  //   return <div>{error}</div>;
-  // }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-  // // Nếu không có dữ liệu sản phẩm
-  // if (!product) {
-  //   return <div>Sản phẩm không tồn tại.</div>;
-  // }
+  // Nếu không có dữ liệu sản phẩm
+  if (!product) {
+    return <div>Sản phẩm không tồn tại.</div>;
+  }
 
   return (
     <div>
