@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import PopoverBar from "./PopoverBar";
 import Swal from "sweetalert2";
 import LoginForm from "../forms/LoginForm";
 import { Button } from "@headlessui/react";
 import { useAuth } from "../../store";
-import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -32,11 +31,11 @@ const data = [
 ];
 
 const Header = () => {
-  //const navigate = useNavigate();
   const [wasIn, setWasIn] = useState(false);
   const { user, logout } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const navigate = useNavigate();
+
   const handleOnLogin = () => {
     setShowLoginForm(true);
   };
@@ -55,6 +54,7 @@ const Header = () => {
         // logout API
         logout();
         localStorage.removeItem("token");
+        navigate("/");
         setWasIn(false);
       }
     });
