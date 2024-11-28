@@ -7,6 +7,7 @@ import FengShuiResult from "../pages/fengshui/FengShuiResult";
 import Profile from "../pages/profile/Profile";
 import FileUploader from "../pages/fileuploader/FileUploader";
 import AboutUs from "../pages/aboutus/aboutus";
+import EstimatePart1 from "../pages/estimate/estimatePart1";
 import { createBrowserRouter } from "react-router-dom";
 import Default from "../components/default/Default";
 export const AppRoutes = createBrowserRouter([
@@ -42,6 +43,10 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "aboutus",
         element: <AboutUs />,
+      },
+      {
+        path: "estimatePart1",
+        element: <EstimatePart1 />,
       },
     ],
   },
