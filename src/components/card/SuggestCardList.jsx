@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import SuggestCard from "./SuggestCard";
-import axiosInstance from "../../axios";
 
 const SuggestCardList = () => {
-  const [cards, setCards] = useState([]);
-  useEffect(() => {
-    axiosInstance
-      .get("product-type", { params: { page: 1, pageSize: 100 } })
-      .then((res) => {
-        setCards(
-          res.data.data.map((v) => ({
-            imgUrl: "ph_house-line.svg",
-            content: v.name,
-            desc: v.description,
-          })),
-        );
-      });
-  }, []);
+  const [cards, setCards] = useState([
+    {
+      imgUrl: "src/assets/house4.svg",
+      content: "Nhà cấp 4 đẹp",
+      desc: "Những căn nhà cấp 4 tiện nghi"
+    },
+    {
+      imgUrl: "src/assets/housect.svg",
+      content: "Nhà phố đẹp",
+      desc: "Nhà phố hiện đại theo xu hướng hiện nay"
+    },
+    {
+      imgUrl: "src/assets/villa.svg",
+      content: "Biệt thự đẹp",
+      desc: "Biệt thự sang trọng với thiết kế thông minh"
+    },
+    {
+      imgUrl: "src/assets/hotel.svg",
+      content: "Khách sạn đẹp",
+      desc: "Khách sạn tiện nghi, mới mẻ và có sức hút"
+    }
+  ]);
 
   return (
     <div className="relative mb-8 mt-8 flex h-fit items-center justify-center">
