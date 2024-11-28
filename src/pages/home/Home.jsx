@@ -246,9 +246,18 @@ const Home = () => {
             </span>
           </div>
           <div className="rectangle-67" />
-          <span className="so-dien-thoai-lien-lac">Số điện thoại liên lạc</span>
+          <input
+            id="phone-number"
+            type="tel"
+            className="so-dien-thoai-lien-lac"
+            placeholder="Số điện thoại liên lạc"
+          />
+          <div class="button-container">
+            <button class="custom-button">Liên hệ ngay</button>
+          </div>
         </div>
       </div>
+      <div className="image-60" />
     </div>
   );
 };
