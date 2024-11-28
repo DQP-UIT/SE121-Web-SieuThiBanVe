@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "./estimatePart1.css"; // Import file CSS
+import { useNavigate } from "react-router-dom";
+import "./estimatePart1.css"; 
+
 
 function DuToanChiPhi() {
   const [diaDiem, setDiaDiem] = useState("Đà Nẵng");
   const [loaiCongTrinh, setLoaiCongTrinh] = useState("Nhà phố");
-
+  const navigate = useNavigate();
   const diaDiemOptions = [
     "Hà Nội",
     "Hồ Chí Minh",
@@ -104,7 +106,9 @@ function DuToanChiPhi() {
           ))}
         </select>
 
-        <button className="buttontype" type="submit">
+        <button className="buttontype" type="submit" onClick={()=>{
+          navigate(`/estimatePart2`)
+        }}>
           Dự toán chi phí
         </button>
       </form>

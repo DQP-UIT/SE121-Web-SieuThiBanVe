@@ -1,56 +1,47 @@
 import React from "react";
-import "./aboutus.css";
 
-export default function aboutus() {
+export default function AboutUs() {
   return (
-    <div className="main-container">
-      <span className="about-us">Về chúng tôi</span>
-      <div className="design-service">
-        <span className="chung-toi">1. Chúng tôi </span>
-        <span className="cong-ty-chuyen-cung-cap">
+    <div className="mx-32 w-2/3 h-full p-8 leading-relaxed text-gray-800">
+      <h1 className="mb-6 text-left text-3xl font-bold">Về chúng tôi</h1>
+      <div className="mb-6 w-2/3">
+        <p className="text-xl">
+        <span className="mb-2 text-2xl font-semibold">1. Chúng tôi </span>
           là công ty chuyên cung cấp dịch vụ thiết kế và bản vẽ nhà ở với hơn 10
           năm kinh nghiệm trong ngành. Mục tiêu của chúng tôi là mang đến cho
           khách hàng những giải pháp thiết kế sáng tạo, tối ưu và phù hợp với
           nhu cầu sử dụng của từng gia đình.
-        </span>
+        </p>
       </div>
-      <div className="dich-vu-chung-toi">
-        <span className="dich-vu-chung-toi-5">
-          2. Dịch vụ của chúng tôi bao gồm
+
+      <div className="mb-6">
+        <span className="mb-2 text-2xl font-semibold">
+          2. Dịch vụ của chúng tôi bao gồm:
         </span>
-        <span className="thiet-ke-nha-o">
-          :<br />
-          Thiết kế kiến trúc nhà ở<br />
-          Lập bản vẽ thi công và xin phép xây dựng
-          <br />
-          Tư vấn cải tạo và nâng cấp công trình
-          <br />
-          Thiết kế nội thất và cảnh quan xung quanh
-        </span>
+        <ul className="list-disc text-xl pl-6">
+          <li>Thiết kế kiến trúc nhà ở</li>
+          <li>Lập bản vẽ thi công và xin phép xây dựng</li>
+          <li>Tư vấn cải tạo và nâng cấp công trình</li>
+          <li>Thiết kế nội thất và cảnh quan xung quanh</li>
+        </ul>
       </div>
-      <div className="phuong-cham-lam-viec">
-        <span className="work-ethic">
-          3. Phương châm làm việc:
-          <br />
-        </span>
-        <span className="quality-commitment">
+
+      <div className="mb-6 w-2/3">
+        <span className="mb-2 text-2xl font-semibold">3. Phương châm làm việc:</span>
+        <p className="text-xl">
           Chúng tôi luôn đặt chất lượng công trình lên hàng đầu và cam kết mang
           lại những bản vẽ chi tiết, chính xác, phù hợp với nhu cầu và ngân sách
           của khách hàng.
-        </span>
+        </p>
       </div>
-      <div className="contact-info">
-        <span className="contact-info-6">
-          3. Thông tin liên hệ:
-          <br />
-        </span>
-        <span className="contact-details">
-          Công ty bản vẽ công trình.
-          <br />
-          Số điện thoại tư vấn: 0889378933
-          <br />
+
+      <div>
+        <span className="mb-2 text-2xl font-semibold">4. Thông tin liên hệ:</span>
+        <p className="text-xl">
+          Công ty bản vẽ công trình. <br />
+          Số điện thoại tư vấn: 0889378933 <br />
           Email: 22521118@gm.uit.edu.vn
-        </span>
+        </p>
       </div>
     </div>
   );

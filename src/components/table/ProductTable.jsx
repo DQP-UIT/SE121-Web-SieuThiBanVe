@@ -85,10 +85,10 @@ const ProductTable = ({ product }) => {
                 scope="row"
                 className="whitespace-nowrap bg-gray-300 py-2 font-medium text-gray-900"
               >
-                Chiều dài
+                Dài x Rộng
               </th>
               <td className="bg-gray-300 py-2 text-gray-900">
-                {product.length} {/* Sử dụng length từ API */}
+                {product.size} {/* Sử dụng length từ API */}
               </td>
               <th className="w-5"></th>
               <th scope="row" className="w-fit bg-gray-300 px-4 py-2">

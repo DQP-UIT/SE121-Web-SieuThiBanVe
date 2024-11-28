@@ -1,7 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import axiosInstance from "../../axios";
 import { useAuth } from "../../store";
-import { Button } from "@headlessui/react";
+import {
+  Button,
+  TextField,
+  Typography,
+  Box,
+  Container,
+  Paper,
+  Link,
+} from "@mui/material";
 import Swal from "sweetalert2";
 
 const LoginForm = ({ onClose }) => {
@@ -11,6 +19,7 @@ const LoginForm = ({ onClose }) => {
   });
   const { setUser } = useAuth();
   const formRef = useRef(null);
+
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
       onClose();
@@ -32,104 +41,104 @@ const LoginForm = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div
+    <Container
+      component="main"
+      maxWidth="100%"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        position: "fixed",
+        inset: 0,
+        zIndex: 50,
+      }}
+    >
+      <Paper
         ref={formRef}
-        className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg"
+        elevation={6}
+        sx={{
+          padding: 4,
+          borderRadius: 2,
+          width: 450,
+        }}
       >
-        <h2 className="mb-6 text-center text-2xl font-bold">
+        <Typography component="h1" variant="h5" align="center" gutterBottom>
           Sign in to your account
-        </h2>
-        <img
-          className="mx-auto h-10 w-auto"
+        </Typography>
+        <Box
+          component="img"
           src="src/assets/solar_home-bold.svg"
           alt="Your Company"
+          sx={{
+            display: "block",
+            margin: "0 auto",
+            height: 40,
+            width: "auto",
+            mb: 2,
+          }}
         />
-        <div
-          className="space-y-6"
-          // action="#"
-          // method="POST"
-          // onSubmit={}
-        >
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email address
-            </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                value={account.email}
-                autoFocus={true}
-                name="email"
-                type="email"
-                autoComplete="email"
-                onChange={handleOnChange}
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Password
-              </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                value={account.password}
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                onChange={handleOnChange}
-                required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Button
-              // type="submit"
-              onClick={async (e) => {
-                try {
-                  const res = await axiosInstance.post("/auth/login", {
-                    ...account,
-                  });
-                  setUser(res.data.user);
-                  localStorage.setItem("token", res.data.accessToken);
-                  alert("Đăng nhập thành công");
-
-                  onClose();
-                } catch (error) {
-                  console.log(error);
-                  alert("Email hoặc mật khẩu không đúng");
-                }
-              }}
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign in
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={account.email}
+            onChange={handleOnChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={account.password}
+            onChange={handleOnChange}
+          />
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Link href="#" variant="body2">
+              Forgot password?
+            </Link>
+          </Box>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={async (e) => {
+              try {
+                const res = await axiosInstance.post("/auth/login", {
+                  ...account,
+                });
+                setUser(res.data.user);
+                localStorage.setItem("token", res.data.accessToken);
+                Swal.fire("Success", "Đăng nhập thành công", "success");
+                onClose();
+              } catch (error) {
+                console.log(error);
+                Swal.fire("Error", "Email hoặc mật khẩu không đúng", "error");
+              }
+            }}
+          >
+            Sign in
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 

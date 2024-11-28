@@ -20,7 +20,7 @@ const PopoverBar = () => {
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
         <Popover>
-          <PopoverButton className="block text-center font-sans text-xl text-black focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
+          <PopoverButton className="block text-center font-sans text-xl text-black focus:outline-none data-[active]:text-white data-[hover]:text-white hover:bg-transparent">
             Mẫu nhà đẹp
           </PopoverButton>
           <PopoverPanel
@@ -70,7 +70,10 @@ const PopoverBar = () => {
         </Popover>
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
-        <span className="cursor-pointer font-sans text-xl hover:text-white">
+        <span className="cursor-pointer font-sans text-xl hover:text-white"
+        onClick={()=>{
+          navigate(`/estimatePart1`)
+        }}>
           {" "}
           Báo giá
         </span>
@@ -87,7 +90,10 @@ const PopoverBar = () => {
         </span>
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
-        <span className="cursor-pointer font-sans text-xl hover:text-white">
+        <span className="cursor-pointer font-sans text-xl hover:text-white"
+        onClick={()=>{
+          navigate(`/aboutus`)
+        }}>
           {" "}
           Về Chúng tôi
         </span>
