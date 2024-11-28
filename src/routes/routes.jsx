@@ -8,6 +8,7 @@ import Profile from "../pages/profile/Profile";
 import FileUploader from "../pages/fileuploader/FileUploader";
 import AboutUs from "../pages/aboutus/aboutus";
 import EstimatePart1 from "../pages/estimate/estimatePart1";
+import EstimatePart2 from "../pages/estimate/estimatePart2";
 import { createBrowserRouter } from "react-router-dom";
 import Default from "../components/default/Default";
 export const AppRoutes = createBrowserRouter([
@@ -47,6 +48,10 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "estimatePart1",
         element: <EstimatePart1 />,
+      },
+      {
+        path: "estimatePart2",
+        element: <EstimatePart2 />,
       },
     ],
   },
