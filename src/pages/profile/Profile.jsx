@@ -4,6 +4,7 @@ import Header from "../../components/header/Header";
 import { useAuth } from "../../store";
 import moment from "moment";
 import ProductForm from "../../components/forms/ProductForm";
+import "./Profile.css";
 const Profile = () => {
   const { user } = useAuth();
   console.log(user);
@@ -68,18 +69,18 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
-        <button style={styles.uploadButton} onClick={handleNewDesignUpload}>
-          Đăng bản vẽ mới
-        </button>
+        <div>
+          <div className="rectangle-5">
+            <span className="view-more">Đăng bản vẽ mới</span>
+          </div>
+          <div className="rectangle-7">
+            <span className="manage-drawings">Quản lý bản vẽ</span>
+          </div>
+          <div className="rectangle-8">
+            <span className="manage-orders">Quản lý đơn đặt hàng</span>
+          </div>
+        </div>
       </div>
-      {showCreateProductForm && (
-        <ProductForm
-          onClose={() => {
-            setShowCreateProductForm(false);
-          }}
-        />
-      )}
     </div>
   );
 };

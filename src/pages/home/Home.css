@@ -612,9 +612,9 @@
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
-  width: 594px;
+  width: 470px;
   height: 41px;
-  top: 330px;
+  top: 326px;
   left: 88px;
   color: rgba(0, 0, 0, 0.6);
   font-family: Inter, var(--default-font-family);
@@ -623,4 +623,48 @@
   line-height: 24.205px;
   text-align: left;
   z-index: 166;
+}
+.image-60 {
+  object-fit: fill;
+  width: 1920px;
+  height: 690px;
+  top: 4700px;
+  left: 0;
+  background: url(../../assets/images/8b3f11608f390a242b88979f4a0e969bf5fdbb17.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 166;
+}
+.button-container {
+  position: absolute;
+  top: -70px;
+  left: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Đảm bảo button được căn giữa màn hình */
+}
+
+.custom-button {
+  padding: 12px 30px; /* Kích thước padding (dài hơn cho chữ) */
+  border-radius: 30px; /* Để button có dạng bo tròn */
+  background-color: #007bff; /* Màu nền xanh */
+  border: none;
+  color: white; /* Màu chữ trắng */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.custom-button:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+}
+
+.custom-button:focus {
+  outline: none; /* Bỏ outline khi button được focus */
 }

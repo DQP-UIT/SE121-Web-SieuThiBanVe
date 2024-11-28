@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/header/Header";
-const FileUploader = () => {
+const FileUploader2d = () => {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (e) => {
@@ -210,4 +210,4 @@ const styles = {
   },
 };
 
-export default FileUploader;
+export default FileUploader2d;
