@@ -1,13 +1,32 @@
 import React, { useState } from "react";
-import { BrowserRouter } from "react-router-dom";
-import Header from "../../components/header/Header";
 import { useAuth } from "../../store";
 import moment from "moment";
-import ProductForm from "../../components/forms/ProductForm";
-import "./Profile.css";
+import {
+  Container,
+  Paper,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import EditIcon from "@mui/icons-material/Edit";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import PersonIcon from "@mui/icons-material/Person";
+import BadgeIcon from "@mui/icons-material/Badge";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+
 const Profile = () => {
   const { user } = useAuth();
-  console.log(user);
   const [showCreateProductForm, setShowCreateProductForm] = useState(false);
 
   const handlePhotoUpload = (e) => {
@@ -21,147 +40,230 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <div style={styles.container}>
-        <div style={styles.profileContainer}>
-          <div style={styles.profileHeader}>
-            <div style={styles.profilePicture}>
+    <Container maxWidth={false} sx={{ py: 4, width: "100%" }}>
+      <Box className="mx-auto flex w-full max-w-6xl gap-8">
+        <Paper className="relative w-3/4 rounded-lg p-8 mr-12 shadow-md">
+          <Box className="flex items-center gap-6">
+            <Box className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
               <input
                 type="file"
                 onChange={handlePhotoUpload}
-                style={styles.fileInput}
+                className="absolute inset-0 cursor-pointer opacity-0"
               />
-              <span style={styles.cameraIcon}>📷</span>
-            </div>
-            <h2 style={styles.profileName}>{user.fullName}</h2>
-          </div>
+              <PhotoCameraIcon className="text-2xl text-gray-600" />
+            </Box>
+            <Typography variant="h5" className="m-0">
+              {user.fullName}
+            </Typography>
+            {/* <IconButton className="absolute right-4 top-4">
+              <EditIcon />
+            </IconButton> */}
+          </Box>
 
-          <div style={styles.profileInfo}>
-            <div style={styles.infoSection}>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>ID</label>
-                <p style={styles.text}>{user.id}</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>Tên</label>
-                <p style={styles.text}>{user?.fullName}</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>Ngày sinh</label>
-                <p style={styles.text}>
+          <Box className="mt-6 grid grid-cols-2 gap-4">
+            <Box className="mb-4 flex items-center">
+              <BadgeIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  ID
+                </Typography>
+                <Typography variant="body1" className="font-bold">
+                  {user.id}
+                </Typography>
+              </Box>
+            </Box>
+            <Box className="mb-4 flex items-center">
+              <PersonIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  Tên
+                </Typography>
+                <Typography variant="body1" className="font-bold">
+                  {user?.fullName}
+                </Typography>
+              </Box>
+            </Box>
+            <Box className="mb-4 flex items-center">
+              <CalendarTodayIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  Ngày sinh
+                </Typography>
+                <Typography variant="body1" className="font-bold">
                   {moment(user.dob).format("DD/MM/YYYY")}
-                </p>
-              </div>
-            </div>
-            <div style={styles.infoSection}>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>Số bản vẽ</label>
-                <p style={styles.text}>2</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>Email</label>
-                <p style={styles.text}>{user.email}</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.label}>Số điện thoại</label>
-                <p style={styles.text}>0975207829</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="rectangle-5">
-            <span className="view-more">Đăng bản vẽ mới</span>
-          </div>
-          <div className="rectangle-7">
-            <span className="manage-drawings">Quản lý bản vẽ</span>
-          </div>
-          <div className="rectangle-8">
-            <span className="manage-orders">Quản lý đơn đặt hàng</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+                </Typography>
+              </Box>
+            </Box>
+            {user.role === "admin" ? (
+              <Box className="mb-4 flex items-center">
+                <DateRangeIcon className="mr-2 text-gray-600" />
+                <Box>
+                  <Typography variant="body2" className="text-gray-600">
+                    Ngày kích hoạt
+                  </Typography>
+                  <Typography variant="body1" className="font-bold">
+                    {moment(user.activatedDate).format("DD/MM/YYYY")}
+                  </Typography>
+                </Box>
+              </Box>
+            ) : (
+              <Box className="mb-4 flex items-center">
+                <InsertDriveFileIcon className="mr-2 text-gray-600" />
+                <Box>
+                  <Typography variant="body2" className="text-gray-600">
+                    Số bản vẽ
+                  </Typography>
+                  <Typography variant="body1" className="font-bold">
+                    {user.designs}
+                  </Typography>
+                </Box>
+              </Box>
+            )}
+            <Box className="mb-4 flex items-center">
+              <EmailIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  Email
+                </Typography>
+                <Typography variant="body1" className="font-bold">
+                  {user.email}
+                </Typography>
+              </Box>
+            </Box>
+            <Box className="mb-4 flex items-center">
+              <PhoneIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  Số điện thoại
+                </Typography>
+                <Typography variant="body1" className="font-bold">
+                  0975207829
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Paper>
 
-const styles = {
-  container: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "space-between", // Add this line
-    gap: "24px",
-    padding: "24px",
-  },
-  profileContainer: {
-    width: "700px", // Increased width of the profile card
-    border: "1px solid #e0e0e0",
-    borderRadius: "8px",
-    padding: "24px", // Increased padding inside the card
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // Slightly larger shadow
-    fontFamily: "Arial, sans-serif",
-    color: "#333",
-  },
-  profileHeader: {
-    display: "flex",
-    alignItems: "center",
-    gap: "20px", // Increased gap between picture and name
-  },
-  profilePicture: {
-    width: "80px", // Increased profile picture size
-    height: "80px",
-    borderRadius: "50%",
-    backgroundColor: "#e0e0e0",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-  },
-  cameraIcon: {
-    fontSize: "28px", // Larger icon size
-    color: "#555",
-  },
-  fileInput: {
-    position: "absolute",
-    opacity: 0,
-    width: "100%",
-    height: "100%",
-    cursor: "pointer",
-  },
-  profileName: {
-    margin: 0,
-    fontSize: "22px", // Increased font size for the name
-  },
-  profileInfo: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: "20px", // Increased margin to separate sections
-  },
-  infoSection: {
-    width: "48%", // Adjusted width to fit larger card
-  },
-  infoItem: {
-    marginBottom: "12px", // Increased space between items
-  },
-  label: {
-    fontSize: "14px", // Slightly larger label font
-    color: "#888",
-  },
-  text: {
-    margin: "6px 0 0",
-    fontSize: "16px", // Larger font for main text
-    fontWeight: "bold",
-  },
-  uploadButton: {
-    padding: "12px 24px", // Increased button padding for a larger button
-    backgroundColor: "#4285f4",
-    color: "white",
-    border: "none",
-    borderRadius: "6px", // Slightly rounded button
-    fontSize: "16px", // Increased font size for button text
-    cursor: "pointer",
-    alignSelf: "flex-start", // Keeps the button aligned at the top
-  },
+        <Box className="flex w-1/4 flex-col gap-4">
+          {user.role === "admin" ? (
+            <>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<AccountCircleIcon />}
+              >
+                Quản lý tài khoản
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<AddCircleIcon />}
+              >
+                Thêm người dùng
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<BarChartIcon />}
+              >
+                Thống kê doanh thu
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<UploadFileIcon />}
+              >
+                Đăng bản vẽ mới
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<ManageAccountsIcon />}
+              >
+                Quản lý bản vẽ
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<AssignmentIcon />}
+              >
+                Quản lý đơn đặt hàng
+              </Button>
+            </>
+          )}
+        </Box>
+      </Box>
+    </Container>
+  );
 };
 
 export default Profile;
