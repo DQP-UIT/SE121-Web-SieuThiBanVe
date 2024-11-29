@@ -13,6 +13,8 @@ import EstimatePart1 from "../pages/estimate/estimatePart1";
 import EstimatePart2 from "../pages/estimate/estimatePart2";
 import { createBrowserRouter } from "react-router-dom";
 import Default from "../components/default/Default";
+import AccountMG from "../pages/admin/account/AcountMG";
+import AddAccount from "../pages/admin/account/AddAccount";
 export const AppRoutes = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +64,14 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "estimatePart2",
         element: <EstimatePart2 />,
+      },
+      {
+        path: "account",
+        element: <AccountMG />,
+      },
+      {
+        path: "addacc",
+        element: <AddAccount />,
       },
     ],
   },
