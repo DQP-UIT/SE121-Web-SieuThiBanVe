@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   Container,
@@ -17,12 +17,17 @@ import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
-const UserTag = ({ user, isEdit }) => {
+const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
   const [isEditing, setIsEditing] = useState(isEdit);
   const [userData, setUserData] = useState(user);
 
+  useEffect(() => {
+    setUserData(user);
+  }, [user]);
+
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+    onEditToggle();
   };
 
   const handleInputChange = (e) => {
@@ -34,8 +39,7 @@ const UserTag = ({ user, isEdit }) => {
   };
 
   const handleSaveClick = () => {
-    // Save the updated user data
-    console.log("Saved user data:", userData);
+    onUpdateUser(userData);
     setIsEditing(false);
     onEditToggle();
   };
