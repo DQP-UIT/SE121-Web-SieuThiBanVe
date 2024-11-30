@@ -59,11 +59,33 @@ const AccountMG = () => {
     [userlist, editingStates],
   );
 
+  const toggleEdit = (id) => {
+    setEditingStates((prevStates) => ({
+      ...prevStates,
+      [id]: !prevStates[id],
+    }));
+    const index = userlist.findIndex((user) => user.id === id);
+    listRef.current.resetAfterIndex(index);
+  };
+
+  const updateUser = (id, updatedData) => {
+    setUserlist((prevList) =>
+      prevList.map((user) =>
+        user.id === id ? { ...user, ...updatedData } : user,
+      ),
+    );
+  };
+
   const Row = ({ index, style }) => {
     const user = userlist[index];
     return (
       <div style={style}>
-        <UserTag user={user} isEdit={!!editingStates[user.id]} />
+        <UserTag
+          user={user}
+          isEdit={!!editingStates[user.id]}
+          onEditToggle={() => toggleEdit(user.id)}
+          onUpdateUser={(updatedData) => updateUser(user.id, updatedData)}
+        />
       </div>
     );
   };
@@ -83,10 +105,10 @@ const AccountMG = () => {
           {({ height, width }) => (
             <List
               ref={listRef}
-              height={800}
+              height={height}
               itemCount={userlist.length}
               itemSize={getItemSize}
-              width={800}
+              width={width}
             >
               {Row}
             </List>
