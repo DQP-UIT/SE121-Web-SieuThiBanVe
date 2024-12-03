@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Card.css"; // Import file CSS
 
 const ProductCard = ({ banve }) => {
   const navigate = useNavigate();
@@ -11,20 +10,31 @@ const ProductCard = ({ banve }) => {
   const handleOnClick = () => {};
 
   return (
-    <div className="product-card" onClick={handleOnClick}>
-      <img className="product-image" src={banve.img} alt={banve.name} />
+    <div
+      className="m-4 h-[50vh] min-h-fit w-[16vw] cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-[rgba(234,243,245,0.5)] shadow-lg transition-transform duration-200 hover:scale-105"
+      onClick={handleOnClick}
+    >
+      <img
+        className="h-[200px] w-full object-cover"
+        src={banve.img}
+        alt={banve.name}
+      />
 
-      <div className="product-details">
-        <p className="designer-text">Được thiết kế bởi designer</p>
+      <div className="p-4">
+        <p className="mb-2 text-[0.6vw] text-green-500">
+          Được thiết kế bởi designer
+        </p>
 
-        <div className="product-name">{banve.name}</div>
+        <div className="mb-1 text-[1vw] font-bold">{banve.name}</div>
 
-        <div className="product-info">
+        <div className="mb-1 text-[0.65vw] text-gray-600">
           Số tầng {banve.tang} | Số phòng ngủ {banve.phongngu} | Diện tích{" "}
           {banve.dientich} m²
         </div>
 
-        <p className="product-price">{banve.price.toLocaleString()} VND</p>
+        <p className="text-[1.5vw] text-blue-500">
+          {banve.price.toLocaleString()} VND
+        </p>
       </div>
     </div>
   );
