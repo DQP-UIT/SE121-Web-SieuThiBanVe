@@ -135,8 +135,11 @@ const Home = () => {
   return (
     <div className="w-full bg-transparent">
       <div>
-        <div className="w-full flex flex-auto items-center justify-center">
-          <img src="src/assets/HomePott.svg" className="max-w-[1400px] object-fill" />
+        <div className="flex w-full flex-auto items-center justify-center">
+          <img
+            src="src/assets/HomePott.svg"
+            className="max-w-[1400px] object-fill"
+          />
         </div>
         <div className="flex w-full justify-center">
           <HouseSearchBar

@@ -15,18 +15,18 @@ const ProductList = ({ products }) => {
   };
 
   const getRowHeight = (index) => {
-    return window.innerHeight * 0.5;
+    return window.innerHeight * 0.6;
   };
 
   const totalWidth = columnCount * getColumnWidth() + (columnCount - 1) * gap;
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen min-h-fit items-center justify-center">
       <VariableSizeGrid
         className="product-list"
         columnCount={columnCount}
         columnWidth={getColumnWidth}
-        height={window.innerHeight}
+        height={window.innerHeight*1.2}
         rowCount={rowCount}
         rowHeight={getRowHeight}
         width={totalWidth}
