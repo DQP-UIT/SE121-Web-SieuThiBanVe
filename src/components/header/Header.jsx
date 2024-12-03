@@ -61,8 +61,8 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <div className="flex h-1/6 min-h-fit items-center justify-between bg-gray-100 p-4">
+    <div className="w-full">
+      <div className="flex h-1/6 min-h-fit items-center justify-between p-4">
         <div className="ml-12 flex w-1/5 min-w-fit items-center">
           <img
             src="src/assets/solar_home-bold.svg"
