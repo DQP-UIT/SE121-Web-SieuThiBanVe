@@ -133,10 +133,10 @@ const Home = () => {
   const listoflength = ["10m", "15m", "20m", "25m"];
   const listofwidth = ["5m", "7m", "10m", "12m"];
   return (
-    <div>
+    <div className="w-full bg-transparent">
       <div>
-        <div className="w-full">
-          <img src="src/assets/HomePott.svg" className="w-full object-fill" />
+        <div className="w-full flex flex-auto items-center justify-center">
+          <img src="src/assets/HomePott.svg" className="max-w-[1400px] object-fill" />
         </div>
         <div className="flex w-full justify-center">
           <HouseSearchBar
@@ -257,7 +257,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="image-60" />
     </div>
   );
 };

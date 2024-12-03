@@ -19,6 +19,10 @@ export default withMT({
         192: "48rem", // 768px
         256: "64rem", // 1024px
       },
+      backgroundImage: {
+        mainback: `url('/src/assets/mainback.jpg')`,
+        footback: `url('/src/assets/footback.jpg')`,
+      },
     },
   },
   plugins: [],
