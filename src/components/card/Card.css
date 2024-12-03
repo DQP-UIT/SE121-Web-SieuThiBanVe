@@ -10,6 +10,7 @@
   border: 1px solid #e5e7eb;
   margin: 1rem;
   transition: transform 0.2s;
+  background-color: aliceblue;
 }
 
 .product-card:hover {
