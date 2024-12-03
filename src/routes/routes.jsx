@@ -16,6 +16,9 @@ import Default from "../components/default/Default";
 import AccountMG from "../pages/admin/account/AcountMG";
 import AddAccount from "../pages/admin/account/AddAccount";
 import RevenueReportPage from "../pages/admin/Revenue";
+import AddDrawing from "../pages/user/AddDrawing";
+import DrawingManagement from "../pages/user/DrawingManagement";
+import OrderManageMent from "../pages/user/OrderManageMent";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -76,10 +79,21 @@ export const AppRoutes = createBrowserRouter([
         element: <AddAccount />,
       },
       {
-        path:"revenue",
-        element: <RevenueReportPage/>
+        path: "revenue",
+        element: <RevenueReportPage />,
       },
-
+      {
+        path: "adddrawing",
+        element: <AddDrawing />,
+      },
+      {
+        path: "drawingmanagement",
+        element: <DrawingManagement />,
+      },
+      {
+        path: "ordermanagement",
+        element: <OrderManageMent />,
+      },
     ],
   },
 ]);
