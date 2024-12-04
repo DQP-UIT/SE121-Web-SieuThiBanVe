@@ -19,6 +19,7 @@ import RevenueReportPage from "../pages/admin/Revenue";
 import AddDrawing from "../pages/user/AddDrawing";
 import DrawingManagement from "../pages/user/DrawingManagement";
 import OrderManageMent from "../pages/user/OrderManageMent";
+import SearchResults from "../pages/searchResult/Result";
 
 export const AppRoutes = createBrowserRouter([
   {
@@ -93,6 +94,10 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "ordermanagement",
         element: <OrderManageMent />,
+      },
+      {
+        path: "result",
+        element: <SearchResults />,
       },
     ],
   },

@@ -48,15 +48,19 @@ const AccountMG = () => {
   ]);
 
   const [editingStates, setEditingStates] = useState({});
-
+  const [searchTerm, setSearchTerm] = useState("");
   const listRef = useRef();
+
+  const filteredUserList = userlist.filter((user) =>
+    user.fullName.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   const getItemSize = useCallback(
     (index) => {
-      const item = userlist[index];
+      const item = filteredUserList[index];
       return editingStates[item.id] ? 450 : 360;
     },
-    [userlist, editingStates],
+    [filteredUserList, editingStates],
   );
 
   const toggleEdit = (id) => {
@@ -64,7 +68,7 @@ const AccountMG = () => {
       ...prevStates,
       [id]: !prevStates[id],
     }));
-    const index = userlist.findIndex((user) => user.id === id);
+    const index = filteredUserList.findIndex((user) => user.id === id);
     listRef.current.resetAfterIndex(index);
   };
 
@@ -77,7 +81,7 @@ const AccountMG = () => {
   };
 
   const Row = ({ index, style }) => {
-    const user = userlist[index];
+    const user = filteredUserList[index];
     return (
       <div style={style}>
         <UserTag
@@ -97,16 +101,25 @@ const AccountMG = () => {
           Thông tin người dùng
         </h1>
       </div>
+      <div className="mt-4 flex justify-center">
+        <input
+          type="text"
+          placeholder="Tìm kiếm người dùng..."
+          className="rounded-lg border border-gray-300 p-2"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div
         className="items-top mt-8 flex flex-auto justify-center"
-        style={{ height: "calc(100% - 50px)", width: "50%" }}
+        style={{ height: "calc(100% - 150px)", width: "50%" }}
       >
         <AutoSizer>
           {({ height, width }) => (
             <List
               ref={listRef}
               height={height}
-              itemCount={userlist.length}
+              itemCount={filteredUserList.length}
               itemSize={getItemSize}
               width={width}
             >
