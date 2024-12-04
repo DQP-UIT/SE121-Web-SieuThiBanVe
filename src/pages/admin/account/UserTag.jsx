@@ -46,7 +46,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
 
   return (
     <Container maxWidth={false} sx={{ py: 4, width: "100%", marginBottom: 4 }}>
-      <Box className="mx-auto mb-4 flex w-full max-w-6xl gap-8">
+      <Box className="mx-auto mb-4 flex w-full max-w-6xl gap-8 rounded-lg">
         <Paper className="relative mr-12 w-full rounded-lg p-8 shadow-md">
           <Box className="flex items-center gap-6">
             <Typography variant="h5" className="m-0">
