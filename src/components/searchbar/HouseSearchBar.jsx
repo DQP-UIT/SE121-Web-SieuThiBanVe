@@ -36,6 +36,7 @@ const HouseSearchBar = ({
         margin="normal"
         sx={{ minWidth: 120, mx: 1, height: 65 }}
       >
+        <MenuItem value="">Loại nhà</MenuItem>
         {listofkind.map((kind) => (
           <MenuItem key={kind} value={kind}>
             {kind}
@@ -51,6 +52,7 @@ const HouseSearchBar = ({
         margin="normal"
         sx={{ minWidth: 120, mx: 1, height: 65 }}
       >
+        <MenuItem value="">Số tầng</MenuItem>
         {listofflr.map((flr) => (
           <MenuItem key={flr} value={flr}>
             {flr}
@@ -66,6 +68,7 @@ const HouseSearchBar = ({
         margin="normal"
         sx={{ minWidth: 145, mx: 1, height: 65 }}
       >
+        <MenuItem value="">Số phòng ngủ</MenuItem>
         {listofbedrooms.map((bed) => (
           <MenuItem key={bed} value={bed}>
             {bed}
@@ -81,6 +84,7 @@ const HouseSearchBar = ({
         margin="normal"
         sx={{ minWidth: 120, mx: 1, height: 65 }}
       >
+        <MenuItem value="">Chiều dài</MenuItem>
         {listoflength.map((len) => (
           <MenuItem key={len} value={len}>
             {len}
@@ -96,6 +100,7 @@ const HouseSearchBar = ({
         margin="normal"
         sx={{ minWidth: 120, mx: 1, height: 65 }}
       >
+        <MenuItem value="">Chiều rộng</MenuItem>
         {listofwidth.map((wid) => (
           <MenuItem key={wid} value={wid}>
             {wid}

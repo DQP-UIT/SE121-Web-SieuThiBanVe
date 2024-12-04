@@ -33,16 +33,16 @@ const SearchResults = () => {
     // prettier-ignore
     const fetchedProducts = [
         // Mock data
-        // { id: 1, name: "Product 1", img: "image1.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 2, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 3, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 4, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 5, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 6, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 7, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 8, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 9, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
-        // { id: 10, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 1, name: "Product 1", img: "image1.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 2, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 3, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 4, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 5, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 6, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 7, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 8, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 9, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
+        { id: 10, name: "Product 2", img: "image2.jpg", tang: 2, phongngu: 3, dientich: 100, price: 1000000 },
         // Add more mock products as needed
       ];
 
