@@ -19,9 +19,9 @@ const FengShui = () => {
   };
 
   return (
-    <div>
-      <div className="mt-8 flex items-center justify-center">
-        <div className="relative h-[680px] w-[600px]">
+    <div className="w-full">
+      <div className="flex items-center justify-center">
+        <div className="relative mt-8 flex items-center justify-center h-[680px] w-[600px]">
           <div className="absolute left-[8px] top-0 h-16 w-[400px] font-['Inter'] text-4xl font-semibold text-black">
             Xem tuổi làm nhà
           </div>
@@ -35,7 +35,7 @@ const FengShui = () => {
           <div className="absolute left-[100px] top-[600px]">
             <button
               onClick={handleSubmit}
-              className="h-12 w-[300px] rounded-[10px] bg-[#6c95fc] text-xl font-normal text-black hover:bg-[#5a7de0] focus:outline-none focus:ring-2 focus:ring-[#5a7de0] focus:ring-opacity-50"
+              className="h-12 w-[300px] rounded-[10px] bg-[#6c95fc] text-xl font-semibold text-white hover:bg-[#5a7de0] focus:outline-none focus:ring-2 focus:ring-[#5a7de0] focus:ring-opacity-50"
             >
               Xem ngay
             </button>
