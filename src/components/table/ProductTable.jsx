@@ -2,168 +2,136 @@ import React from "react";
 
 const ProductTable = ({ product }) => {
   return (
-    <div className="relative w-2/3 shadow-md">
+    <div className="w-2/3 shadow-md">
       <div className="pb-5">
-        <span className="text-2xl font-medium">Thông tin bản vẽ</span>
+        <span className="text-2xl font-semibold">Thông số bản vẽ</span>
       </div>
       <div className="relative z-10 flex overflow-x-auto shadow-md">
-        <table className="w-full min-w-fit text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+        <table className="w-full text-left text-sm text-gray-500">
           <tbody>
             <tr>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/uil_layer-group.svg"
-                  alt="Product ID"
-                  className="object-fill"
+                  alt="Số tầng"
+                  className="h-6 w-6"
                 />
-              </th>
-              <th
-                scope="row"
-                className="whitespace-nowrap bg-gray-300 font-medium text-gray-900"
-              >
-                Số tầng
-              </th>
-              <td className="bg-gray-300 text-gray-900">
-                {product.floor} {/* Sử dụng floor từ API */}
+                <span className="font-medium text-gray-900">Số tầng</span>
               </td>
-              <th className="w-5"></th>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
-                <img
-                  src="/la_bed.svg"
-                  alt="Product Name"
-                  className="object-fill"
-                />
-              </th>
-              <td className="bg-gray-300 py-2 font-medium text-gray-900">
-                Phòng ngủ
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.floor}
               </td>
-              <td className="bg-gray-300 py-2 text-gray-900">
-                {product.numberBedRoom} {/* Sử dụng numberBedRoom từ API */}
+              <td className="w-8"></td>
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
+                <img src="/la_bed.svg" alt="Phòng ngủ" className="h-6 w-6" />
+                <span className="font-medium text-gray-900">Phòng ngủ</span>
+              </td>
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.numberBedRoom}
               </td>
             </tr>
+
             <tr>
-              <th scope="row" className="w-fit bg-white px-4 py-2">
+              <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/mynaui_rectangle-vertical.svg"
-                  alt="Category"
-                  className="object-fill"
+                  alt="Diện tích"
+                  className="h-6 w-6"
                 />
-              </th>
-              <th
-                scope="row"
-                className="whitespace-nowrap bg-white py-2 font-medium text-gray-900"
-              >
-                Diện tích
-              </th>
-              <td className="bg-white py-2 text-gray-900">
-                {product.square} {/* Sử dụng square từ API */}
+                <span className="font-medium text-gray-900">Diện tích</span>
               </td>
-              <th className="w-5"></th>
-              <th scope="row" className="w-fit bg-white px-4 py-2">
+              <td className="bg-white px-4 py-2 text-gray-900">
+                {product.square}
+              </td>
+              <td className="w-8"></td>
+              <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/hugeicons_web-design-01.svg"
-                  alt="Price"
-                  className="object-fill"
+                  alt="Mặt tiền"
+                  className="h-6 w-6"
                 />
-              </th>
-              <td className="bg-white py-2 font-medium text-gray-900">
-                Mặt tiền
+                <span className="font-medium text-gray-900">Mặt tiền</span>
               </td>
-              <td className="bg-white py-2 text-gray-900">
-                {product.frontage} {/* Sử dụng frontage từ API */}
+              <td className="bg-white px-4 py-2 text-gray-900">
+                {product.frontage}
               </td>
             </tr>
+
             <tr>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/hugeicons_square.svg"
-                  alt="Stock"
-                  className="object-fill"
+                  alt="Dài x Rộng"
+                  className="h-6 w-6"
                 />
-              </th>
-              <th
-                scope="row"
-                className="whitespace-nowrap bg-gray-300 py-2 font-medium text-gray-900"
-              >
-                Dài x Rộng
-              </th>
-              <td className="bg-gray-300 py-2 text-gray-900">
-                {product.size} {/* Sử dụng length từ API */}
+                <span className="font-medium text-gray-900">Dài x Rộng</span>
               </td>
-              <th className="w-5"></th>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.size}
+              </td>
+              <td className="w-8"></td>
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/ph_house-line.svg"
-                  alt="Supplier"
-                  className="object-fill"
+                  alt="Loại hình"
+                  className="h-6 w-6"
                 />
-              </th>
-              <td className="bg-gray-300 py-2 font-medium text-gray-900">
-                Loại hình
+                <span className="font-medium text-gray-900">Loại hình</span>
               </td>
-              <td className="bg-gray-300 py-2 text-gray-900">
-                {product.productType?.name}{" "}
-                {/* Sử dụng productType.name từ API */}
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.productType?.name}
               </td>
             </tr>
+
             <tr>
-              <th scope="row" className="w-fit bg-white px-4 py-2">
+              <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/hugeicons_web-design-02.svg"
-                  alt="SKU"
-                  className="object-fill"
+                  alt="Phong cách"
+                  className="h-6 w-6"
                 />
-              </th>
-              <th
-                scope="row"
-                className="whitespace-nowrap bg-white py-2 font-medium text-gray-900"
-              >
-                Phong cách
-              </th>
-              <td className="bg-white py-2 text-gray-900">
-                {product.style} {/* Sử dụng style từ API */}
+                <span className="font-medium text-gray-900">Phong cách</span>
               </td>
-              <th className="w-5"></th>
-              <th scope="row" className="w-fit bg-white px-4 py-2">
+              <td className="bg-white px-4 py-2 text-gray-900">
+                {product.style}
+              </td>
+              <td className="w-8"></td>
+              <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/formkit_dollar.svg"
-                  alt="Weight"
-                  className="object-fill"
+                  alt="Chi phí"
+                  className="h-6 w-6"
                 />
-              </th>
-              <td className="bg-white py-2 font-medium text-gray-900">
-                Chi phí
+                <span className="font-medium text-gray-900">Chi phí</span>
               </td>
-              <td className="bg-white py-2 text-gray-900">
-                {product.cost} {/* Sử dụng cost từ API */}
+              <td className="bg-white px-4 py-2 text-gray-900">
+                {product.cost}
               </td>
             </tr>
+
             <tr>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/ph_info.svg"
-                  alt="Dimensions"
-                  className="object-fill"
+                  alt="Thiết kế bởi"
+                  className="h-6 w-6"
                 />
-              </th>
-              <th
-                scope="row"
-                className="whitespace-nowrap bg-gray-300 py-2 font-medium text-gray-900"
-              >
-                Thiết kế bởi
-              </th>
-              <td className="bg-gray-300 py-2 text-gray-900">
-                {product.designedBy} {/* Sử dụng designedBy từ API */}
+                <span className="font-medium text-gray-900">Thiết kế bởi</span>
               </td>
-              <th className="w-5"></th>
-              <th scope="row" className="w-fit bg-gray-300 px-4 py-2">
-                <img src="/mdi_pound.svg" alt="Color" className="object-fill" />
-              </th>
-              <td className="bg-gray-300 py-2 font-medium text-gray-900">
-                Mã sản phẩm
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.designedBy}
               </td>
-              <td className="bg-gray-300 py-2 text-gray-900">
-                {product.id} {/* Sử dụng id từ API */}
+              <td className="w-8"></td>
+              <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
+                <img
+                  src="/mdi_pound.svg"
+                  alt="Mã sản phẩm"
+                  className="h-6 w-6"
+                />
+                <span className="font-medium text-gray-900">Mã sản phẩm</span>
+              </td>
+              <td className="bg-gray-300 px-4 py-2 text-gray-900">
+                {product.id}
               </td>
             </tr>
           </tbody>

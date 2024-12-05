@@ -7,7 +7,6 @@ import {
   chuyenDoiNamAmLich,
   getCungMenh,
 } from "./FengShuiAlgorithm";
-import Header from "../../components/header/Header";
 
 const FengShuiResult = () => {
   const location = useLocation();
@@ -43,8 +42,8 @@ const FengShuiResult = () => {
 
   return (
     <div>
-      <div className="mt-8 flex items-center justify-center">
-        <div className="relative h-auto w-[600px] rounded-lg bg-white p-4 shadow-lg">
+      <div className=" flex items-center justify-center">
+        <div className="relative mt-8 mb-8 h-auto w-[600px] rounded-lg bg-white p-4 shadow-lg">
           <div className="mb-4 text-center font-['Inter'] text-3xl font-semibold text-black">
             Xem tuổi làm nhà
           </div>

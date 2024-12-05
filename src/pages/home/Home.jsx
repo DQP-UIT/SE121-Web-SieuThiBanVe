@@ -168,8 +168,8 @@ const Home = () => {
             className="so-dien-thoai-lien-lac"
             placeholder="Số điện thoại liên lạc"
           />
-          <div class="button-container">
-            <button class="custom-button">Liên hệ ngay</button>
+          <div className="button-container">
+            <button className="custom-button">Liên hệ ngay</button>
           </div>
         </div>
       </div>
