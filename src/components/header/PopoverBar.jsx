@@ -5,7 +5,7 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 const PopoverBar = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row bg-gradient-to-br from-light-blue-200 to-purple-200 p-4">
+    <div className="flex flex-row bg-gradient-to-b from-light-blue-200 to-purple-100 p-4">
       <div className="grow"></div>
       <div className="min-w-fit basis-1/12 text-center">
         <span

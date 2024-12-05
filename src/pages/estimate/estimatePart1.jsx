@@ -62,13 +62,13 @@ function DuToanChiPhi() {
     "Vĩnh Phúc",
     "Yên Bái",
   ];
-  const loaiCongTrinhOptions = ["Nhà phố", "Biệt thự", "Căn hộ", "Nhà cấp 4"];
+  const loaiCongTrinhOptions = ["Nhà phố", "Biệt thự", "Nhà cấp 4"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Địa điểm:", diaDiem);
     console.log("Loại công trình:", loaiCongTrinh);
-    // Ở đây bạn có thể thực hiện các logic xử lý dữ liệu, chẳng hạn như gửi dữ liệu lên server
+    navigate(`/estimatePart2?diaDiem=${diaDiem}&loaiCongTrinh=${loaiCongTrinh}`)
   };
 
   return (
@@ -107,7 +107,7 @@ function DuToanChiPhi() {
         </select>
 
         <button className="buttontype" type="submit" onClick={()=>{
-          navigate(`/estimatePart2`)
+          handleSubmit();
         }}>
           Dự toán chi phí
         </button>

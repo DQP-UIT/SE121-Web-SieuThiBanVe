@@ -4,11 +4,15 @@ import Footer from "../footer/Footer";
 
 const Default = () => {
   return (
-    <div className="w-full h-full bg-gradient-to-tl from-deep-purple-300 to-light-blue-300">
-      <Header />
-      <Outlet />
+    <>
+      <div className="w-full h-full bg-gradient-to-br from-deep-purple-50 to-cyan-50 mix-blend-plus-lighter">
+        <Header />
+        <Outlet />
+      </div>
+      <div className="w-full bg-gradient-to-tr from-deep-purple-700 to-cyan-300">
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 
