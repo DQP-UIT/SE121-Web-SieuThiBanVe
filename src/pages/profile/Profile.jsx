@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../store";
 import moment from "moment";
+import { useNavigate } from "react-router-dom"; // Thêm dòng này
 import {
   Container,
   Paper,
@@ -26,9 +27,13 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [showCreateProductForm, setShowCreateProductForm] = useState(false);
 
+  const handleAddAcc = () => {
+    navigate("/addacc"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -42,7 +47,7 @@ const Profile = () => {
   return (
     <Container maxWidth={false} sx={{ py: 4, width: "100%" }}>
       <Box className="mx-auto flex w-full max-w-6xl gap-8">
-        <Paper className="relative w-3/4 rounded-lg p-8 mr-12 shadow-md">
+        <Paper className="relative mr-12 w-3/4 rounded-lg p-8 shadow-md">
           <Box className="flex items-center gap-6">
             <Box className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
               <input
@@ -166,6 +171,7 @@ const Profile = () => {
                 Quản lý tài khoản
               </Button>
               <Button
+                onClick={handleAddAcc}
                 fullWidth
                 variant="contained"
                 sx={{
