@@ -34,6 +34,9 @@ const Profile = () => {
   const handleAddAcc = () => {
     navigate("/addacc"); // Chuyển hướng đến trang /
   };
+  const handleAccount = () => {
+    navigate("/account"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -153,6 +156,7 @@ const Profile = () => {
           {user.role === "admin" ? (
             <>
               <Button
+                onClick={handleAccount}
                 fullWidth
                 variant="contained"
                 sx={{

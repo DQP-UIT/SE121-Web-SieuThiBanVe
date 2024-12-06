@@ -5,12 +5,14 @@ export const useAuth = create(
   persist(
     (set, get) => ({
       user: undefined,
+      token: undefined, // Lưu token vào trạng thái
       setUser: (user: any) => set({ user }),
-      logout: () => set({ user: undefined, token: undefined }),
+      setToken: (token: string) => set({ token }), // Hàm để lưu token
+      logout: () => set({ user: undefined, token: undefined }), // Xóa user và token khi logout
     }),
     {
-      name: "auth-storage", // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+      name: "auth-storage", // tên của item trong storage
+      storage: createJSONStorage(() => sessionStorage), // Sử dụng sessionStorage để lưu trữ
     },
   ),
 );
