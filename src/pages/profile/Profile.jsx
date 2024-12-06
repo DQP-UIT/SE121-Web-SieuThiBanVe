@@ -37,6 +37,9 @@ const Profile = () => {
   const handleAccount = () => {
     navigate("/account"); // Chuyển hướng đến trang /
   };
+  const handleRevenue = () => {
+    navigate("/revenue"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -194,6 +197,7 @@ const Profile = () => {
                 Thêm người dùng
               </Button>
               <Button
+                onClick={handleRevenue}
                 fullWidth
                 variant="contained"
                 sx={{
