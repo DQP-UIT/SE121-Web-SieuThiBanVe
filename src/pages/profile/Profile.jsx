@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../store";
 import moment from "moment";
+import { useNavigate } from "react-router-dom"; // Thêm dòng này
 import {
   Container,
   Paper,
@@ -26,9 +27,28 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [showCreateProductForm, setShowCreateProductForm] = useState(false);
 
+  const handleAddAcc = () => {
+    navigate("/addacc"); // Chuyển hướng đến trang /
+  };
+  const handleAccount = () => {
+    navigate("/account"); // Chuyển hướng đến trang /
+  };
+  const handleRevenue = () => {
+    navigate("/revenue"); // Chuyển hướng đến trang /
+  };
+  const handleAddDrawing = () => {
+    navigate("/adddrawing"); // Chuyển hướng đến trang /
+  };
+  const handleDrawingManagement = () => {
+    navigate("/drawingmanagement"); // Chuyển hướng đến trang /
+  };
+  const handleOrderManageMent = () => {
+    navigate("/ordermanagement"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -42,7 +62,7 @@ const Profile = () => {
   return (
     <Container maxWidth={false} sx={{ py: 4, width: "100%" }}>
       <Box className="mx-auto flex w-full max-w-6xl gap-8">
-        <Paper className="relative w-3/4 rounded-lg p-8 mr-12 shadow-md">
+        <Paper className="relative mr-12 w-3/4 rounded-lg p-8 shadow-md">
           <Box className="flex items-center gap-6">
             <Box className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
               <input
@@ -148,6 +168,7 @@ const Profile = () => {
           {user.role === "admin" ? (
             <>
               <Button
+                onClick={handleAccount}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -166,6 +187,7 @@ const Profile = () => {
                 Quản lý tài khoản
               </Button>
               <Button
+                onClick={handleAddAcc}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -184,6 +206,7 @@ const Profile = () => {
                 Thêm người dùng
               </Button>
               <Button
+                onClick={handleRevenue}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -205,6 +228,7 @@ const Profile = () => {
           ) : (
             <>
               <Button
+                onClick={handleAddDrawing}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -223,6 +247,7 @@ const Profile = () => {
                 Đăng bản vẽ mới
               </Button>
               <Button
+                onClick={handleDrawingManagement}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -241,6 +266,7 @@ const Profile = () => {
                 Quản lý bản vẽ
               </Button>
               <Button
+                onClick={handleOrderManageMent}
                 fullWidth
                 variant="contained"
                 sx={{

@@ -17,7 +17,7 @@ const LoginForm = ({ onClose }) => {
     email: "",
     password: "",
   });
-  const { setUser } = useAuth();
+  const { setUser, setToken } = useAuth();
   const formRef = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -125,6 +125,7 @@ const LoginForm = ({ onClose }) => {
                   ...account,
                 });
                 setUser(res.data.user);
+                setToken(res.data.accessToken); // Lưu token vào Zustand
                 localStorage.setItem("token", res.data.accessToken);
                 Swal.fire("Success", "Đăng nhập thành công", "success");
                 onClose();
