@@ -29,7 +29,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axiosInstance
-      .get("product", { params: { page: 1, pageSize: 8 } })
+      .get("product", { params: { page: 1, pageSize: 100 } })
       .then((res) => {
         setProducts(
           res.data.data.map((v) => ({
@@ -53,14 +53,42 @@ const Home = () => {
     email: "john.doe@example.com",
     phoneNumber: "123-456-7890",
   };
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  // Hàm xử lý thay đổi trong input
+  const handleInputChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+  // Hàm gọi API khi người dùng nhấn nút "Liên hệ ngay"
+  const handleContactSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phoneNumber }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Contact saved:", data);
+        alert("Liên hệ thành công, chúng tôi sẽ gọi lại bạn sớm!");
+      } else {
+        console.error("Error:", response.status);
+        alert("Có lỗi xảy ra, vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Có lỗi xảy ra, vui lòng thử lại.");
+    }
+  };
+
   return (
-    <div className="w-full h-full bg-transparent">
-      <div className="min-h-full h-full">
+    <div className="h-full w-full bg-transparent">
+      <div className="h-full min-h-full">
         <div className="flex w-full flex-auto items-center justify-center">
-          <img
-            src="src/assets/HomePott.svg"
-            className="w-full object-fill"
-          />
+          <img src="src/assets/HomePott.svg" className="w-full object-fill" />
         </div>
         <SuggestCardList />
         <div className="pl-20">
@@ -167,9 +195,13 @@ const Home = () => {
             type="tel"
             className="so-dien-thoai-lien-lac"
             placeholder="Số điện thoại liên lạc"
+            value={phoneNumber}
+            onChange={handleInputChange}
           />
           <div className="button-container">
-            <button className="custom-button">Liên hệ ngay</button>
+            <button className="custom-button" onClick={handleContactSubmit}>
+              Liên hệ ngay
+            </button>
           </div>
         </div>
       </div>

@@ -1,55 +1,45 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { VariableSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import UserTag from "./UserTag";
+import { useAuth } from "../../../store"; // Import store để lấy token
 
 const AccountMG = () => {
-  const [userlist, setUserlist] = useState([
-    {
-      id: "1",
-      fullName: "John Doe",
-      dob: "1990-01-01",
-      activatedDate: "2020-01-01",
-      email: "john.doe@example.com",
-      phonenumber: "1234567890",
-      designs: 5,
-      role: "user",
-    },
-    {
-      id: "2",
-      fullName: "Jane Smith",
-      dob: "1985-05-15",
-      activatedDate: "2019-05-15",
-      email: "jane.smith@example.com",
-      phonenumber: "0987654321",
-      designs: 3,
-      role: "user",
-    },
-    {
-      id: "3",
-      fullName: "Jane Smith",
-      dob: "1985-05-15",
-      activatedDate: "2019-05-15",
-      email: "jane.smith@example.com",
-      phonenumber: "0987654321",
-      designs: 3,
-      role: "user",
-    },
-    {
-      id: "4",
-      fullName: "Jane Smith",
-      dob: "1985-05-15",
-      activatedDate: "2019-05-15",
-      email: "jane.smith@example.com",
-      phonenumber: "0987654321",
-      designs: 3,
-      role: "user",
-    },
-  ]);
-
+  const { token } = useAuth(); // Lấy token từ Zustand store
+  const [userlist, setUserlist] = useState([]);
+  const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
+  const [error, setError] = useState(null); // Trạng thái lỗi
   const [editingStates, setEditingStates] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const listRef = useRef();
+
+  // Hàm để gọi API và lấy dữ liệu người dùng
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/user", {
+          method: "GET",
+          headers: {
+            Accept: "*/*",
+            Authorization: `Bearer ${token}`, // Thêm token vào header
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Không thể lấy dữ liệu từ API");
+        }
+
+        const data = await response.json();
+        setUserlist(data.data || []); // Cập nhật danh sách người dùng
+        setLoading(false); // Thay đổi trạng thái sau khi dữ liệu đã được tải
+      } catch (error) {
+        setError(error.message); // Cập nhật trạng thái lỗi
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const filteredUserList = userlist.filter((user) =>
     user.fullName.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -93,6 +83,15 @@ const AccountMG = () => {
       </div>
     );
   };
+
+  // Hiển thị loading hoặc lỗi nếu có
+  if (loading) {
+    return <div>Đang tải dữ liệu...</div>;
+  }
+
+  if (error) {
+    return <div>Đã xảy ra lỗi: {error}</div>;
+  }
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>

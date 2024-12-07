@@ -26,7 +26,7 @@ const ProductList = ({ products }) => {
         className="product-list"
         columnCount={columnCount}
         columnWidth={getColumnWidth}
-        height={window.innerHeight*1.2}
+        height={window.innerHeight * 1.2}
         rowCount={rowCount}
         rowHeight={getRowHeight}
         width={totalWidth}

@@ -1,54 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../store"; // Import useAuth từ zustand
+import axiosInstance from "../../axios";
 import ProductList from "../../components/productlist/ProductList";
 
-export default function DrawingManagement() {
-  const styles = {
-    container: {
-      fontFamily: "'Arial', sans-serif",
-      margin: "20px",
-    },
-    header: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      marginBottom: "20px",
-    },
-  };
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      img: "https://via.placeholder.com/150",
-      tang: 2,
-      phongngu: 3,
-      dientich: 120,
-      price: 1000000,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      img: "https://via.placeholder.com/150",
-      tang: 3,
-      phongngu: 4,
-      dientich: 150,
-      price: 2000000,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      img: "https://via.placeholder.com/150",
-      tang: 1,
-      phongngu: 2,
-      dientich: 90,
-      price: 1500000,
-    },
-  ];
+const DrawingManagement = () => {
+  const { user } = useAuth(); // Lấy thông tin người dùng từ useAuth
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Kiểm tra nếu user đã có thông tin (đã đăng nhập)
+    if (user && user.id) {
+      // Gọi API với user.id từ useAuth
+      axiosInstance
+        .get(`http://localhost:8000/api/v1/product/user/${user.id}`) // Sử dụng user.id thay vì hardcode
+        .then((res) => {
+          // Dữ liệu trả về từ API, cập nhật vào state
+          setProducts(
+            res.data.map((v) => ({
+              id: v.id,
+              name: v.name,
+              img: v.images[0] || "https://via.placeholder.com/150", // Nếu không có ảnh, hiển thị placeholder
+              tang: v.floor,
+              phongngu: v.numberBedRoom,
+              dientich: v.square,
+              price: v.cost,
+            })),
+          );
+        })
+        .catch((err) => {
+          // In lỗi nếu có sự cố
+          console.error("Error fetching products:", err);
+        });
+    }
+  }, [user]); // Mỗi khi user thay đổi (đăng nhập/đăng xuất), sẽ gọi lại API
+
+  // Nếu người dùng chưa đăng nhập, có thể hiển thị một thông báo hoặc redirect
+  if (!user) {
+    return <div>Vui lòng đăng nhập để xem bản vẽ của bạn.</div>;
+  }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>Quản lý bản vẽ</div>
-      <div className="justify-left flex w-full min-w-fit items-center pt-10">
+    <div className="h-full min-h-full">
+      <div className="pl-20">
+        <span className="font-mono text-3xl font-semibold">Quản lý bản vẽ</span>
+      </div>
+      <div className="flex w-full min-w-fit items-center justify-center pt-10">
         <ProductList products={products} />
       </div>
     </div>
   );
-}
+};
+
+export default DrawingManagement;

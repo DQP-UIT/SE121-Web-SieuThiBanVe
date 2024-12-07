@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Header from "../../components/header/Header";
 import Carousel from "../../components/carousel/Carousel";
 import ProductTable from "../../components/table/ProductTable";
@@ -8,8 +8,10 @@ import axios from "axios";
 import ImageLoader from "./ImageLoader";
 import test3d1 from "../../assets/test3d_1.jpg";
 import test3d2 from "../../assets/testpic3d.jpg";
+import { useAuth } from "../../store";
 
 const Info = () => {
+  const { user } = useAuth();
   // State lưu trữ thông tin sản phẩm
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true); // Để hiển thị trạng thái loading
@@ -17,7 +19,12 @@ const Info = () => {
 
   // Lấy id từ URL
   const { id } = useParams();
+  const [userId, setUserId] = useState(null); //fake của chủ bản vẽ
+  const location = useLocation(); // Lấy thông tin URL hiện tại
 
+  useEffect(() => {
+    setUserId(8); // Cập nhật userId thành 8
+  }, []); // Dùng useEffect để chỉ chạy một lần khi component mount
   // Dữ liệu giả
   const fakeProduct = {
     name: "Sản phẩm giả",
@@ -60,6 +67,12 @@ const Info = () => {
     fetchProduct(); // Gọi hàm fetch khi component mount
   }, [id]); // Chạy lại khi id thay đổi
 
+  // Kiểm tra URL có phải là đường dẫn yêu cầu hay không
+  // Kiểm tra xem đường dẫn có bắt đầu bằng "/drawingmanagement/product"
+  const shouldHideContactCard = location.pathname.startsWith(
+    "/drawingmanagement/product",
+  );
+
   // Hiển thị loading hoặc lỗi
   if (loading) {
     return <div>Loading...</div>;
@@ -86,7 +99,11 @@ const Info = () => {
           <Carousel imglist={product.images} />
         </div>
         <div>
-          <ContactCard product={product} />
+          {/* Truyền id vào ContactCard */}
+          {/* Chỉ hiển thị ContactCard nếu đường dẫn không phải là "/drawingmanagement/product/11" */}
+          {!shouldHideContactCard && (
+            <ContactCard product={product} productId={id} userId={userId} />
+          )}
         </div>
       </div>
       <div className="ml-8 mt-6 w-2/3">
