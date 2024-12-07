@@ -48,6 +48,10 @@ export const AppRoutes = createBrowserRouter([
         element: <FileUploader3d />,
       },
       {
+        path: "drawingmanagement/product/:id",
+        element: <Info />,
+      },
+      {
         path: "product/:id",
         element: <Info />,
       },
