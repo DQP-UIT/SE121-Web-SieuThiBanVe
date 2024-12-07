@@ -21,11 +21,10 @@ const EstimatePart2 = () => {
   const diaDiem = params.get("diaDiem");
   const loaiCongTrinh = params.get("loaiCongTrinh");
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Dia Diem: ", diaDiem);
     console.log("Cong Trinh: ", loaiCongTrinh);
-    
-  })
+  });
   const [formData, setFormData] = useState({
     dienTichDat: null, // number
     dienTichXayDungTang1: null, // number
@@ -136,7 +135,7 @@ const EstimatePart2 = () => {
                       <MenuItem value={true}>Dùng thang máy</MenuItem>
                     </Select>
                   </FormControl>
-                  {formData.thangMay === "Dùng thang máy" && (
+                  {formData.thangMay === true && (
                     <TextField
                       fullWidth
                       label="Số điểm dừng thang máy"
@@ -169,7 +168,7 @@ const EstimatePart2 = () => {
                       <MenuItem value={true}>Có</MenuItem>
                     </Select>
                   </FormControl>
-                  {formData.tangHam === "có" && (
+                  {formData.tangHam === true && (
                     <TextField
                       fullWidth
                       label="Diện tích tầng hầm (m²)"
@@ -202,7 +201,7 @@ const EstimatePart2 = () => {
                       <MenuItem value={true}>Có hồ bơi</MenuItem>
                     </Select>
                   </FormControl>
-                  {formData.hoBoi === "Có hồ bơi" && (
+                  {formData.hoBoi === true && (
                     <TextField
                       fullWidth
                       label="Diện tích hồ bơi (m²)"
@@ -222,19 +221,44 @@ const EstimatePart2 = () => {
                 spacing={3}
                 sx={{ mb: 3 }}
               >
-                <FormControl fullWidth>
-                  <InputLabel>Mặt tiền</InputLabel>
-                  <Select
-                    name="matTien"
-                    value={formData.matTien}
-                    onChange={handleChange}
-                    label="Mặt tiền"
-                  >
-                    <MenuItem value={1}>Một mặt tiền</MenuItem>
-                    <MenuItem value={2}>Hai mặt tiền</MenuItem>
-                    <MenuItem value={3}>Ba mặt tiền</MenuItem>
-                  </Select>
-                </FormControl>
+                {loaiCongTrinh !== "Biệt thự" ? (
+                  <FormControl fullWidth>
+                    <InputLabel>Mặt tiền</InputLabel>
+                    <Select
+                      name="matTien"
+                      value={formData.matTien}
+                      onChange={handleChange}
+                      label="Mặt tiền"
+                    >
+                      <MenuItem value={1}>Một mặt tiền</MenuItem>
+                      <MenuItem value={2}>Hai mặt tiền</MenuItem>
+                      <MenuItem value={3}>Ba mặt tiền</MenuItem>
+                    </Select>
+                  </FormControl>
+                ) : (
+                  <FormControl fullWidth>
+                    <InputLabel>Vị trí nhà</InputLabel>
+                    <Select
+                      name="viTriNha"
+                      value={formData.ketCauMong}
+                      onChange={handleChange}
+                      label="Vị trí nhà"
+                    >
+                      <MenuItem value="nhà giữa khu đất">
+                        Nhà giữa khi đất
+                      </MenuItem>
+                      <MenuItem value="1 cạnh giáp với hàng xóm">
+                        1 cạnh giáp với hàng xóm
+                      </MenuItem>
+                      <MenuItem value="2 cạnh giáp với hàng xóm">
+                        2 cạnh giáp với hàng xóm
+                      </MenuItem>
+                      <MenuItem value="3 cạnh giáp với hàng xóm">
+                        3 cạnh giáp với hàng xóm
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                )}
                 <FormControl fullWidth>
                   <InputLabel>Kết cấu móng</InputLabel>
                   <Select
@@ -264,22 +288,52 @@ const EstimatePart2 = () => {
                     <MenuItem value="đường trên 3m">Đường trên 3m</MenuItem>
                   </Select>
                 </FormControl>
-                <FormControl fullWidth>
-                  <InputLabel>Nhà lân cận</InputLabel>
-                  <Select
-                    name="nhaLanCan"
-                    value={formData.nhaLanCan}
-                    onChange={handleChange}
-                    label="Nhà lân cận"
-                  >
-                    <MenuItem value="hai bên có nhà">Hai bên có nhà</MenuItem>
-                    <MenuItem value="bên trái có nhà">Bên trái có nhà</MenuItem>
-                    <MenuItem value="bên phải có nhà">Bên phải có nhà</MenuItem>
-                    <MenuItem value="hai bên không có nhà">
-                      Hai bên không có nhà
-                    </MenuItem>
-                  </Select>
-                </FormControl>
+                {/* Nhà phố & Nhà cấp 4 */}
+                {loaiCongTrinh !== "Biệt thự" ? (
+                  <FormControl fullWidth>
+                    <InputLabel>Nhà lân cận</InputLabel>
+                    <Select
+                      name="nhaLanCan"
+                      value={formData.nhaLanCan}
+                      onChange={handleChange}
+                      label="Nhà lân cận"
+                    >
+                      <MenuItem value="hai bên có nhà">Hai bên có nhà</MenuItem>
+                      <MenuItem value="bên trái có nhà">
+                        Bên trái có nhà
+                      </MenuItem>
+                      <MenuItem value="bên phải có nhà">
+                        Bên phải có nhà
+                      </MenuItem>
+                      <MenuItem value="hai bên không có nhà">
+                        Hai bên không có nhà
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                ) : (
+                  <FormControl fullWidth>
+                    <InputLabel>Sân vườn</InputLabel>
+                    <Select
+                      name="sanVuon"
+                      value={formData.nhaLanCan}
+                      onChange={handleChange}
+                      label="Sân vườn"
+                    >
+                      <MenuItem value="hơn 60% diện tích là cây xanh">
+                        hơn 60% diện tích là cây xanh
+                      </MenuItem>
+                      <MenuItem value="hơn 80% diện tích là cây xanh">
+                        hơn 80% diện tích là cây xanh
+                      </MenuItem>
+                      <MenuItem value="hơn 60% diện tích lát nền hoặc thảm bê tông">
+                        hơn 80% diện tích lát nền hoặc thảm bê tông
+                      </MenuItem>
+                      <MenuItem value="hơn 80% diện tích lát nền hoặc thảm bê tông">
+                        hơn 80% diện tích lát nền hoặc thảm bê tông
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                )}
               </Stack>
 
               <Alert severity="info">
@@ -293,13 +347,28 @@ const EstimatePart2 = () => {
                 variant="contained"
                 size="large"
                 sx={{
-                  width: "100%",
+                  width: "fit-content",
                   py: 1.5,
                   bgcolor: "primary.main",
                   "&:hover": { bgcolor: "primary.dark" },
                 }}
               >
-                Tính toán chi phí
+                Tính ngay
+              </Button>
+              <Button
+                type="button"
+                variant="contained"
+                size="large"
+                sx={{
+                  width: "fit-content",
+                  py: 1.5,
+                  bgcolor: "white",
+                  "&:hover": { border: "solid black 2px", bgcolor: "white" },
+                  border: "solid black 1px",
+                  color: "black",
+                }}
+              >
+                Nhập lại
               </Button>
             </Box>
           </form>
