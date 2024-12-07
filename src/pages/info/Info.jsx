@@ -17,7 +17,10 @@ const Info = () => {
 
   // Lấy id từ URL
   const { id } = useParams();
-
+  const [userId, setUserId] = useState(null); //fake của chủ bản vẽ
+  useEffect(() => {
+    setUserId(8); // Cập nhật userId thành 8
+  }, []); // Dùng useEffect để chỉ chạy một lần khi component mount
   // Dữ liệu giả
   const fakeProduct = {
     name: "Sản phẩm giả",
@@ -86,7 +89,8 @@ const Info = () => {
           <Carousel imglist={product.images} />
         </div>
         <div>
-          <ContactCard product={product} />
+          {/* Truyền id vào ContactCard */}
+          <ContactCard product={product} productId={id} userId={userId} />
         </div>
       </div>
       <div className="ml-8 mt-6 w-2/3">

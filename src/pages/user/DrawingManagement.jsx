@@ -1,54 +1,67 @@
-import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Header from "../../components/header/Header";
 import ProductList from "../../components/productlist/ProductList";
+import React, { useEffect, useState } from "react";
+import SuggestCardList from "../../components/card/SuggestCardList";
+import axiosInstance from "../../axios";
 
-export default function DrawingManagement() {
-  const styles = {
-    container: {
-      fontFamily: "'Arial', sans-serif",
-      margin: "20px",
-    },
-    header: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      marginBottom: "20px",
-    },
-  };
-  const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      img: "https://via.placeholder.com/150",
-      tang: 2,
-      phongngu: 3,
-      dientich: 120,
-      price: 1000000,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      img: "https://via.placeholder.com/150",
-      tang: 3,
-      phongngu: 4,
-      dientich: 150,
-      price: 2000000,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      img: "https://via.placeholder.com/150",
-      tang: 1,
-      phongngu: 2,
-      dientich: 90,
-      price: 1500000,
-    },
+const DrawingManagement = () => {
+  const images = [
+    "/formkit_dollar.svg",
+    "/formkit_dollar.svg",
+    "/formkit_dollar.svg",
+    "/formkit_dollar.svg",
+    // Thêm các URL ảnh khác vào đây
+  ];
+  const inURL = "entypo_login.svg";
+  const imglist = [
+    "react.svg",
+    "react.svg",
+    "react.svg",
+    "solar_home-bold.svg",
+    "react.svg",
+    "solar_home-bold.svg",
+    "react.svg",
+    "solar_home-bold.svg",
   ];
 
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axiosInstance
+      .get("product", { params: { page: 1, pageSize: 8 } })
+      .then((res) => {
+        setProducts(
+          res.data.data.map((v) => ({
+            id: v.id,
+            name: v.name,
+            img: v.images[0] || "https://via.placeholder.com/150",
+            tang: v.floor,
+            phongngu: v.numberBedRoom,
+            dientich: v.square,
+            price: v.cost,
+          })),
+        );
+      });
+  }, []);
+
+  const user = {
+    _id: "12345",
+    name: "John Doe",
+    birthday: "1990-01-01",
+    numofdesign: 10,
+    email: "john.doe@example.com",
+    phoneNumber: "123-456-7890",
+  };
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>Quản lý bản vẽ</div>
-      <div className="justify-left flex w-full min-w-fit items-center pt-10">
+    <div className="h-full min-h-full">
+      <div className="pl-20">
+        <span className="font-mono text-3xl font-semibold">Quản lý bản vẽ</span>
+      </div>
+      <div className="flex w-full min-w-fit items-center justify-center pt-10">
         <ProductList products={products} />
       </div>
     </div>
   );
-}
+};
+
+export default DrawingManagement;

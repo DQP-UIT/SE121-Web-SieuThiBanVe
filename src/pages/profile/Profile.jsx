@@ -40,6 +40,15 @@ const Profile = () => {
   const handleRevenue = () => {
     navigate("/revenue"); // Chuyển hướng đến trang /
   };
+  const handleAddDrawing = () => {
+    navigate("/adddrawing"); // Chuyển hướng đến trang /
+  };
+  const handleDrawingManagement = () => {
+    navigate("/drawingmanagement"); // Chuyển hướng đến trang /
+  };
+  const handleOrderManageMent = () => {
+    navigate("/ordermanagement"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -219,6 +228,7 @@ const Profile = () => {
           ) : (
             <>
               <Button
+                onClick={handleAddDrawing}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -237,6 +247,7 @@ const Profile = () => {
                 Đăng bản vẽ mới
               </Button>
               <Button
+                onClick={handleDrawingManagement}
                 fullWidth
                 variant="contained"
                 sx={{
@@ -255,6 +266,7 @@ const Profile = () => {
                 Quản lý bản vẽ
               </Button>
               <Button
+                onClick={handleOrderManageMent}
                 fullWidth
                 variant="contained"
                 sx={{

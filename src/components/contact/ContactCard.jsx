@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import axiosInstance from "../../axios";
-import { useAuth } from "../../store";
+import axiosInstance from "../../axios"; // Giả sử axiosInstance là instance đã cấu hình từ trước
 
-const ContactCard = ({ product }) => {
-  const { user } = useAuth();
+const ContactCard = ({ product, productId, userId }) => {
+  // userId sẽ được truyền vào từ props
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
@@ -12,38 +11,43 @@ const ContactCard = ({ product }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  // Hàm xử lý khi gửi thông tin
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess(false);
+    setError(""); // Reset lỗi cũ
+    setSuccess(false); // Reset kết quả thành công
 
-    // Prepare the payload data
+    // Tạo payload dữ liệu gửi đi
     const payload = {
-      name,
-      orderUserName: name,
-      orderPhoneNumber: phone,
-      orderCity: city,
-      orderAdress: `${district}, ${city}`, // Assuming you want to combine district and city
-      userId: user.id, // Replace with actual user ID if needed
-      productId: product.id, // Replace with the correct product ID
-      createAt: new Date().toISOString(), // Use the current time for creation
+      name: name, // Tên người dùng nhập
+      orderUserName: name, // Người dùng nhập tên
+      orderPhoneNumber: phone, // Người dùng nhập số điện thoại
+      orderCity: city, // Người dùng nhập tỉnh thành
+      orderAdress: `${district}, ${city}`, // Kết hợp quận và tỉnh
+      productId: productId, // Lấy ID sản phẩm từ prop
+      userId: userId, // Lấy userId từ prop
+      createAt: new Date().toISOString(), // Sử dụng thời gian hiện tại cho createAt
     };
 
     try {
       const response = await axiosInstance.post(
-        "http://localhost:8000/api/v1/order",
+        "http://localhost:8000/api/v1/order", // Địa chỉ API để tạo đơn hàng
         payload,
       );
-      // Handle the response (e.g., show a success message)
-      console.log(response.data);
-      setSuccess(true);
+
+      // Xử lý phản hồi từ API
+      if (response.status === 201) {
+        setSuccess(true); // Đặt hàng thành công
+      }
+      console.log(response.data); // In dữ liệu trả về từ API
     } catch (error) {
-      // Handle error (e.g., show an error message)
+      // Xử lý khi có lỗi
       console.error("Error:", error);
       setError("Đặt hàng thất bại. Vui lòng thử lại.");
     } finally {
-      setLoading(false);
+      setLoading(false); // Kết thúc quá trình xử lý
     }
   };
 
