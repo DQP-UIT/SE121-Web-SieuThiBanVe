@@ -28,28 +28,28 @@ const ImageLoader = ({ images2dct, images2d, images3d }) => {
   return (
     <div className="w-full">
       <div className="w-2/3 flex flex-col items-center justify-center">
-        {images2dct.map((image, index) => (
+        {images2dct && images2dct.map((image, index) => (
           <img
             key={index}
             src={image}
             alt={`2dct-${index}`}
-            style={{ width: "900px", height: "675px", marginBottom: "10px" }}
+            style={{ width: "900px", height: "675px", marginBottom: "20px" }}
           />
         ))}
-        {showMore &&
+        {showMore && images2d &&
           images2d.map((image, index) => (
             <img
               key={index}
               src={image}
               alt={`2d-${index}`}
-              style={{ width: "900px", height: "450px", marginBottom: "10px" }}
+              style={{ width: "900px", height: "450px", marginBottom: "20px" }}
             />
           ))}
-        {showMore &&
+        {showMore && images3d &&
           processedImages3d.map((image, index) => (
             <div
               key={index}
-              style={{ width: "900px", height: "450px", marginBottom: "10px" }}
+              style={{ width: "900px", height: "450px", marginBottom: "20px" }}
             >
               <Viewer src={image} width="900px" height="450px" />
             </div>

@@ -194,10 +194,10 @@ const RevenueReportPage = () => {
         </Box>
       )}
       <Box mt={4} display="flex" justifyContent="center" gap={12}>
-        <Button variant="contained" color="primary" onClick={exportPDF}>
+        <Button variant="contained" color="primary" onClick={exportPDF} sx={{marginBottom: "16px"}}>
           Export as PDF
         </Button>
-        <Button variant="contained" color="secondary" onClick={exportWord}>
+        <Button variant="contained" color="secondary" onClick={exportWord} sx={{marginBottom: "16px"}}>
           Export as Word
         </Button>
       </Box>

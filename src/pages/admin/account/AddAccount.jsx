@@ -78,6 +78,7 @@ const AddAccount = () => {
           boxShadow: 3,
           borderRadius: 2,
           backgroundColor: "white",
+          marginBottom: "16px",
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
