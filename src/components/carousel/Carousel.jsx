@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Carousel = ({ imglist }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
+
+  useEffect(() => {
+    console.log("imglist:", imglist);
+  }, [imglist]);
 
   // Get first 3 images only
   const visibleImages = imglist.slice(0, 3);
@@ -19,7 +23,7 @@ const Carousel = ({ imglist }) => {
   return (
     <div
       id="indicators-carousel"
-      className="relative h-144 min-h-fit w-160 min-w-fit"
+      className="relative h-144 min-h-fit min-w-fit"
       data-carousel="static"
     >
       {/* Carousel wrapper */}
@@ -33,7 +37,7 @@ const Carousel = ({ imglist }) => {
             data-carousel-item={index === currentIndex ? "active" : ""}
           >
             <img
-              src={img.src}
+              src={img}
               className="absolute block h-full w-full object-fill"
               alt={`Slide ${index + 1}`}
             />
@@ -42,7 +46,7 @@ const Carousel = ({ imglist }) => {
       </div>
 
       {/* Thumbnail indicators */}
-      <div className="mt-4 flex justify-start space-x-2">
+      <div className="mt-4 w-128 flex justify-center space-x-4">
         {visibleImages.map((img, index) => (
           <div
             key={index}
@@ -52,7 +56,7 @@ const Carousel = ({ imglist }) => {
             onClick={() => handleIndicatorClick(index)}
           >
             <img
-              src={img.src}
+              src={img}
               className="h-16 w-16 rounded-lg object-cover"
               alt={`Thumbnail ${index + 1}`}
             />
