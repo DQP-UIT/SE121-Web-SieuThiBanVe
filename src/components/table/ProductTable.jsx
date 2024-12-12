@@ -53,7 +53,7 @@ const ProductTable = ({ product }) => {
                 <span className="font-medium text-gray-900">Mặt tiền</span>
               </td>
               <td className="bg-white px-4 py-2 text-gray-900">
-                {product.frontage}
+                {product.frontAge}
               </td>
             </tr>
 

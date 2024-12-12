@@ -37,7 +37,6 @@ const Info = () => {
         setProduct(response.data.data); // Lưu dữ liệu vào state
         console.log("respone", response.data.data);
         console.log("product", product);
-        
       } catch (err) {
         setError("Có lỗi xảy ra khi tải sản phẩm.");
       } finally {
