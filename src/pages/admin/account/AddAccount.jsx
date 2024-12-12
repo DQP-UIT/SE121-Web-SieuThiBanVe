@@ -3,6 +3,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Thêm dòng này
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 const AddAccount = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -32,6 +33,20 @@ const AddAccount = () => {
     setIsLoading(true);
     setError(null);
 
+    if (/[a-zA-Z]/.test(formData.phonenumber)) {
+      Swal.fire("Error", "Nhập đúng số điện thoại", "error");
+      return;
+    }
+    const selectedDate = new Date(formData.dob);
+    const currentDate = new Date();
+    if (selectedDate > currentDate) {
+      Swal.fire("Error", "Kiểm tra lại ngày sinh", "error");
+      return;
+    }
+    if (formData.password.length < 8) {
+      Swal.fire("Info", "Mật khẩu chứa tối thiểu 8 kí tự", "info");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:8000/api/v1/user", {
         method: "POST",
@@ -57,6 +72,7 @@ const AddAccount = () => {
       });
     } catch (err) {
       setError(err.message);
+      Swal.fire("Error", "Thêm mới không thành công!", "error");
     } finally {
       setIsLoading(false);
     }
@@ -138,18 +154,8 @@ const AddAccount = () => {
         <TextField
           label="Phone Number"
           name="phonenumber"
-          type="phonenumber"
+          type="tel"
           value={formData.phonenumber}
-          onChange={handleChange}
-          margin="normal"
-          fullWidth
-          required
-        />
-        <TextField
-          label="Designs"
-          name="designs"
-          type="designs"
-          value={formData.designs}
           onChange={handleChange}
           margin="normal"
           fullWidth
