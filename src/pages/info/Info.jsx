@@ -37,7 +37,6 @@ const Info = () => {
         setProduct(response.data.data); // Lưu dữ liệu vào state
         console.log("respone", response.data.data);
         console.log("product", product);
-        
       } catch (err) {
         setError("Có lỗi xảy ra khi tải sản phẩm.");
       } finally {
@@ -96,8 +95,8 @@ const Info = () => {
         </span>
         <div className="mt-6 flex w-full flex-auto items-start justify-center">
           <ImageLoader
-            images2dct={product.images1}
             images2d={product.images}
+            images2dct={product.images1}
             images3d={product.images2}
           />
         </div>

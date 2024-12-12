@@ -29,7 +29,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axiosInstance
-      .get("product", { params: { page: 1, pageSize: 100 } })
+      .get("product", { params: { page: 1, pageSize: 8 } })
       .then((res) => {
         setProducts(
           res.data.data.map((v) => ({
