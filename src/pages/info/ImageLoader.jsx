@@ -27,16 +27,18 @@ const ImageLoader = ({ images2dct, images2d, images3d }) => {
 
   return (
     <div className="w-full">
-      <div className="w-2/3 flex flex-col items-center justify-center">
-        {images2dct && images2dct.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`2dct-${index}`}
-            style={{ width: "900px", height: "675px", marginBottom: "20px" }}
-          />
-        ))}
-        {showMore && images2d &&
+      <div className="flex w-2/3 flex-col items-center justify-center">
+        {images2dct &&
+          images2dct.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`2dct-${index}`}
+              style={{ width: "900px", height: "675px", marginBottom: "20px" }}
+            />
+          ))}
+        {showMore &&
+          images2d &&
           images2d.map((image, index) => (
             <img
               key={index}
@@ -45,7 +47,8 @@ const ImageLoader = ({ images2dct, images2d, images3d }) => {
               style={{ width: "900px", height: "450px", marginBottom: "20px" }}
             />
           ))}
-        {showMore && images3d &&
+        {showMore &&
+          images3d &&
           processedImages3d.map((image, index) => (
             <div
               key={index}
@@ -56,7 +59,7 @@ const ImageLoader = ({ images2dct, images2d, images3d }) => {
           ))}
       </div>
       {!showMore && (
-        <div className="w-2/3 flex flex-auto items-center justify-center">
+        <div className="flex w-2/3 flex-auto items-center justify-center">
           <Button variant="contained" color="primary" onClick={handleShowMore}>
             Xem thêm
           </Button>
@@ -70,6 +73,7 @@ const ImageLoader = ({ images2dct, images2d, images3d }) => {
 const resizeImage = async (src) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
+    img.crossOrigin = "anonymous";
     img.src = src;
     img.onload = () => {
       const canvas = document.createElement("canvas");
