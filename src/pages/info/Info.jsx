@@ -95,8 +95,8 @@ const Info = () => {
         </span>
         <div className="mt-6 flex w-full flex-auto items-start justify-center">
           <ImageLoader
-            images2d={product.images}
             images2dct={product.images1}
+            images2d={product.images}
             images3d={product.images2}
           />
         </div>

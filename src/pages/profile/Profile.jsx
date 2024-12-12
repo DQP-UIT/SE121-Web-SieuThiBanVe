@@ -157,7 +157,7 @@ const Profile = () => {
                   Số điện thoại
                 </Typography>
                 <Typography variant="body1" className="font-bold">
-                  0975207829
+                  {user.phonenumber}
                 </Typography>
               </Box>
             </Box>

@@ -151,6 +151,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                 {isEditing ? (
                   <TextField
                     name="email"
+                    type="email"
                     value={userData.email}
                     onChange={handleInputChange}
                     fullWidth
@@ -171,6 +172,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                 {isEditing ? (
                   <TextField
                     name="phonenumber"
+                    type="phonenumber"
                     value={userData.phonenumber}
                     onChange={handleInputChange}
                     fullWidth
