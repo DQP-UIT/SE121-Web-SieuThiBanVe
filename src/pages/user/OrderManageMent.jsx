@@ -1,94 +1,195 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../store"; // Import useAuth hook
+import { Box, Typography, Paper, Grid, CircularProgress } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Import icon tick màu xanh
 
 export default function OrderManagement() {
   const { user } = useAuth(); // Lấy user từ useAuth hook
-  const [orders, setOrders] = useState([]); // State lưu trữ danh sách đơn hàng
+  const [solvedOrders, setSolvedOrders] = useState([]); // Đơn hàng đã giải quyết
+  const [unsolvedOrders, setUnsolvedOrders] = useState([]); // Đơn hàng chưa giải quyết
   const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
   const [error, setError] = useState(null); // Trạng thái lỗi
 
   useEffect(() => {
-    // Kiểm tra nếu user chưa đăng nhập hoặc không có userId
     if (!user || !user.id) {
       setError("Bạn cần đăng nhập để xem đơn hàng.");
       setLoading(false);
       return;
     }
 
-    // Gọi API để lấy danh sách đơn hàng theo userId
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/v1/order/user",
+        // Gọi API lấy đơn hàng solved=1
+        const solvedResponse = await axios.get(
+          "http://localhost:8000/api/v1/order/user/status",
           {
-            params: { userId: user.id }, // Sử dụng userId từ user
+            params: { userId: user.id, solved: 1 },
           },
         );
-        setOrders(response.data); // Lưu dữ liệu đơn hàng vào state
+
+        // Gọi API lấy đơn hàng solved=0
+        const unsolvedResponse = await axios.get(
+          "http://localhost:8000/api/v1/order/user/status",
+          {
+            params: { userId: user.id, solved: 0 },
+          },
+        );
+
+        setSolvedOrders(solvedResponse.data); // Lưu danh sách đã giải quyết
+        setUnsolvedOrders(unsolvedResponse.data); // Lưu danh sách chưa giải quyết
       } catch (error) {
-        setError("Có lỗi xảy ra khi tải dữ liệu đơn hàng."); // Lưu thông báo lỗi
+        setError("Có lỗi xảy ra khi tải dữ liệu đơn hàng.");
       } finally {
         setLoading(false); // Kết thúc trạng thái tải dữ liệu
       }
     };
 
     fetchOrders();
-  }, [user]); // Chạy lại khi user thay đổi
+  }, [user]);
 
-  const styles = {
-    container: {
-      fontFamily: "'Arial', sans-serif",
-      margin: "20px",
-    },
-    header: {
-      fontSize: "24px",
-      fontWeight: "bold",
-      marginBottom: "20px",
-    },
-    orderCard: {
-      border: "1px solid #ccc",
-      borderRadius: "5px",
-      padding: "15px",
-      marginBottom: "10px",
-      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    },
-    customerName: {
-      fontSize: "18px",
-      fontWeight: "bold",
-      marginBottom: "8px",
-    },
-    orderDetails: {
-      fontSize: "16px",
-      color: "#555",
-    },
+  const handleSolveOrder = async (id) => {
+    // Hiển thị thông báo xác nhận
+    const confirm = window.confirm(
+      "Bạn có chắc chắn muốn hoàn thành đơn hàng này?",
+    );
+    if (!confirm) {
+      return; // Nếu người dùng chọn "Cancel", dừng xử lý
+    }
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/order/${id}/solve`,
+      );
+      if (response.status === 200 && response.data.affected === 1) {
+        // Cập nhật danh sách: chuyển đơn hàng từ "chưa giải quyết" sang "đã giải quyết"
+        const updatedOrder = unsolvedOrders.find((order) => order.id === id);
+        setUnsolvedOrders((prev) => prev.filter((order) => order.id !== id));
+        setSolvedOrders((prev) => [...prev, updatedOrder]);
+      }
+    } catch (error) {
+      console.error("Có lỗi xảy ra khi cập nhật đơn hàng:", error);
+    }
   };
 
-  // Hiển thị thông báo tải dữ liệu
   if (loading) {
-    return <div style={styles.container}>Đang tải danh sách đơn hàng...</div>;
+    return (
+      <Box sx={{ textAlign: "center", marginTop: "50px" }}>
+        <CircularProgress />
+        <Typography variant="h6" mt={2}>
+          Đang tải danh sách đơn hàng...
+        </Typography>
+      </Box>
+    );
   }
 
-  // Hiển thị lỗi nếu có
   if (error) {
-    return <div style={styles.container}>{error}</div>;
+    return (
+      <Box sx={{ textAlign: "center", marginTop: "50px", color: "red" }}>
+        <Typography variant="h6">{error}</Typography>
+      </Box>
+    );
   }
+
+  const OrderCard = ({ order, showTick }) => (
+    <Paper
+      elevation={3}
+      sx={{
+        padding: "20px",
+        marginBottom: "15px",
+        borderRadius: "10px",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      {/* Hàng chứa ID và icon tick */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "10px",
+        }}
+      >
+        <Typography variant="h6" fontWeight="bold">
+          ID: {order.id}
+        </Typography>
+        {showTick && (
+          <CheckCircleIcon
+            sx={{ color: "green", fontSize: 30, cursor: "pointer" }}
+            onClick={() => handleSolveOrder(order.id)} // Gọi API khi nhấn vào icon tick
+          />
+        )}
+      </Box>
+
+      <Typography variant="body1">
+        <strong>Khách hàng:</strong> {order.orderUserName}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Số điện thoại:</strong> {order.orderPhoneNumber}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Thành phố:</strong> {order.orderCity}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Địa chỉ:</strong> {order.orderAdress}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Ngày tạo:</strong>{" "}
+        {new Date(order.createAt).toLocaleString("vi-VN")}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Trạng thái:</strong>{" "}
+        {order.solved === 1 ? "Đã giải quyết" : "Chưa giải quyết"}
+      </Typography>
+      <Typography variant="body1">
+        <strong>Product ID:</strong> {order.productId}
+      </Typography>
+    </Paper>
+  );
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>Quản lý đơn đặt hàng</div>
-      {orders.map((order) => (
-        <div key={order.id} style={styles.orderCard}>
-          <div style={styles.customerName}>
-            Khách hàng: {order.orderUserName}
-          </div>
-          <div style={styles.orderDetails}>
-            Số điện thoại: {order.orderPhoneNumber}
-          </div>
-          <div style={styles.orderDetails}>Thành phố: {order.orderCity}</div>
-          <div style={styles.orderDetails}>Địa chỉ: {order.orderAdress}</div>
-        </div>
-      ))}
-    </div>
+    <Box sx={{ padding: "20px" }}>
+      <Typography variant="h4" fontWeight="bold" mb={3}>
+        Quản lý đơn đặt hàng
+      </Typography>
+
+      {/* Đơn hàng đã giải quyết */}
+      <Box mb={5}>
+        <Typography variant="h5" fontWeight="bold" mb={2}>
+          Đơn hàng đã giải quyết
+        </Typography>
+        {solvedOrders.length > 0 ? (
+          <Grid container spacing={2}>
+            {solvedOrders.map((order) => (
+              <Grid item xs={12} sm={6} md={4} key={order.id}>
+                <OrderCard order={order} showTick={false} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography>Không có đơn hàng đã giải quyết.</Typography>
+        )}
+      </Box>
+
+      {/* Đơn hàng chưa giải quyết */}
+      <Box>
+        <Typography variant="h5" fontWeight="bold" mb={2}>
+          Đơn hàng chưa giải quyết
+        </Typography>
+        {unsolvedOrders.length > 0 ? (
+          <Grid container spacing={2}>
+            {unsolvedOrders.map((order) => (
+              <Grid item xs={12} sm={6} md={4} key={order.id}>
+                <OrderCard
+                  order={order}
+                  showTick={true} // Hiển thị tick cho đơn hàng chưa giải quyết
+                />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography>Không có đơn hàng chưa giải quyết.</Typography>
+        )}
+      </Box>
+    </Box>
   );
 }
