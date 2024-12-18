@@ -20,7 +20,7 @@ import AddDrawing from "../pages/user/AddDrawing";
 import DrawingManagement from "../pages/user/DrawingManagement";
 import OrderManageMent from "../pages/user/OrderManageMent";
 import SearchResults from "../pages/searchResult/Result";
-
+import SearchResultRcm from "../pages/searchResult/ResultRcm";
 export const AppRoutes = createBrowserRouter([
   {
     path: "/",
@@ -102,6 +102,10 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "result",
         element: <SearchResults />,
+      },
+      {
+        path: "resultrcm/:param",
+        element: <SearchResultRcm />,
       },
     ],
   },

@@ -8,12 +8,24 @@ const HouseSearchBar = ({
   listoflength,
   listofwidth,
   listofbedrooms,
+  onSearch,
 }) => {
-  const [kindofhouse, setkindofhouse] = useState("");
-  const [numberofflr, setnumberofflr] = useState("");
-  const [length, setlength] = useState("");
-  const [width, setwidth] = useState("");
-  const [bedrooms, setbedrooms] = useState("");
+  const [kindofhouse, setKindofhouse] = useState("");
+  const [numberofflr, setNumberofflr] = useState("");
+  const [length, setLength] = useState("");
+  const [width, setWidth] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+
+  const handleSearchClick = () => {
+    const filters = {
+      productTypeId: kindofhouse || null,
+      floor: numberofflr || null,
+      numberBedRoom: bedrooms || null,
+      length: length || null,
+      width: width || null,
+    };
+    onSearch(filters); // Truyền các bộ lọc lên `SearchResults`
+  };
 
   return (
     <Box
@@ -31,14 +43,13 @@ const HouseSearchBar = ({
         select
         label="Loại nhà"
         value={kindofhouse}
-        onChange={(e) => setkindofhouse(e.target.value)}
+        onChange={(e) => setKindofhouse(e.target.value)}
         variant="outlined"
-        margin="normal"
-        sx={{ minWidth: 120, mx: 1, height: 65 }}
+        sx={{ minWidth: 120, mx: 1 }}
       >
         <MenuItem value="">Loại nhà</MenuItem>
-        {listofkind.map((kind) => (
-          <MenuItem key={kind} value={kind}>
+        {listofkind.map((kind, index) => (
+          <MenuItem key={index} value={index + 1}>
             {kind}
           </MenuItem>
         ))}
@@ -47,14 +58,13 @@ const HouseSearchBar = ({
         select
         label="Số tầng"
         value={numberofflr}
-        onChange={(e) => setnumberofflr(e.target.value)}
+        onChange={(e) => setNumberofflr(e.target.value)}
         variant="outlined"
-        margin="normal"
-        sx={{ minWidth: 120, mx: 1, height: 65 }}
+        sx={{ minWidth: 120, mx: 1 }}
       >
         <MenuItem value="">Số tầng</MenuItem>
-        {listofflr.map((flr) => (
-          <MenuItem key={flr} value={flr}>
+        {listofflr.map((flr, index) => (
+          <MenuItem key={index} value={index + 1}>
             {flr}
           </MenuItem>
         ))}
@@ -63,14 +73,13 @@ const HouseSearchBar = ({
         select
         label="Số phòng ngủ"
         value={bedrooms}
-        onChange={(e) => setbedrooms(e.target.value)}
+        onChange={(e) => setBedrooms(e.target.value)}
         variant="outlined"
-        margin="normal"
-        sx={{ minWidth: 145, mx: 1, height: 65 }}
+        sx={{ minWidth: 120, mx: 1 }}
       >
         <MenuItem value="">Số phòng ngủ</MenuItem>
-        {listofbedrooms.map((bed) => (
-          <MenuItem key={bed} value={bed}>
+        {listofbedrooms.map((bed, index) => (
+          <MenuItem key={index} value={bed}>
             {bed}
           </MenuItem>
         ))}
@@ -79,14 +88,13 @@ const HouseSearchBar = ({
         select
         label="Chiều dài"
         value={length}
-        onChange={(e) => setlength(e.target.value)}
+        onChange={(e) => setLength(e.target.value)}
         variant="outlined"
-        margin="normal"
-        sx={{ minWidth: 120, mx: 1, height: 65 }}
+        sx={{ minWidth: 120, mx: 1 }}
       >
         <MenuItem value="">Chiều dài</MenuItem>
-        {listoflength.map((len) => (
-          <MenuItem key={len} value={len}>
+        {listoflength.map((len, index) => (
+          <MenuItem key={index} value={len.replace("m", "")}>
             {len}
           </MenuItem>
         ))}
@@ -95,14 +103,13 @@ const HouseSearchBar = ({
         select
         label="Chiều rộng"
         value={width}
-        onChange={(e) => setwidth(e.target.value)}
+        onChange={(e) => setWidth(e.target.value)}
         variant="outlined"
-        margin="normal"
-        sx={{ minWidth: 120, mx: 1, height: 65 }}
+        sx={{ minWidth: 120, mx: 1 }}
       >
         <MenuItem value="">Chiều rộng</MenuItem>
-        {listofwidth.map((wid) => (
-          <MenuItem key={wid} value={wid}>
+        {listofwidth.map((wid, index) => (
+          <MenuItem key={index} value={wid.replace("m", "")}>
             {wid}
           </MenuItem>
         ))}
@@ -111,7 +118,8 @@ const HouseSearchBar = ({
         variant="contained"
         color="primary"
         startIcon={<SearchIcon />}
-        sx={{ mx: 1, height: 55, minWidth: 80 }}
+        onClick={handleSearchClick}
+        sx={{ mx: 1 }}
       >
         Tìm
       </Button>

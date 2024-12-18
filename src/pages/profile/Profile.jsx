@@ -64,18 +64,21 @@ const Profile = () => {
       <Box className="mx-auto flex w-full max-w-6xl gap-8">
         <Paper className="relative mr-12 w-3/4 rounded-lg p-8 shadow-md">
           <Box className="flex items-center gap-6">
-            <Box className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-300">
-              <input
-                type="file"
-                onChange={handlePhotoUpload}
-                className="absolute inset-0 cursor-pointer opacity-0"
-              />
-              <PhotoCameraIcon className="text-2xl text-gray-600" />
+            <Box className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gray-300">
+              {user.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt="Avatar"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <PhotoCameraIcon className="text-2xl text-gray-600" />
+              )}
             </Box>
             <Typography variant="h5" className="m-0">
               {user.fullName}
             </Typography>
-            {/* <IconButton className="absolute right-4 top-4">
+            {/* <IconButton className="absolute right-4 top-0">
               <EditIcon />
             </IconButton> */}
           </Box>
