@@ -637,35 +637,33 @@
   z-index: 166;
 }
 .button-container {
-  position: absolute;
-  top: -70px;
-  left: 240px;
+  position: relative; /* Đặt vị trí tương đối với input */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Đảm bảo button được căn giữa màn hình */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin-top: 130px; /* Khoảng cách giữa input và button */
+  margin-left: -300px;
 }
 
 .custom-button {
-  padding: 12px 30px; /* Kích thước padding (dài hơn cho chữ) */
-  border-radius: 30px; /* Để button có dạng bo tròn */
-  background-color: #007bff; /* Màu nền xanh */
+  padding: 12px 30px;
+  border-radius: 30px;
+  background-color: #007bff;
   border: none;
-  color: white; /* Màu chữ trắng */
+  color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition:
     background-color 0.3s,
     transform 0.2s;
 }
-
 .custom-button:hover {
-  background-color: #0056b3; /* Màu nền khi hover */
-  transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .custom-button:focus {
-  outline: none; /* Bỏ outline khi button được focus */
+  outline: none;
 }

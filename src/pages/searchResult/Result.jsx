@@ -30,7 +30,7 @@ const SearchResults = () => {
   }, [location.search]);
 
   // Gọi API để lấy danh sách sản phẩm
-  const fetchProducts = async (query) => {
+  const fetchProducts = async (query, filters) => {
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -50,15 +50,61 @@ const SearchResults = () => {
       const res = await response.json();
 
       // Chuẩn hóa dữ liệu sản phẩm
-      const normalizedProducts = res.data.map((v) => ({
+      let normalizedProducts = res.data.map((v) => ({
         id: v.id,
         name: v.name || "Sản phẩm không có tên",
-        img: v.images?.[0] || "https://via.placeholder.com/150", // Hình ảnh đầu tiên hoặc mặc định
-        tang: v.floor || 0, // Số tầng (mặc định 0 nếu thiếu)
-        phongngu: v.numberBedRoom || 0, // Số phòng ngủ (mặc định 0 nếu thiếu)
-        dientich: v.square || "Không rõ", // Diện tích (mặc định "Không rõ" nếu thiếu)
-        price: v.cost || 0, // Giá tiền (mặc định 0 nếu thiếu)
+        img: v.images?.[0] || "https://via.placeholder.com/150",
+        tang: v.floor || 0, // Số tầng
+        phongngu: v.numberBedRoom || 0, // Số phòng ngủ
+        dientich: v.square || "Không rõ", // Diện tích
+        size: v.size || "Không rõ", // Kích thước rộng x dài
+        productTypeId: v.productTypeId || 0, // Loại nhà
+        price: v.cost || 0, // Giá tiền
       }));
+
+      // Áp dụng lọc cục bộ trên client
+      if (filters) {
+        const { productTypeId, floor, numberBedRoom, length, width } = filters;
+
+        if (productTypeId) {
+          normalizedProducts = normalizedProducts.filter(
+            (p) => p.productTypeId === parseInt(productTypeId),
+          );
+        }
+        if (floor) {
+          normalizedProducts = normalizedProducts.filter(
+            (p) => p.tang === parseInt(floor),
+          );
+        }
+        if (numberBedRoom) {
+          normalizedProducts = normalizedProducts.filter(
+            (p) => p.phongngu === parseInt(numberBedRoom),
+          );
+        }
+        if (length || width) {
+          normalizedProducts = normalizedProducts.filter((p) => {
+            // Tách "size" thành rộng và dài, loại bỏ chữ "m" (nếu có)
+            const [productWidth, productLength] = p.size
+              .replace("m", "")
+              .split("x");
+
+            if (width && !length) {
+              // Chỉ tìm theo chiều rộng
+              return parseInt(productWidth) === parseInt(width);
+            } else if (length && !width) {
+              // Chỉ tìm theo chiều dài
+              return parseInt(productLength) === parseInt(length);
+            } else if (width && length) {
+              // Tìm theo cả chiều rộng và chiều dài
+              return (
+                parseInt(productWidth) === parseInt(width) &&
+                parseInt(productLength) === parseInt(length)
+              );
+            }
+            return true; // Trường hợp không có lọc
+          });
+        }
+      }
 
       setProducts(normalizedProducts); // Cập nhật danh sách sản phẩm
       setTotalPages(Math.ceil(normalizedProducts.length / itemsPerPage)); // Tính tổng số trang
@@ -78,7 +124,10 @@ const SearchResults = () => {
     currentPage * itemsPerPage,
   );
   const handleSearch = (filters) => {
-    fetchProducts(filters); // Fetch API khi nhấn Tìm kiếm
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get("query") || ""; // Lấy query từ URL
+
+    fetchProducts(query, filters); // Gọi API với query và các bộ lọc
   };
 
   return (
