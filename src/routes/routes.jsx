@@ -21,6 +21,7 @@ import DrawingManagement from "../pages/user/DrawingManagement";
 import OrderManageMent from "../pages/user/OrderManageMent";
 import SearchResults from "../pages/searchResult/Result";
 import SearchResultRcm from "../pages/searchResult/ResultRcm";
+import ChangeProfile from "../pages/user/ChangeProfile";
 export const AppRoutes = createBrowserRouter([
   {
     path: "/",
@@ -106,6 +107,10 @@ export const AppRoutes = createBrowserRouter([
       {
         path: "resultrcm/:param",
         element: <SearchResultRcm />,
+      },
+      {
+        path: "changeprofile",
+        element: <ChangeProfile />,
       },
     ],
   },

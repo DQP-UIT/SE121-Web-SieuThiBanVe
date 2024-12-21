@@ -19,7 +19,10 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
   const [isEditing, setIsEditing] = useState(isEdit);
-  const [userData, setUserData] = useState(user);
+  const [userData, setUserData] = useState({
+    ...user,
+    password: "", // Mặc định không có giá trị
+  });
 
   useEffect(() => {
     setUserData(user);
@@ -38,10 +41,49 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
     });
   };
 
-  const handleSaveClick = () => {
-    onUpdateUser(userData);
-    setIsEditing(false);
-    onEditToggle();
+  const handleSaveClick = async () => {
+    try {
+      // Chuẩn bị dữ liệu gửi lên API
+      const updateData = {
+        fullName: userData.fullName,
+        email: userData.email,
+        password: userData.password || undefined, // Không gửi password nếu không có giá trị
+        phonenumber: userData.phonenumber,
+      };
+
+      // Gọi API cập nhật
+      const response = await fetch(
+        `http://localhost:8000/api/v1/user/${userData.id}/admin`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "*/*",
+          },
+          body: JSON.stringify(updateData),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Cập nhật thất bại: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Cập nhật thành công:", result);
+
+      // Gọi hàm cập nhật dữ liệu trong danh sách
+      onUpdateUser(userData);
+
+      // Thông báo cập nhật thành công
+      alert("Cập nhật thông tin thành công!");
+
+      // Thoát khỏi chế độ chỉnh sửa
+      setIsEditing(false);
+      onEditToggle();
+    } catch (error) {
+      console.error("Lỗi cập nhật:", error);
+      alert("Cập nhật thất bại. Vui lòng thử lại!");
+    }
   };
 
   return (
@@ -73,6 +115,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                     value={userData.id}
                     onChange={handleInputChange}
                     fullWidth
+                    disabled
                   />
                 ) : (
                   <Typography variant="body1" className="font-bold">
@@ -101,27 +144,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                 )}
               </Box>
             </Box>
-            <Box className="mb-4 flex items-center">
-              <CalendarTodayIcon className="mr-2 text-gray-600" />
-              <Box>
-                <Typography variant="body2" className="text-gray-600">
-                  Ngày sinh
-                </Typography>
-                {isEditing ? (
-                  <TextField
-                    name="dob"
-                    value={moment(userData.dob).format("YYYY-MM-DD")}
-                    onChange={handleInputChange}
-                    type="date"
-                    fullWidth
-                  />
-                ) : (
-                  <Typography variant="body1" className="font-bold">
-                    {moment(userData.dob).format("DD/MM/YYYY")}
-                  </Typography>
-                )}
-              </Box>
-            </Box>
+
             <Box className="mb-4 flex items-center">
               <InsertDriveFileIcon className="mr-2 text-gray-600" />
               <Box>
@@ -134,6 +157,7 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                     value={userData.designs}
                     onChange={handleInputChange}
                     fullWidth
+                    disabled
                   />
                 ) : (
                   <Typography variant="body1" className="font-bold">
@@ -160,6 +184,28 @@ const UserTag = ({ user, isEdit, onEditToggle, onUpdateUser }) => {
                   <Typography variant="body1" className="font-bold">
                     {userData.email}
                   </Typography>
+                )}
+              </Box>
+            </Box>
+            <Box className="mb-4 flex items-center">
+              <EmailIcon className="mr-2 text-gray-600" />
+              <Box>
+                <Typography variant="body2" className="text-gray-600">
+                  Mật khẩu mới
+                </Typography>
+                {isEditing ? (
+                  <TextField
+                    name="password"
+                    type="password" // Không hiển thị giá trị
+                    placeholder="Nhập mật khẩu mới"
+                    value={userData.password} // Luôn hiển thị là rỗng
+                    onChange={handleInputChange}
+                    fullWidth
+                  />
+                ) : (
+                  <Typography variant="body1" className="font-bold">
+                    ********
+                  </Typography> // Hiển thị ẩn khi không chỉnh sửa
                 )}
               </Box>
             </Box>

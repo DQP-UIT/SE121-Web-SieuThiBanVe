@@ -49,6 +49,9 @@ const Profile = () => {
   const handleOrderManageMent = () => {
     navigate("/ordermanagement"); // Chuyển hướng đến trang /
   };
+  const handleChangeProfile = () => {
+    navigate("/changeprofile"); // Chuyển hướng đến trang /
+  };
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     console.log("Uploaded file:", file);
@@ -286,6 +289,25 @@ const Profile = () => {
                 startIcon={<AssignmentIcon />}
               >
                 Quản lý đơn đặt hàng
+              </Button>
+              <Button
+                onClick={handleChangeProfile}
+                fullWidth
+                variant="contained"
+                sx={{
+                  height: 55,
+                  backgroundColor: "primary.light",
+                  color: "text.primary",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                  },
+                  justifyContent: "flex-center",
+                  pl: 3,
+                  fontWeight: "bold",
+                }}
+                startIcon={<AssignmentIcon />}
+              >
+                Thay đổi thông tin
               </Button>
             </>
           )}
