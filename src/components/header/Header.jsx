@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 import LoginForm from "../forms/LoginForm";
 import { Button } from "@headlessui/react";
 import { useAuth } from "../../store";
-import PhoneIcon from "src/assets/mingcute_phone-call-fill.svg";
-import Logo from "src/assets/solar_home-bold.svg";
-import User from "src/assets/user.svg";
-import Logout from "src/assets/entypo_log-out.svg";
+import PhoneIcon from "/src/assets/mingcute_phone-call-fill.svg";
+import Logo from "/src/assets/solar_home-bold.svg";
+import User from "/src/assets/user.svg";
+import Logout from "/src/assets/entypo_log-out.svg";
 
 
 const data = [
