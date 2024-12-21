@@ -20,7 +20,7 @@ const PopoverBar = () => {
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
         <Popover>
-          <PopoverButton className="block text-center font-sans text-xl text-black focus:outline-none data-[active]:text-white data-[hover]:text-white hover:bg-transparent">
+          <PopoverButton className="block text-center font-sans text-xl text-black hover:bg-transparent focus:outline-none data-[active]:text-white data-[hover]:text-white">
             Mẫu nhà đẹp
           </PopoverButton>
           <PopoverPanel
@@ -31,7 +31,7 @@ const PopoverBar = () => {
             <div className="p-3">
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                href="#"
+                onClick={() => navigate("/resultrcm/1")} // Chuyển hướng khi nhấn vào
               >
                 <p className="font-semibold text-black">Nhà phố</p>
                 <p className="text-black/50">
@@ -40,7 +40,7 @@ const PopoverBar = () => {
               </a>
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                href="#"
+                onClick={() => navigate("/resultrcm/2")} // Chuyển hướng khi nhấn vào
               >
                 <p className="font-semibold text-black">Nhà cấp 4</p>
                 <p className="text-black/50">
@@ -49,7 +49,7 @@ const PopoverBar = () => {
               </a>
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                href="#"
+                onClick={() => navigate("/resultrcm/3")} // Chuyển hướng khi nhấn vào
               >
                 <p className="font-semibold text-black">Biệt thự</p>
                 <p className="text-black/50">
@@ -58,7 +58,7 @@ const PopoverBar = () => {
               </a>
               <a
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
-                href="#"
+                onClick={() => navigate("/resultrcm/4")} // Chuyển hướng khi nhấn vào
               >
                 <p className="font-semibold text-black">Khách sạn</p>
                 <p className="text-black/50">
@@ -70,10 +70,12 @@ const PopoverBar = () => {
         </Popover>
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
-        <span className="cursor-pointer font-sans text-xl hover:text-white"
-        onClick={()=>{
-          navigate(`/estimatePart1`)
-        }}>
+        <span
+          className="cursor-pointer font-sans text-xl hover:text-white"
+          onClick={() => {
+            navigate(`/estimatePart1`);
+          }}
+        >
           {" "}
           Báo giá
         </span>
@@ -90,10 +92,12 @@ const PopoverBar = () => {
         </span>
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">
-        <span className="cursor-pointer font-sans text-xl hover:text-white"
-        onClick={()=>{
-          navigate(`/aboutus`)
-        }}>
+        <span
+          className="cursor-pointer font-sans text-xl hover:text-white"
+          onClick={() => {
+            navigate(`/aboutus`);
+          }}
+        >
           {" "}
           Về Chúng tôi
         </span>
