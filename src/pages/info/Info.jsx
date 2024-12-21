@@ -9,6 +9,8 @@ import ImageLoader from "./ImageLoader";
 import test3d1 from "../../assets/test3d_1.jpg";
 import test3d2 from "../../assets/testpic3d.jpg";
 import { useAuth } from "../../store";
+import axiosInstance from "../../axios";
+import ProductList from "../../components/productlist/ProductList";
 
 const Info = () => {
   const { user } = useAuth();
@@ -16,6 +18,7 @@ const Info = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true); // Để hiển thị trạng thái loading
   const [error, setError] = useState(null); // Để xử lý lỗi
+  const [products, setProducts] = useState([]);
 
   // Lấy id từ URL
   const { id } = useParams();
@@ -46,6 +49,29 @@ const Info = () => {
 
     fetchProduct(); // Gọi hàm fetch khi component mount
   }, [id]); // Chạy lại khi id thay đổi
+
+  useEffect(() => {
+    if (!id) return; // Đảm bảo id tồn tại trước khi gọi API
+
+    axiosInstance
+      .get(`product/similar/user-based/${id}`, { params: { limit: 8 } }) // Gọi API với id từ useParams
+      .then((res) => {
+        setProducts(
+          res.data.map((v) => ({
+            id: v.id,
+            name: v.name,
+            img: v.images[0] || "https://via.placeholder.com/150", // Lấy ảnh đầu tiên
+            tang: v.floor,
+            phongngu: v.numberBedRoom,
+            dientich: v.square,
+            price: v.cost,
+          })),
+        );
+      })
+      .catch((err) => {
+        console.error("Error fetching similar products:", err);
+      });
+  }, [id]); // Thêm id vào dependencies để gọi lại khi id thay đổi
 
   // Kiểm tra URL có phải là đường dẫn yêu cầu hay không
   // Kiểm tra xem đường dẫn có bắt đầu bằng "/drawingmanagement/product"
@@ -105,7 +131,11 @@ const Info = () => {
         <span className="ml-8 font-sans text-2xl font-semibold">
           Phù hợp với bạn
         </span>
-        <div>{/* Product Tags as recommendation*/}</div>
+        <div>
+          <div className="flex w-full min-w-fit items-center justify-center pt-10">
+            <ProductList products={products} />
+          </div>
+        </div>
       </div>
     </div>
   );

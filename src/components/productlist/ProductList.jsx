@@ -44,7 +44,7 @@ const ProductList = ({ products }) => {
                 left: style.left + gap * columnIndex,
               }}
               onClick={() => {
-                navigate(`product/${product.id}`);
+                navigate(`/product/${product.id}`);
               }}
               className="product-list-item"
             >
