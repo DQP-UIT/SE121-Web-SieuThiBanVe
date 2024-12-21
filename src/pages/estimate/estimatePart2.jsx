@@ -13,9 +13,11 @@ import {
   Alert,
   Stack,
 } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import EstimatingBasis from "./estimateAlgorithm";
 
 const EstimatePart2 = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const diaDiem = params.get("diaDiem");
@@ -29,6 +31,7 @@ const EstimatePart2 = () => {
     dienTichDat: null, // number
     dienTichXayDungTang1: null, // number
     soTang: null, // number
+    dienTichGacLung: null, // number
     ketCauTumMai: "mái BTCT phẳng, cán nền lát gạch", // string
     dienTichTumMai: null, // number
     thangMay: false, // boolean
@@ -41,6 +44,7 @@ const EstimatePart2 = () => {
     nhaLanCan: "hai bên có nhà", // string
     matTien: 1, // number (1, 2, or 3)
     ketCauMong: "móng đơn", // string
+    sanVuon: "hơn 60% diện tích là cây xanh",
   });
 
   const handleChange = (e) => {
@@ -90,15 +94,27 @@ const EstimatePart2 = () => {
 
               {/* Floor Information */}
               <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
-                <TextField
-                  fullWidth
-                  label="Số tầng"
-                  name="soTang"
-                  type="number"
-                  aria-valuemin={1}
-                  value={formData.soTang}
-                  onChange={handleChange}
-                />
+                {loaiCongTrinh !== "Nhà cấp 4" ? (
+                  <TextField
+                    fullWidth
+                    label="Số tầng"
+                    name="soTang"
+                    type="number"
+                    aria-valuemin={1}
+                    value={formData.soTang}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <TextField
+                    fullWidth
+                    label="Diện tích gác lửng nếu có"
+                    name="dienTichGacLung"
+                    type="number"
+                    aria-valuemin={1}
+                    value={formData.dienTichGacLung}
+                    onChange={handleChange}
+                  />
+                )}
                 <FormControl fullWidth>
                   <InputLabel>Kết cấu tum mái</InputLabel>
                   <Select
@@ -221,7 +237,7 @@ const EstimatePart2 = () => {
                 spacing={3}
                 sx={{ mb: 3 }}
               >
-                {loaiCongTrinh !== "Biệt thự" ? (
+                {loaiCongTrinh === "Nhà phố" ? (
                   <FormControl fullWidth>
                     <InputLabel>Mặt tiền</InputLabel>
                     <Select
@@ -240,12 +256,12 @@ const EstimatePart2 = () => {
                     <InputLabel>Vị trí nhà</InputLabel>
                     <Select
                       name="viTriNha"
-                      value={formData.ketCauMong}
+                      value={formData.nhaLanCan}
                       onChange={handleChange}
                       label="Vị trí nhà"
                     >
                       <MenuItem value="nhà giữa khu đất">
-                        Nhà giữa khi đất
+                        Nhà giữa khu đất
                       </MenuItem>
                       <MenuItem value="1 cạnh giáp với hàng xóm">
                         1 cạnh giáp với hàng xóm
@@ -289,7 +305,7 @@ const EstimatePart2 = () => {
                   </Select>
                 </FormControl>
                 {/* Nhà phố & Nhà cấp 4 */}
-                {loaiCongTrinh !== "Biệt thự" ? (
+                {loaiCongTrinh === "Nhà phố" ? (
                   <FormControl fullWidth>
                     <InputLabel>Nhà lân cận</InputLabel>
                     <Select
@@ -306,7 +322,7 @@ const EstimatePart2 = () => {
                         Bên phải có nhà
                       </MenuItem>
                       <MenuItem value="hai bên không có nhà">
-                        Hai bên không có nhà
+                        Hai bên đều có nhà
                       </MenuItem>
                     </Select>
                   </FormControl>
@@ -315,7 +331,7 @@ const EstimatePart2 = () => {
                     <InputLabel>Sân vườn</InputLabel>
                     <Select
                       name="sanVuon"
-                      value={formData.nhaLanCan}
+                      value={formData.sanVuon}
                       onChange={handleChange}
                       label="Sân vườn"
                     >
@@ -352,6 +368,9 @@ const EstimatePart2 = () => {
                   bgcolor: "primary.main",
                   "&:hover": { bgcolor: "primary.dark" },
                 }}
+                onClick={() => {
+                  console.log(EstimatingBasis(diaDiem, loaiCongTrinh, formData));
+                }}
               >
                 Tính ngay
               </Button>
@@ -359,6 +378,9 @@ const EstimatePart2 = () => {
                 type="button"
                 variant="contained"
                 size="large"
+                onClick={() => {
+                  navigate(`/estimatePart1`);
+                }}
                 sx={{
                   width: "fit-content",
                   py: 1.5,
