@@ -33,8 +33,8 @@ const PopoverBar = () => {
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 onClick={() => navigate("/resultrcm/1")} // Chuyển hướng khi nhấn vào
               >
-                <p className="font-semibold text-black">Nhà phố</p>
-                <p className="text-black/50">
+                <p className="font-semibold text-black hover:cursor-pointer">Nhà phố</p>
+                <p className="text-black/50 hover:cursor-pointer">
                   Những mẫu nhà phố hiện đại theo xu hướng
                 </p>
               </a>
@@ -42,8 +42,8 @@ const PopoverBar = () => {
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 onClick={() => navigate("/resultrcm/2")} // Chuyển hướng khi nhấn vào
               >
-                <p className="font-semibold text-black">Nhà cấp 4</p>
-                <p className="text-black/50">
+                <p className="font-semibold text-black hover:cursor-pointer">Nhà cấp 4</p>
+                <p className="text-black/50 hover:cursor-pointer">
                   Thiết kế thông minh, tận dụng tối đa không gian
                 </p>
               </a>
@@ -51,8 +51,8 @@ const PopoverBar = () => {
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 onClick={() => navigate("/resultrcm/3")} // Chuyển hướng khi nhấn vào
               >
-                <p className="font-semibold text-black">Biệt thự</p>
-                <p className="text-black/50">
+                <p className="font-semibold text-black hover:cursor-pointer">Biệt thự</p>
+                <p className="text-black/50 hover:cursor-pointer">
                   Thiết kế sang trọng và không thiếu tiện nghi
                 </p>
               </a>
@@ -60,8 +60,8 @@ const PopoverBar = () => {
                 className="block rounded-lg px-3 py-2 transition hover:bg-blue-400"
                 onClick={() => navigate("/resultrcm/4")} // Chuyển hướng khi nhấn vào
               >
-                <p className="font-semibold text-black">Khách sạn</p>
-                <p className="text-black/50">
+                <p className="font-semibold text-black hover:cursor-pointer">Khách sạn</p>
+                <p className="text-black/50 hover:cursor-pointer">
                   Ý tưởng độc đáo, thu hút thị hiếu
                 </p>
               </a>

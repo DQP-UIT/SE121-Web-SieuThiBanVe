@@ -44,7 +44,8 @@ const EstimatePart2 = () => {
     nhaLanCan: "hai bên có nhà", // string
     matTien: 1, // number (1, 2, or 3)
     ketCauMong: "móng đơn", // string
-    sanVuon: "hơn 60% diện tích là cây xanh",
+    vitriNha: "nhà giữa khu đất", //string
+    sanVuon: "hơn 60% diện tích là cây xanh",//string
   });
 
   const handleChange = (e) => {
@@ -255,8 +256,8 @@ const EstimatePart2 = () => {
                   <FormControl fullWidth>
                     <InputLabel>Vị trí nhà</InputLabel>
                     <Select
-                      name="viTriNha"
-                      value={formData.nhaLanCan}
+                      name="vitriNha"
+                      value={formData.vitriNha}
                       onChange={handleChange}
                       label="Vị trí nhà"
                     >
