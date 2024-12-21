@@ -71,6 +71,7 @@ const Header = () => {
         <div className="ml-12 flex w-1/5 min-w-fit items-center">
           <img
             src= {Logo}
+            src= {Logo}
             alt="Logo"
             className="float-left h-8 w-8"
           />
@@ -82,6 +83,7 @@ const Header = () => {
         <div className="ml-20 w-1/5 min-w-fit flex-auto">
           <img
             src= {PhoneIcon}
+            src= {PhoneIcon}
             alt="Contact"
             className="float-left h-8 w-8"
           />
@@ -90,6 +92,7 @@ const Header = () => {
             <div className="float-right flex gap-4">
               <img
                 src= {User}
+                src= {User}
                 alt="user"
                 className="h-8 w-8 hover:cursor-pointer"
                 onClick={() => {
@@ -97,6 +100,7 @@ const Header = () => {
                 }}
               />
               <img
+                src= {Logout}
                 src= {Logout}
                 alt="Logout"
                 className="h-8 w-8 hover:cursor-pointer"
