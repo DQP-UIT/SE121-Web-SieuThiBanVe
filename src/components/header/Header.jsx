@@ -11,6 +11,7 @@ import Logo from "/src/assets/solar_home-bold.svg";
 import User from "/src/assets/user.svg";
 import Logout from "/src/assets/entypo_log-out.svg";
 
+
 const data = [
   {
     key: "john",
@@ -68,19 +69,30 @@ const Header = () => {
     <div className="w-full">
       <div className="flex h-1/6 min-h-fit items-center justify-between p-4">
         <div className="ml-12 flex w-1/5 min-w-fit items-center">
-          <img src={Logo} alt="Logo" className="float-left h-8 w-8" />
+          <img
+            src= {Logo}
+            src= {Logo}
+            alt="Logo"
+            className="float-left h-8 w-8"
+          />
           <span className="font-serif text-3xl">Siêu thị bản vẽ</span>
         </div>
         <div className="ml-36 w-1/3 min-w-fit">
           <SearchBar data={data} />
         </div>
         <div className="ml-20 w-1/5 min-w-fit flex-auto">
-          <img src={PhoneIcon} alt="Contact" className="float-left h-8 w-8" />
+          <img
+            src= {PhoneIcon}
+            src= {PhoneIcon}
+            alt="Contact"
+            className="float-left h-8 w-8"
+          />
           <span className="text-xl font-medium">0975207829</span>
           {user ? (
             <div className="float-right flex gap-4">
               <img
-                src={User}
+                src= {User}
+                src= {User}
                 alt="user"
                 className="h-8 w-8 hover:cursor-pointer"
                 onClick={() => {
@@ -88,7 +100,8 @@ const Header = () => {
                 }}
               />
               <img
-                src={Logout}
+                src= {Logout}
+                src= {Logout}
                 alt="Logout"
                 className="h-8 w-8 hover:cursor-pointer"
                 onClick={handleOnLogout}
