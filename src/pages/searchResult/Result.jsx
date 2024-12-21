@@ -131,7 +131,7 @@ const SearchResults = () => {
   };
 
   return (
-    <div className="flex w-full h-[80vh] flex-col">
+    <div className="mt-2 flex h-[80vh] w-full flex-col">
       <div className="flex w-full justify-center">
         <HouseSearchBar
           listofkind={listofkind}
