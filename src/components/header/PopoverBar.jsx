@@ -77,7 +77,7 @@ const PopoverBar = () => {
           }}
         >
           {" "}
-          Báo giá
+          Dự toán
         </span>
       </div>
       <div className="min-w-fit basis-1/12 ps-24 text-center">

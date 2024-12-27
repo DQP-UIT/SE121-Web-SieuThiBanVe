@@ -14,7 +14,6 @@ import {
   Stack,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import EstimatingBasis from "./estimateAlgorithm";
 
 const EstimatePart2 = () => {
   const navigate = useNavigate();
@@ -56,6 +55,7 @@ const EstimatePart2 = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted data:", formData);
+    navigate(`/estimateResult?diaDiem=${diaDiem}&loaiCongTrinh=${loaiCongTrinh}&formdata=${JSON.stringify(formData)}`);
   };
 
   return (
@@ -130,6 +130,15 @@ const EstimatePart2 = () => {
                     <MenuItem value="mái ngói">Mái ngói</MenuItem>
                   </Select>
                 </FormControl>
+                <TextField
+                    fullWidth
+                    label="Diện tích tum mái"
+                    name="dienTichTumMai"
+                    type="number"
+                    aria-valuemin={1}
+                    value={formData.dienTichTumMai}
+                    onChange={handleChange}
+                  />
               </Stack>
 
               {/* Additional Features */}
@@ -369,9 +378,7 @@ const EstimatePart2 = () => {
                   bgcolor: "primary.main",
                   "&:hover": { bgcolor: "primary.dark" },
                 }}
-                onClick={() => {
-                  console.log(EstimatingBasis(diaDiem, loaiCongTrinh, formData));
-                }}
+                onClick={handleSubmit}
               >
                 Tính ngay
               </Button>
