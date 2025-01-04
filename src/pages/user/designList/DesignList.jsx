@@ -1,10 +1,10 @@
 import React from "react";
 import { VariableSizeGrid } from "react-window";
-import ProductCard from "../card/Card";
-import "./ProductList.css";
+import ProductCard from "../../../components/card/Card";
+import "./DesignList.css";
 import { useNavigate } from "react-router-dom";
 
-const ProductList = ({ products }) => {
+const DesignList = ({ products }) => {
   const columnCount = 4;
   const rowCount = Math.ceil(products.length / columnCount);
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const ProductList = ({ products }) => {
                 left: style.left + gap * columnIndex,
               }}
               onClick={() => {
-                navigate(`/product/${product.id}`);
+                //navigate(`/product/${product.id}`);
               }}
               className="product-list-item"
             >
@@ -57,4 +57,4 @@ const ProductList = ({ products }) => {
   );
 };
 
-export default ProductList;
+export default DesignList;

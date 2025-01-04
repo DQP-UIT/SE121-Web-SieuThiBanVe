@@ -29,6 +29,10 @@ const Info = () => {
     setUserId(8); // Cập nhật userId thành 8
   }, []); // Dùng useEffect để chỉ chạy một lần khi component mount
 
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, [product])
+
   // Hàm gọi API để lấy thông tin sản phẩm
   useEffect(() => {
     const fetchProduct = async () => {

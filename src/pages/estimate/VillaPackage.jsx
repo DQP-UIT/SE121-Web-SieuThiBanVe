@@ -4,7 +4,7 @@ const basicVillaPackageDN = {
   basementCost: 9500000, // Chi phí XD tầng hầm/bán hầm
   structureCost: 3400000, // Chi phí phần thân
   roofCost: 3910000, // Chi phí phần mái
-  rawConstructionCost: 18705000, // CHI PHÍ TC PHẦN THÔ
+  rawConstructionCost: 19705000, // CHI PHÍ TC PHẦN THÔ
   finishingCost: 9072000, // CHI PHÍ TC HOÀN THIỆN
   totalHouseCost: 27777600, // Tổng chi phí ngôi nhà
   poolCost: 5000000, // Chi phí thi công hồ bơi
