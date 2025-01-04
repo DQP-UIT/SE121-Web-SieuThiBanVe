@@ -131,7 +131,7 @@ const SearchResults = () => {
   };
 
   return (
-    <div className="mt-2 flex h-[80vh] w-full flex-col">
+    <div className="mt-2 flex w-full flex-col">
       <div className="flex w-full justify-center">
         <HouseSearchBar
           listofkind={listofkind}
@@ -143,7 +143,7 @@ const SearchResults = () => {
         />
       </div>
       {products.length === 0 ? (
-        <div className="h-s flex w-full flex-auto items-center justify-center">
+        <div className="max-h-screen flex w-full flex-auto items-center justify-center">
           <h1 className="max-w-3xl transform p-8 text-3xl font-black uppercase text-deep-purple-300 mix-blend-darken">
             No designs founded
           </h1>
