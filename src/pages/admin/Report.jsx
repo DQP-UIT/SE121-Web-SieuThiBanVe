@@ -350,13 +350,13 @@ const ReportPage = () => {
 
   return (
     <div className="h-full min-h-[80vh] w-full">
-      <Title level={3} style={{ color: "white" }}>
+      <Title level={3} style={{ color: "white", marginLeft: "20px" }}>
         Thống kê doanh thu và người đăng ký
       </Title>
 
       <Row gutter={[16, 16]} style={{ marginBottom: "20px" }}>
         <Col span={4}>
-          <Card style={{ backgroundColor: "#4CAF50", color: "#fff" }}>
+          <Card style={{ backgroundColor: "#4CAF50", color: "#fff", marginLeft: "20px"  }}>
             <Title level={4} style={{ color: "white" }}>
               Tổng tài khoản
             </Title>
@@ -396,7 +396,7 @@ const ReportPage = () => {
         <Col span={6}>
           <Select
             placeholder="Chọn năm"
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginLeft: "20px" }}
             onChange={(value) => setSelectedYear(value)}
             allowClear
           >
@@ -410,7 +410,7 @@ const ReportPage = () => {
         <Col span={6}>
           <Select
             placeholder="Chọn tháng"
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginLeft: "10px" }}
             onChange={(value) => setSelectedMonth(value)}
             allowClear
           >
@@ -447,7 +447,12 @@ const ReportPage = () => {
             columns={columns}
             dataSource={filteredData}
             pagination={{ pageSize: 5 }}
-            title={() => "Bảng thống kê doanh thu và người đăng ký"}
+            title={() => (
+              <div style={{ color: "black", fontSize: "16px", fontWeight: "bold" }}>
+                Bảng thống kê doanh thu và người đăng ký
+              </div>
+            )}
+            style={{marginLeft: "10px", marginRight: "10px" }}
           />
         </Col>
       </Row>
