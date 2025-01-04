@@ -5,7 +5,7 @@ const basicPackageDN = {
   structureCost: 3400000, // Chi phí phần thân
   roofCost: 3910000, // Chi phí phần mái
   demolitionCost: 30000000, // Chi phí cưỡng chống đỡ nhà hàng xóm
-  rawConstructionCost: 47320000, // Chi phí TC phần thô
+  rawConstructionCost: 47520000, // Chi phí TC phần thô
   finishingCost: 4620000, // Chi phí TC hoàn thiện
   totalHouseCost: 51940000, // Tổng chi phí ngôi nhà
   gardenCost: 0, // Chi phí thi công sân vườn

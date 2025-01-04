@@ -1,0 +1,22 @@
+.product-list {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-list-item {
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+}
+
+/* Ẩn thanh trượt */
+.product-list::-webkit-scrollbar {
+    display: none;
+}
+
+.product-list {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}

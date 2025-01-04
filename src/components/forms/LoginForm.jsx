@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../axios";
 import { useAuth } from "../../store";
 import {
@@ -11,6 +12,7 @@ import {
   Link,
 } from "@mui/material";
 import Swal from "sweetalert2";
+import HomeIcon from "/src/assets/solar_home-bold.svg";
 
 const LoginForm = ({ onClose }) => {
   const [account, setAccount] = useState({
@@ -19,12 +21,21 @@ const LoginForm = ({ onClose }) => {
   });
   const { setUser, setToken } = useAuth();
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
       onClose();
     }
   };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -69,7 +80,7 @@ const LoginForm = ({ onClose }) => {
         </Typography>
         <Box
           component="img"
-          src="src/assets/solar_home-bold.svg"
+          src= {HomeIcon}
           alt="Your Company"
           sx={{
             display: "block",
@@ -129,6 +140,7 @@ const LoginForm = ({ onClose }) => {
                 localStorage.setItem("token", res.data.accessToken);
                 Swal.fire("Success", "Đăng nhập thành công", "success");
                 onClose();
+                navigate(`/user/profile`)
               } catch (error) {
                 console.log(error);
                 Swal.fire("Error", "Email hoặc mật khẩu không đúng", "error");

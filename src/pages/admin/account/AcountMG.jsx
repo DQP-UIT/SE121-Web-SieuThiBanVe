@@ -1,17 +1,20 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
-import { VariableSizeList as List } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import UserTag from "./UserTag";
-import { useAuth } from "../../../store"; // Import store để lấy token
+import React, { useState, useEffect } from "react";
+import UserTag from "../../user/profile/UserTag";
+import { useAuth } from "../../../store"; 
+import { useNavigate } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const AccountMG = () => {
   const { token } = useAuth(); // Lấy token từ Zustand store
+  const navigate = useNavigate();
   const [userlist, setUserlist] = useState([]);
   const [loading, setLoading] = useState(true); // Trạng thái tải dữ liệu
   const [error, setError] = useState(null); // Trạng thái lỗi
   const [editingStates, setEditingStates] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-  const listRef = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // 4 rows, 2 tags per row
 
   // Hàm để gọi API và lấy dữ liệu người dùng
   useEffect(() => {
@@ -39,27 +42,21 @@ const AccountMG = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [token]);
 
   const filteredUserList = userlist.filter((user) =>
     user.fullName.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const getItemSize = useCallback(
-    (index) => {
-      const item = filteredUserList[index];
-      return editingStates[item.id] ? 450 : 360;
-    },
-    [filteredUserList, editingStates],
-  );
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   const toggleEdit = (id) => {
     setEditingStates((prevStates) => ({
       ...prevStates,
       [id]: !prevStates[id],
     }));
-    const index = filteredUserList.findIndex((user) => user.id === id);
-    listRef.current.resetAfterIndex(index);
   };
 
   const updateUser = (id, updatedData) => {
@@ -70,19 +67,10 @@ const AccountMG = () => {
     );
   };
 
-  const Row = ({ index, style }) => {
-    const user = filteredUserList[index];
-    return (
-      <div style={style}>
-        <UserTag
-          user={user}
-          isEdit={!!editingStates[user.id]}
-          onEditToggle={() => toggleEdit(user.id)}
-          onUpdateUser={(updatedData) => updateUser(user.id, updatedData)}
-        />
-      </div>
-    );
-  };
+  const paginatedUsers = filteredUserList.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
   // Hiển thị loading hoặc lỗi nếu có
   if (loading) {
@@ -94,39 +82,45 @@ const AccountMG = () => {
   }
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div className="w-full h-full">
       <div>
-        <h1 className="w-full text-center text-3xl font-semibold">
+        <h1 className="w-full text-center text-3xl font-semibold text-white">
           Thông tin người dùng
         </h1>
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex justify-center w-full">
         <input
           type="text"
           placeholder="Tìm kiếm người dùng..."
-          className="rounded-lg border border-gray-300 p-2"
+          className="rounded-lg border border-blue-200 p-2 w-96"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <div
-        className="items-top mt-8 flex flex-auto justify-center"
-        style={{ height: "calc(100% - 150px)", width: "50%" }}
-      >
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              ref={listRef}
-              height={height}
-              itemCount={filteredUserList.length}
-              itemSize={getItemSize}
-              width={width}
-            >
-              {Row}
-            </List>
-          )}
-        </AutoSizer>
+      <div className="float float-right mr-8 mb-4 text-white font-semibold text-xl border-2 px-4 py-2 rounded-lg select-none hover:scale-105 hover:cursor-pointer"
+        onClick={()=>{navigate(`/admin/addacc`)}}>
+        Tạo tài khoản
       </div>
+      <div className="mt-8 w-full h-full min-h-[80vh] flex flex-wrap justify-center items-center">
+        {paginatedUsers.map((user) => (
+          <div key={user.id} className="w-1/2 p-2 flex flex-auto justify-center mt-4">
+            <UserTag
+              user={user}
+              isEdit={!!editingStates[user.id]}
+              onEditToggle={() => toggleEdit(user.id)}
+              onUpdateUser={(updatedData) => updateUser(user.id, updatedData)}
+            />
+          </div>
+        ))}
+      </div>
+      <Stack spacing={2} className="pagination mt-4 flex flex-auto items-center justify-center">
+        <Pagination
+          count={Math.ceil(filteredUserList.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Stack>
     </div>
   );
 };
