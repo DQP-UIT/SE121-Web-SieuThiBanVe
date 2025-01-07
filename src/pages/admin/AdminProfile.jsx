@@ -31,6 +31,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import UserTag from "../user/profile/UserTag";
 import DesignList from "./designList/DesignList";
+import axios from "axios";
 
 const orders = {
   id: "12345",
@@ -58,8 +59,10 @@ const Profile = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    axiosInstance
-      .get("product", { params: { page: 1, pageSize: 8 } })
+    axios
+      .get("http://localhost:8000/api/v1/product", {
+        params: { page: 1, pageSize: 100 },
+      })
       .then((res) => {
         setProducts(
           res.data.data.map((v) => ({
@@ -72,10 +75,14 @@ const Profile = () => {
             price: v.cost,
           })),
         );
-        setTotalPages(res.data.totalPages);
+        setTotalPages(Math.ceil(res.data.data.length / itemsPerPage));
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
         setIsLoading(false);
       });
-  }, [user]); // Chỉ gọi API khi user thay đổi
+  }, [user]);
 
   const handleDelete = () => {
     // Handle delete logic here
