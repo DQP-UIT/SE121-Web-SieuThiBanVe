@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ProductCard = ({ banve }) => {
   const navigate = useNavigate();
-  const isLocalhost = window.location.origin === "http://localhost:3000/"; // Kiểm tra URL hiện tại
+  const isRootPath = window.location.pathname === "/"; // Kiểm tra đường dẫn hiện tại
 
   useEffect(() => {
     console.log("here");
@@ -67,7 +67,7 @@ const ProductCard = ({ banve }) => {
           <p className="text-[1.5vw] text-blue-500">
             {banve.price.toLocaleString()} VND
           </p>
-          {isLocalhost && (
+          {!isRootPath && (
             <button
               className="ml-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
               onClick={(e) => {

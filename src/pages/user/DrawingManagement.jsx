@@ -100,12 +100,12 @@ const DrawingManagement = () => {
           }}
         />
       </Box>
-      <div
+      {/* <div
         className="float-right mr-8 h-12 w-fit select-none rounded-xl border-2 border-white p-2 text-xl text-white hover:scale-105 hover:cursor-pointer"
         onClick={handleDelete}
       >
         Loại bỏ bản thiết kế
-      </div>
+      </div> */}
       <div className="flex h-full min-h-[80vh] w-full min-w-fit items-center justify-center pt-10">
         {isLoading ? (
           <div>Loading...</div>
