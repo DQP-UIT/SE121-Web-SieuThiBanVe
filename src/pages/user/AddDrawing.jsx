@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../store";
 
 export default function AddDrawing() {
   const [files2D, setFiles2D] = useState([]);
   const [filesDetail, setFilesDetail] = useState([]);
   const [files3D, setFiles3D] = useState([]);
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     size: "",
@@ -15,7 +17,7 @@ export default function AddDrawing() {
     productTypeId: "",
     designedBy: "",
     numberBedRoom: "",
-    userId: "3", // Giả sử bạn đã có userId từ useAuth
+    userId: user.id, // Giả sử bạn đã có userId từ useAuth
   });
 
   // Hàm xử lý tải lên file và phân loại
@@ -66,55 +68,57 @@ export default function AddDrawing() {
   };
 
   return (
-    <div className="font-sans p-5 max-w-4xl mx-auto">
-      <div className="text-2xl font-bold mb-5 text-white select-none">Thêm bản vẽ</div>
-      <div className="grid grid-cols-2 gap-2 mb-5">
+    <div className="mx-auto max-w-4xl p-5 font-sans">
+      <div className="mb-5 select-none text-2xl font-bold text-white">
+        Thêm bản vẽ
+      </div>
+      <div className="mb-5 grid grid-cols-2 gap-2">
         <input
           type="text"
           placeholder="Name"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
         <input
           type="text"
           placeholder="Size"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.size}
           onChange={(e) => setFormData({ ...formData, size: e.target.value })}
         />
         <input
           type="text"
           placeholder="Cost"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.cost}
           onChange={(e) => setFormData({ ...formData, cost: e.target.value })}
         />
         <input
           type="text"
           placeholder="Style"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.style}
           onChange={(e) => setFormData({ ...formData, style: e.target.value })}
         />
         <input
           type="text"
           placeholder="Floor"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.floor}
           onChange={(e) => setFormData({ ...formData, floor: e.target.value })}
         />
         <input
           type="text"
           placeholder="Square"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.square}
           onChange={(e) => setFormData({ ...formData, square: e.target.value })}
         />
         <input
           type="text"
           placeholder="Product Type ID"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.productTypeId}
           onChange={(e) =>
             setFormData({ ...formData, productTypeId: e.target.value })
@@ -123,7 +127,7 @@ export default function AddDrawing() {
         <input
           type="text"
           placeholder="Designed By"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.designedBy}
           onChange={(e) =>
             setFormData({ ...formData, designedBy: e.target.value })
@@ -132,20 +136,20 @@ export default function AddDrawing() {
         <input
           type="text"
           placeholder="Number Bedroom"
-          className="p-2 border border-gray-300 rounded"
+          className="rounded border border-gray-300 p-2"
           value={formData.numberBedRoom}
           onChange={(e) =>
             setFormData({ ...formData, numberBedRoom: e.target.value })
           }
         />
       </div>
-      <div className="italic text-sm mb-5 text-white">
+      <div className="mb-5 text-sm italic text-white">
         Lưu ý: Product Type ID: 1.Biệt thự, 2.Nhà cấp 4, 3.Nhà phố, 4.Khách sạn
       </div>
 
       {/* File Upload for 2D */}
-      <div className="text-2xl font-bold mb-5 text-white">Thêm bản vẽ 2D</div>
-      <div className="text-center border-2 border-dashed border-gray-300 rounded p-5 mb-5 text-white">
+      <div className="mb-5 text-2xl font-bold text-white">Thêm bản vẽ 2D</div>
+      <div className="mb-5 rounded border-2 border-dashed border-gray-300 p-5 text-center text-white">
         <input
           type="file"
           onChange={(e) => handleFileUpload(e, "2D")}
@@ -155,9 +159,12 @@ export default function AddDrawing() {
         />
         <p>JPEG, PNG, PDF, and JPG formats. (up to 50MB)</p>
       </div>
-      <div className="flex gap-2 flex-wrap mb-5">
+      <div className="mb-5 flex flex-wrap gap-2">
         {files2D.map((file, index) => (
-          <div key={index} className="border border-gray-300 rounded p-2 text-center w-36">
+          <div
+            key={index}
+            className="w-36 rounded border border-gray-300 p-2 text-center"
+          >
             <p className="text-sm">{file.name}</p>
             <p className="text-xs text-gray-500">
               {(file.size / 1024 / 1024).toFixed(2)} MB
@@ -167,8 +174,10 @@ export default function AddDrawing() {
       </div>
 
       {/* File Upload for Detail */}
-      <div className="text-2xl font-bold mb-5 text-white">Thêm chi tiết bản vẽ</div>
-      <div className="text-center border-2 border-dashed border-gray-300 rounded p-5 mb-5 text-white">
+      <div className="mb-5 text-2xl font-bold text-white">
+        Thêm chi tiết bản vẽ
+      </div>
+      <div className="mb-5 rounded border-2 border-dashed border-gray-300 p-5 text-center text-white">
         <input
           type="file"
           onChange={(e) => handleFileUpload(e, "detail")}
@@ -178,9 +187,12 @@ export default function AddDrawing() {
         />
         <p>JPEG, PNG, PDF, and JPG formats. (up to 50MB)</p>
       </div>
-      <div className="flex gap-2 flex-wrap mb-5">
+      <div className="mb-5 flex flex-wrap gap-2">
         {filesDetail.map((file, index) => (
-          <div key={index} className="border border-gray-300 rounded p-2 text-center w-36">
+          <div
+            key={index}
+            className="w-36 rounded border border-gray-300 p-2 text-center"
+          >
             <p className="text-sm">{file.name}</p>
             <p className="text-xs text-gray-500">
               {(file.size / 1024 / 1024).toFixed(2)} MB
@@ -190,8 +202,8 @@ export default function AddDrawing() {
       </div>
 
       {/* File Upload for 3D */}
-      <div className="text-2xl font-bold mb-5 text-white">Thêm bản vẽ 3D</div>
-      <div className="text-center border-2 border-dashed border-gray-300 rounded p-5 mb-5 text-white">
+      <div className="mb-5 text-2xl font-bold text-white">Thêm bản vẽ 3D</div>
+      <div className="mb-5 rounded border-2 border-dashed border-gray-300 p-5 text-center text-white">
         <input
           type="file"
           onChange={(e) => handleFileUpload(e, "3D")}
@@ -201,9 +213,12 @@ export default function AddDrawing() {
         />
         <p>JPEG, PNG, PDF, and JPG formats. (up to 50MB)</p>
       </div>
-      <div className="flex gap-2 flex-wrap mb-5">
+      <div className="mb-5 flex flex-wrap gap-2">
         {files3D.map((file, index) => (
-          <div key={index} className="border border-gray-300 rounded p-2 text-center w-36">
+          <div
+            key={index}
+            className="w-36 rounded border border-gray-300 p-2 text-center"
+          >
             <p className="text-sm">{file.name}</p>
             <p className="text-xs text-gray-500">
               {(file.size / 1024 / 1024).toFixed(2)} MB
@@ -213,7 +228,7 @@ export default function AddDrawing() {
       </div>
 
       <button
-        className="w-full p-2 bg-blue-500 text-white rounded cursor-pointer"
+        className="w-full cursor-pointer rounded bg-blue-500 p-2 text-white"
         onClick={handleSubmit}
       >
         Thêm bản vẽ
