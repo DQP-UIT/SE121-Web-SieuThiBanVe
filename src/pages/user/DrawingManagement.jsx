@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../store"; // Import useAuth từ zustand
-import axiosInstance from "../../axios";
+import axios from "axios";
 import DesignList from "./designList/DesignList";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -16,24 +16,30 @@ const DrawingManagement = () => {
   const itemsPerPage = 8; // Số sản phẩm mỗi trang
 
   useEffect(() => {
-    setIsLoading(true);
-    axiosInstance
-      .get("product", { params: { page: 1, pageSize: 8 } })
-      .then((res) => {
-        setProducts(
-          res.data.data.map((v) => ({
-            id: v.id,
-            name: v.name,
-            img: v.images[0] || "https://via.placeholder.com/150",
-            tang: v.floor,
-            phongngu: v.numberBedRoom,
-            dientich: v.square,
-            price: v.cost,
-          })),
-        );
-        setTotalPages(res.data.totalPages);
-        setIsLoading(false);
-      });
+    if (user?.id) {
+      setIsLoading(true);
+      axios
+        .get(`http://localhost:8000/api/v1/product/user/${user.id}`)
+        .then((res) => {
+          setProducts(
+            res.data.map((v) => ({
+              id: v.id,
+              name: v.name,
+              img: v.images[0] || "https://via.placeholder.com/150",
+              tang: v.floor,
+              phongngu: v.numberBedRoom,
+              dientich: v.square,
+              price: v.cost,
+            })),
+          );
+          setTotalPages(Math.ceil(res.data.length / itemsPerPage));
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+          setIsLoading(false);
+        });
+    }
   }, [user]); // Chỉ gọi API khi user thay đổi
 
   const handleDelete = () => {

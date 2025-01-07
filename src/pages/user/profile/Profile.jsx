@@ -55,7 +55,7 @@ const Profile = () => {
       <div className="ml-6 mt-6 h-fit w-full text-2xl font-semibold text-white">
         Đơn đặt hàng
       </div>
-      <div className="flex h-fit w-full flex-auto justify-center mt-4">
+      <div className="mt-4 flex h-fit w-full flex-auto justify-center">
         <div>
           <OrderList />
         </div>
