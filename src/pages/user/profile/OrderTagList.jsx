@@ -1,75 +1,52 @@
-import React, { useState } from "react";
-import { Box, Pagination, Grid } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Pagination, Grid, Button } from "@mui/material";
 import OrderTag from "./OrderTag";
-
-const fakeOrders = [
-  {
-    id: 1,
-    customerName: "John Doe",
-    customerPhone: "1234567890",
-    date: "2023-10-01",
-    status: "new",
-  },
-  {
-    id: 2,
-    customerName: "Jane Smith",
-    customerPhone: "0987654321",
-    date: "2023-10-02",
-    status: "new",
-  },
-  {
-    id: 3,
-    customerName: "Alice Johnson",
-    customerPhone: "1122334455",
-    date: "2023-10-03",
-    status: "new",
-  },
-  {
-    id: 4,
-    customerName: "Bob Brown",
-    customerPhone: "6677889900",
-    date: "2023-10-04",
-    status: "new",
-  },
-  {
-    id: 5,
-    customerName: "Charlie Davis",
-    customerPhone: "2233445566",
-    date: "2023-10-05",
-    status: "new",
-  },
-  {
-    id: 6,
-    customerName: "Diana Evans",
-    customerPhone: "3344556677",
-    date: "2023-10-06",
-    status: "new",
-  },
-  {
-    id: 7,
-    customerName: "Eve Foster",
-    customerPhone: "4455667788",
-    date: "2023-10-07",
-    status: "new",
-  },
-  {
-    id: 8,
-    customerName: "Frank Green",
-    customerPhone: "5566778899",
-    date: "2023-10-08",
-    status: "new",
-  },
-];
+import { useAuth } from "../../../store";
+import axios from "axios";
 
 const OrderList = () => {
   const [page, setPage] = useState(1);
   const ordersPerPage = 4;
+  const { user } = useAuth();
+  const [orders, setOrders] = useState([]);
 
+  // Xử lý chuyển trang
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  const paginatedOrders = fakeOrders.slice(
+  // Gọi API để lấy dữ liệu
+  useEffect(() => {
+    if (user?.id) {
+      axios
+        .get(`http://localhost:8000/api/v1/order/user?userId=${user.id}`)
+        .then((response) => {
+          setOrders(response.data); // Lưu dữ liệu từ API
+        })
+        .catch((error) => {
+          console.error("Error fetching orders:", error);
+        });
+    }
+  }, [user?.id]); // Chạy lại khi user.id thay đổi
+
+  // Đánh dấu đơn hàng là đã hoàn thành
+  const markDone = (id) => {
+    axios
+      .put(`http://localhost:8000/api/v1/order/${id}/solve`)
+      .then(() => {
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id === id ? { ...order, solved: 1 } : order,
+          ),
+        );
+      })
+      .catch((error) => {
+        console.error("Error marking order as done:", error);
+      });
+  };
+
+  // Tính toán phân trang
+  const paginatedOrders = orders.slice(
     (page - 1) * ordersPerPage,
     page * ordersPerPage,
   );
@@ -79,18 +56,20 @@ const OrderList = () => {
       <Grid container spacing={2}>
         {paginatedOrders.map((order) => (
           <Grid item key={order.id} xs={3}>
-            <OrderTag order={order} />
+            <OrderTag
+              order={{
+                id: order.id,
+                customerName: order.orderUserName,
+                customerPhone: order.orderPhoneNumber,
+                date: order.createAt
+                  ? new Date(order.createAt).toLocaleDateString()
+                  : "Invalid date",
+                status: order.solved === 1 ? "done" : "solved",
+              }}
+            />
           </Grid>
         ))}
       </Grid>
-      <Box display="flex" justifyContent="center" mt={4}>
-        <Pagination
-          count={Math.ceil(fakeOrders.length / ordersPerPage)}
-          page={page}
-          onChange={handlePageChange}
-          color="primary"
-        />
-      </Box>
     </Box>
   );
 };
