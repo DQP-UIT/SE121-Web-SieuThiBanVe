@@ -5,7 +5,7 @@ import UserHeader from "../header/UserHeader";
 const UserDefault = () => {
   return (
     <>
-      <div className="w-full h-full bg-blue-800">
+      <div className="w-full h-full bg-gradient-to-b from-blue-300 to-purple-100">
         <UserHeader />
         <Outlet />
       </div>

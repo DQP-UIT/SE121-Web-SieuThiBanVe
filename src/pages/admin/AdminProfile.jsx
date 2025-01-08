@@ -125,12 +125,11 @@ const Profile = () => {
               label="Tìm kiếm sản phẩm"
               variant="outlined"
               value={searchQuery}
-              color="white"
               onChange={handleSearchChange}
               sx={{
                 width: "50%",
                 "& .MuiOutlinedInput-root": {
-                  fieldset: { borderColor: "gray" }, // Viền mặc định
+                  fieldset: { borderColor: "white", color: "black" }, // Viền mặc định
                   "&.Mui-focused fieldset": { borderColor: "white" }, // Focus
                 },
               }}

@@ -80,7 +80,7 @@ const LoginForm = ({ onClose }) => {
         </Typography>
         <Box
           component="img"
-          src= {HomeIcon}
+          src={HomeIcon}
           alt="Your Company"
           sx={{
             display: "block",
@@ -140,7 +140,11 @@ const LoginForm = ({ onClose }) => {
                 localStorage.setItem("token", res.data.accessToken);
                 Swal.fire("Success", "Đăng nhập thành công", "success");
                 onClose();
-                navigate(`/user/profile`)
+                if (res.data.user.role === "admin") {
+                  navigate(`/admin/profile`);
+                } else {
+                  navigate(`/user/profile`);
+                }
               } catch (error) {
                 console.log(error);
                 Swal.fire("Error", "Email hoặc mật khẩu không đúng", "error");
