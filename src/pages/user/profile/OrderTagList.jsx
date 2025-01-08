@@ -51,6 +51,16 @@ const OrderList = () => {
     page * ordersPerPage,
   );
 
+  if (orders.length === 0) {
+    return (
+      <div className="flex max-h-screen w-full flex-auto items-center justify-center">
+        <h1 className="max-w-3xl transform p-8 text-3xl font-black uppercase text-deep-purple-300 mix-blend-darken">
+          You have no order
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <Box>
       <Grid container spacing={2}>

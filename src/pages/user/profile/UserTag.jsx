@@ -72,7 +72,7 @@ const UserTag = ({ user }) => {
         sx={{
           color: "white",
           backgroundBlendMode: "overlay",
-          backgroundColor: blue[700],
+          backgroundColor: blue[300],
         }}
       >
         <Box className="absolute -right-10 -top-8 z-50">
@@ -84,18 +84,33 @@ const UserTag = ({ user }) => {
           />
         </Box>
         <Box className="grid grid-cols-2 gap-4">
-          <Typography
-            className="mb-2"
-            color="black"
-            sx={{
-              fontSize: "1.2rem",
-              fontWeight: "bold",
-              textAlign: "center",
-              color: "white",
-            }}
-          >
-            Thông tin kiến trúc sư
-          </Typography>
+          {user.role === "admin" ? (
+            <Typography
+              className="mb-2"
+              color="black"
+              sx={{
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                textAlign: "center",
+                color: "white",
+              }}
+            >
+              Thông tin Quản trị viên
+            </Typography>
+          ) : (
+            <Typography
+              className="mb-2"
+              color="black"
+              sx={{
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                textAlign: "center",
+                color: "white",
+              }}
+            >
+              Thông tin kiến trúc sư
+            </Typography>
+          )}
           <IconButton
             sx={{ color: "white", width: "fit-content", marginBottom: 2 }}
             aria-label="edit profile"
@@ -114,7 +129,7 @@ const UserTag = ({ user }) => {
               onChange={handleChange}
               fullWidth
               disabled
-              sx={{ backgroundColor: blue[700], color: "white" }}
+              sx={{ backgroundColor: blue[200], color: "white" }}
             />
           ) : (
             <Box className="flex items-center">
@@ -137,7 +152,7 @@ const UserTag = ({ user }) => {
               value={formData.fullName}
               onChange={handleChange}
               fullWidth
-              sx={{ backgroundColor: blue[700], color: "white" }}
+              sx={{ backgroundColor: blue[200], color: "white" }}
             />
           ) : (
             <Box className="flex items-center">
@@ -161,7 +176,7 @@ const UserTag = ({ user }) => {
               value={moment(formData.dob).format("YYYY-MM-DD")}
               onChange={handleChange}
               fullWidth
-              sx={{ backgroundColor: blue[700], color: "white" }}
+              sx={{ backgroundColor: blue[200], color: "white" }}
             />
           ) : (
             <Box className="flex items-center">
@@ -177,28 +192,58 @@ const UserTag = ({ user }) => {
             </Box>
           )}
 
-          {isEditing ? (
-            <TextField
-              label="Số bản vẽ"
-              name="designs"
-              type="number"
-              value={formData.designs}
-              fullWidth
-              disabled // Không cho phép chỉnh sửa
-              sx={{ backgroundColor: blue[700], color: "white" }}
-            />
+          {user.role === "admin" ? (
+            <>
+              {isEditing ? (
+                <TextField
+                  label="Ngày kích hoạt"
+                  name="designs"
+                  type="number"
+                  value={moment(user.activedDay).format("DD/MM/YYYY")}
+                  fullWidth
+                  disabled // Không cho phép chỉnh sửa
+                  sx={{ backgroundColor: blue[200], color: "white" }}
+                />
+              ) : (
+                <Box className="flex items-center">
+                  <InsertDriveFileIcon className="mr-2 text-white" />
+                  <Box>
+                    <Typography variant="body2" className="text-white">
+                      Ngày kích hoạt
+                    </Typography>
+                    <Typography variant="body1" className="font-bold">
+                      {moment(user.activedDay).format("DD/MM/YYYY")}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </>
           ) : (
-            <Box className="flex items-center">
-              <InsertDriveFileIcon className="mr-2 text-white" />
-              <Box>
-                <Typography variant="body2" className="text-white">
-                  Số bản vẽ
-                </Typography>
-                <Typography variant="body1" className="font-bold">
-                  {formData.designs}
-                </Typography>
-              </Box>
-            </Box>
+            <>
+              {isEditing ? (
+                <TextField
+                  label="Số bản vẽ"
+                  name="designs"
+                  type="number"
+                  value={formData.designs}
+                  fullWidth
+                  disabled // Không cho phép chỉnh sửa
+                  sx={{ backgroundColor: blue[200], color: "white" }}
+                />
+              ) : (
+                <Box className="flex items-center">
+                  <InsertDriveFileIcon className="mr-2 text-white" />
+                  <Box>
+                    <Typography variant="body2" className="text-white">
+                      Số bản vẽ
+                    </Typography>
+                    <Typography variant="body1" className="font-bold">
+                      {formData.designs}
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
+            </>
           )}
 
           {isEditing ? (
@@ -208,7 +253,7 @@ const UserTag = ({ user }) => {
               value={formData.email}
               fullWidth
               disabled // Không cho phép chỉnh sửa
-              sx={{ backgroundColor: blue[700], color: "white" }}
+              sx={{ backgroundColor: blue[200], color: "white" }}
             />
           ) : (
             <Box className="flex items-center">
@@ -232,7 +277,7 @@ const UserTag = ({ user }) => {
               value={formData.address}
               onChange={handleChange}
               fullWidth
-              sx={{ backgroundColor: blue[700], color: "white" }}
+              sx={{ backgroundColor: blue[200], color: "white" }}
             />
           ) : (
             <Box className="flex items-center">

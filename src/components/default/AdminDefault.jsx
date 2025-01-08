@@ -5,7 +5,7 @@ import AdminHeader from "../header/AdminHeader";
 const AdminDefault = () => {
   return (
     <>
-      <div className="w-full h-full bg-blue-800">
+      <div className="w-full h-full bg-gradient-to-b from-blue-300 to-purple-100">
         <AdminHeader />
         <Outlet />
       </div>

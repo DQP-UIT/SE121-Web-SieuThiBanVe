@@ -49,13 +49,13 @@ const Profile = () => {
 
   return (
     <div className="h-full">
-      <div className="ml-6 h-fit w-fit">
+      <div className="ml-6 h-fit w-fit min-h-[35vh]">
         <UserTag user={user} />
       </div>
       <div className="ml-6 mt-6 h-fit w-full text-2xl font-semibold text-white">
         Đơn đặt hàng
       </div>
-      <div className="mt-4 flex h-fit w-full flex-auto justify-center">
+      <div className="mt-4 flex h-fit min-h-[50vh] w-full flex-auto justify-center">
         <div>
           <OrderList />
         </div>
