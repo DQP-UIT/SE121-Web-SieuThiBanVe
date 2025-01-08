@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { Box, Typography, Paper, Button } from "@mui/material";
 import moment from "moment";
+import axios from "axios";
 
 const OrderTag = ({ order }) => {
   const [status, setStatus] = useState(order.status);
 
-  const handleEditClick = () => {
-    setStatus("done");
+  const handleEditClick = async () => {
+    try {
+      // Gọi API để đánh dấu đơn hàng là đã hoàn thành
+      await axios.put(`http://localhost:8000/api/v1/order/${order.id}/solve`);
+      setStatus("done"); // Cập nhật trạng thái
+    } catch (error) {
+      console.error("Error marking order as done:", error);
+    }
   };
 
   return (
@@ -56,12 +63,12 @@ const OrderTag = ({ order }) => {
         <Button
           variant="contained"
           onClick={handleEditClick}
+          disabled={status === "done"}
           sx={{
-            backgroundColor: "#EDEEF0",
-            color: "black",
+            backgroundColor: status === "done" ? "#EDEEF0" : "primary.main",
+            color: status === "done" ? "black" : "white",
             "&:hover": {
-              backgroundColor: "primary.main",
-              color: "white",
+              backgroundColor: "primary.dark",
             },
             borderRadius: "10px",
           }}

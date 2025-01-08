@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UserTag from "../../user/profile/UserTag";
-import { useAuth } from "../../../store"; 
+import { useAuth } from "../../../store";
 import { useNavigate } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -82,28 +82,35 @@ const AccountMG = () => {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <div>
         <h1 className="w-full text-center text-3xl font-semibold text-white">
           Thông tin người dùng
         </h1>
       </div>
-      <div className="mt-4 flex justify-center w-full">
+      <div className="mt-4 flex w-full justify-center">
         <input
           type="text"
           placeholder="Tìm kiếm người dùng..."
-          className="rounded-lg border border-blue-200 p-2 w-96"
+          className="w-96 rounded-lg border border-blue-200 p-2"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <div className="float float-right mr-8 mb-4 text-white font-semibold text-xl border-2 px-4 py-2 rounded-lg select-none hover:scale-105 hover:cursor-pointer"
-        onClick={()=>{navigate(`/admin/addacc`)}}>
+      <div
+        className="float float-right mb-4 mr-8 select-none rounded-lg border-2 px-4 py-2 text-xl font-semibold text-white hover:scale-105 hover:cursor-pointer"
+        onClick={() => {
+          navigate(`/admin/addacc`);
+        }}
+      >
         Tạo tài khoản
       </div>
-      <div className="mt-8 w-full h-full min-h-[80vh] flex flex-wrap justify-center items-center">
+      <div className="mt-8 flex h-full min-h-[80vh] w-full flex-wrap items-center justify-center">
         {paginatedUsers.map((user) => (
-          <div key={user.id} className="w-1/2 p-2 flex flex-auto justify-center mt-4">
+          <div
+            key={user.id}
+            className="mt-4 flex w-1/2 flex-auto justify-center p-2"
+          >
             <UserTag
               user={user}
               isEdit={!!editingStates[user.id]}
@@ -113,7 +120,10 @@ const AccountMG = () => {
           </div>
         ))}
       </div>
-      <Stack spacing={2} className="pagination mt-4 flex flex-auto items-center justify-center">
+      <Stack
+        spacing={2}
+        className="pagination mt-4 flex flex-auto items-center justify-center"
+      >
         <Pagination
           count={Math.ceil(filteredUserList.length / itemsPerPage)}
           page={currentPage}
