@@ -42,7 +42,7 @@ const ProductCard = ({ banve }) => {
 
   return (
     <div
-      className="m-4 h-[50vh] max-h-28 min-h-fit w-[18vw] min-w-56 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
+      className="m-4 max-h-28 min-h-fit max-w-80 min-w-72 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
       onClick={handleOnClick}
     >
       <img

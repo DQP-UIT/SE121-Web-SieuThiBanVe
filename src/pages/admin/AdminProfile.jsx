@@ -111,7 +111,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full w-full">
       <div className="ml-6 h-fit w-fit">
         <UserTag user={user} />
       </div>
@@ -154,7 +154,9 @@ const Profile = () => {
             {isLoading ? (
               <div>Loading...</div>
             ) : (
-              <DesignList products={paginatedProducts} />
+              <div className="w-full h-full flex flex-auto justify-center ">
+                <DesignList products={paginatedProducts} />
+              </div>
             )}
           </div>
           <Stack
