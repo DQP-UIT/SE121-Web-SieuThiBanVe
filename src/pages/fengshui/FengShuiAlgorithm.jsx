@@ -118,3 +118,23 @@ export function getCungMenh(namSinh) {
   const menh = nguHanh[index];
   return menh;
 }
+
+// Hàm kiểm tra tuổi hợp mạng
+function isSuitableAge(namSinh, namXayNha) {
+  const tamTai = checkTamTai(namSinh, namXayNha);
+  const kimLau = checkKimLau(namSinh, namXayNha);
+  const hoangOc = checkHoangOc(namSinh, namXayNha);
+
+  return tamTai === "Không phạm tam tai" && kimLau === "Không phạm Kim lâu" && hoangOc.includes("Tốt");
+}
+
+// Hàm tìm tuổi hợp mạng trong khoảng -50 tuổi đến +5 tuổi
+export function findSuitableAges(namSinh) {
+  const suitableAges = [];
+  for (let year = namSinh - 50; year <= namSinh + 5; year++) {
+    if (isSuitableAge(namSinh, year)) {
+      suitableAges.push(year);
+    }
+  }
+  return suitableAges;
+}
