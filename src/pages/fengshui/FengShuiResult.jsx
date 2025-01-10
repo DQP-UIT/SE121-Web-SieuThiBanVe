@@ -6,6 +6,7 @@ import {
   checkHoangOc,
   chuyenDoiNamAmLich,
   getCungMenh,
+  findSuitableAges,
 } from "./FengShuiAlgorithm";
 
 const FengShuiResult = () => {
@@ -21,6 +22,8 @@ const FengShuiResult = () => {
   const tamTaiResult = checkTamTai(birthYear, houseYear);
   const kimLauResult = checkKimLau(birthYear, houseYear);
   const hoangOcResult = checkHoangOc(birthYear, houseYear);
+
+  const suitableAges = findSuitableAges(birthYear);
 
   const getResultText = (result) => {
     if (result.includes("Phạm") || result.includes("Xấu")) {
@@ -42,8 +45,8 @@ const FengShuiResult = () => {
 
   return (
     <div>
-      <div className=" flex items-center justify-center">
-        <div className="relative mt-8 mb-8 h-auto w-[600px] rounded-lg bg-white p-4 shadow-lg">
+      <div className="flex items-center justify-center">
+        <div className="relative mb-8 mt-8 h-auto w-[600px] rounded-lg bg-white p-4 shadow-lg">
           <div className="mb-4 text-center font-['Inter'] text-3xl font-semibold text-black">
             Xem tuổi làm nhà
           </div>
@@ -112,7 +115,7 @@ const FengShuiResult = () => {
               {kimLauResult}
             </div>
           </div>
-          <div className={`rounded-lg ${getResultBG(hoangOcResult)} p-4`}>
+          <div className={`mb-8 rounded-lg ${getResultBG(hoangOcResult)} p-4`}>
             <div
               className={`mb-2 font-['Inter'] text-lg font-medium ${getResultText(hoangOcResult)}`}
             >
@@ -122,6 +125,14 @@ const FengShuiResult = () => {
               className={`font-['Inter'] text-lg font-normal ${getResultText(hoangOcResult)}`}
             >
               {hoangOcResult}
+            </div>
+          </div>
+          <div className="mb-8 rounded-lg bg-blue-100 p-4">
+            <div className="mb-2 font-['Inter'] text-lg font-medium text-blue-900">
+              Các tuổi hợp mạng để mượn tuổi xây nhà
+            </div>
+            <div className="font-['Inter'] text-lg font-normal text-blue-900">
+              {suitableAges.join(", ")}
             </div>
           </div>
           <div className="mt-8 flex justify-center">

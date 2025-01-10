@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../store";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function AddDrawing() {
   const [files2D, setFiles2D] = useState([]);
   const [filesDetail, setFilesDetail] = useState([]);
   const [files3D, setFiles3D] = useState([]);
   const { user } = useAuth();
+  const [editorData, setEditorData] = useState(""); 
   const [formData, setFormData] = useState({
     name: "",
     size: "",
@@ -46,6 +49,9 @@ export default function AddDrawing() {
     for (const key in formData) {
       data.append(key, formData[key]);
     }
+
+    // Thêm dữ liệu từ CKEditor vào FormData
+    data.append("description", editorData);
 
     try {
       const response = await axios.post(
@@ -145,6 +151,19 @@ export default function AddDrawing() {
       </div>
       <div className="mb-5 text-sm italic text-white">
         Lưu ý: Product Type ID: 1.Biệt thự, 2.Nhà cấp 4, 3.Nhà phố, 4.Khách sạn
+      </div>
+
+      {/* CKEditor */}
+      <div className="mb-5 text-2xl font-bold text-white">Mô tả bản vẽ</div>
+      <div className="mb-5 rounded border border-gray-300 bg-white p-5">
+        <CKEditor
+          editor={ClassicEditor}
+          data={editorData}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setEditorData(data);
+          }}
+        />
       </div>
 
       {/* File Upload for 2D */}

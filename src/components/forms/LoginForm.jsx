@@ -51,6 +51,33 @@ const LoginForm = ({ onClose }) => {
     });
   };
 
+  const handleLogin = async () => {
+    try {
+      const res = await axiosInstance.post("/auth/login", {
+        ...account,
+      });
+      setUser(res.data.user);
+      setToken(res.data.accessToken); // Lưu token vào Zustand
+      localStorage.setItem("token", res.data.accessToken);
+      Swal.fire("Success", "Đăng nhập thành công", "success");
+      onClose();
+      if (res.data.user.role === "admin") {
+        navigate(`/admin/profile`);
+      } else {
+        navigate(`/user/profile`);
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire("Error", "Email hoặc mật khẩu không đúng", "error");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <Container
       component="main"
@@ -90,7 +117,12 @@ const LoginForm = ({ onClose }) => {
             mb: 2,
           }}
         />
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          noValidate
+          sx={{ mt: 1 }}
+          onKeyDown={handleKeyDown}
+        >
           <TextField
             margin="normal"
             required
@@ -130,26 +162,7 @@ const LoginForm = ({ onClose }) => {
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
-            onClick={async (e) => {
-              try {
-                const res = await axiosInstance.post("/auth/login", {
-                  ...account,
-                });
-                setUser(res.data.user);
-                setToken(res.data.accessToken); // Lưu token vào Zustand
-                localStorage.setItem("token", res.data.accessToken);
-                Swal.fire("Success", "Đăng nhập thành công", "success");
-                onClose();
-                if (res.data.user.role === "admin") {
-                  navigate(`/admin/profile`);
-                } else {
-                  navigate(`/user/profile`);
-                }
-              } catch (error) {
-                console.log(error);
-                Swal.fire("Error", "Email hoặc mật khẩu không đúng", "error");
-              }
-            }}
+            onClick={handleLogin}
           >
             Sign in
           </Button>
