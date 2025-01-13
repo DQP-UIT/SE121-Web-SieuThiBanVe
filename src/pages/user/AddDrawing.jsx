@@ -51,18 +51,18 @@ export default function AddDrawing() {
 
     // Thêm các dữ liệu form khác vào FormData
     for (const key in formData) {
-      if (formData[key] !== "") {
-        data.append(key, formData[key]);
-      }
+      data.append(key, formData[key]);
     }
 
-    // Chuyển đổi nội dung từ Draft.js sang văn bản thô
-    const description = editorState.getCurrentContent().getPlainText();
-    data.append("description", description); // Lưu văn bản thô vào FormData
+    // Thêm dữ liệu từ Draft.js Editor vào FormData
+    const contentState = editorState.getCurrentContent();
+    const rawContentState = convertToRaw(contentState);
+    const description = JSON.stringify(rawContentState); // Convert thành chuỗi JSON
+    data.append("description", description);
 
     try {
       // Gọi API upload bản vẽ
-      const uploadResponse = await axios.post(
+      const response = await axios.post(
         "http://localhost:8000/api/v1/product",
         data,
         {
@@ -72,14 +72,14 @@ export default function AddDrawing() {
         },
       );
 
-      if (uploadResponse.status === 201) {
+      if (response.status === 201) {
         alert("Bản vẽ đã được thêm thành công!");
 
-        // Gọi API update số lượng bản vẽ
+        // Gọi API cập nhật số lượng bản vẽ
         try {
           const updateResponse = await axios.put(
             `http://localhost:8000/api/v1/user/${user.id}/update-designs`,
-            {}, // Gửi body rỗng
+            {}, // Body trống
             {
               headers: {
                 "Content-Type": "application/json",
