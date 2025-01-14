@@ -21,6 +21,7 @@ export default function AddDrawing() {
     productTypeId: "",
     designedBy: "",
     numberBedRoom: "",
+    frontAge: "", // Thêm trường mặt tiền
     userId: user.id, // Giả sử bạn đã có userId từ useAuth
   });
 
@@ -42,6 +43,8 @@ export default function AddDrawing() {
 
     // Tạo FormData để gửi file
     const data = new FormData();
+
+    // Append các file vào FormData
     files2D.forEach((file) => data.append("images", file));
     filesDetail.forEach((file) => data.append("images1", file));
     files3D.forEach((file) => data.append("images2", file));
@@ -54,9 +57,11 @@ export default function AddDrawing() {
     // Thêm dữ liệu từ Draft.js Editor vào FormData
     const contentState = editorState.getCurrentContent();
     const rawContentState = convertToRaw(contentState);
-    data.append("description", JSON.stringify(rawContentState));
+    const description = JSON.stringify(rawContentState); // Convert thành chuỗi JSON
+    data.append("description", description);
 
     try {
+      // Gọi API upload bản vẽ
       const response = await axios.post(
         "http://localhost:8000/api/v1/product",
         data,
@@ -69,9 +74,35 @@ export default function AddDrawing() {
 
       if (response.status === 201) {
         alert("Bản vẽ đã được thêm thành công!");
+
+        // Gọi API cập nhật số lượng bản vẽ
+        try {
+          const updateResponse = await axios.put(
+            `http://localhost:8000/api/v1/user/${user.id}/update-designs`,
+            {}, // Body trống
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
+
+          if (updateResponse.status === 200) {
+            alert("Số lượng bản vẽ đã được cập nhật thành công!");
+          }
+        } catch (updateError) {
+          console.error(
+            "Error updating designs:",
+            updateError.response?.data || updateError.message,
+          );
+          alert("Đã xảy ra lỗi khi cập nhật số lượng bản vẽ!");
+        }
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (uploadError) {
+      console.error(
+        "Error uploading drawing:",
+        uploadError.response?.data || uploadError.message,
+      );
       alert("Đã có lỗi xảy ra khi thêm bản vẽ!");
     }
   };
@@ -149,6 +180,15 @@ export default function AddDrawing() {
           value={formData.numberBedRoom}
           onChange={(e) =>
             setFormData({ ...formData, numberBedRoom: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Front Age"
+          className="rounded border border-gray-300 p-2"
+          value={formData.frontAge}
+          onChange={(e) =>
+            setFormData({ ...formData, frontAge: e.target.value })
           }
         />
       </div>
