@@ -2,10 +2,7 @@ import React from "react";
 
 const ProductTable = ({ product }) => {
   return (
-    <div className="w-2/3 shadow-md">
-      <div className="pb-5">
-        <span className="text-2xl font-semibold">Thông số bản vẽ</span>
-      </div>
+    <div className="w-2/3 shadow-md select-none">
       <div className="relative z-10 flex overflow-x-auto shadow-md">
         <table className="w-full text-left text-sm text-gray-500">
           <tbody>

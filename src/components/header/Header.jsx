@@ -67,22 +67,22 @@ const Header = () => {
   return (
     <div className="w-full">
       <div className="flex h-1/6 min-h-fit items-center justify-between p-4">
-        <div className="ml-12 flex w-1/5 min-w-fit items-center">
-          <img src={Logo} alt="Logo" className="float-left h-8 w-8" />
-          <span className="font-serif text-3xl">Siêu thị bản vẽ</span>
+        <div className="ml-12 flex w-1/5 min-w-fit items-center hover:cursor-pointer">
+          <img src={Logo} alt="Logo" className="float-left h-8 w-8 select-none" />
+          <span className="font-serif text-3xl select-none">Siêu thị bản vẽ</span>
         </div>
         <div className="ml-36 w-1/3 min-w-fit">
           <SearchBar data={data} />
         </div>
-        <div className="ml-20 w-1/5 min-w-fit flex-auto">
-          <img src={PhoneIcon} alt="Contact" className="float-left h-8 w-8" />
-          <span className="text-xl font-medium">0975207829</span>
+        <div className="ml-20 w-1/5 min-w-fit flex-auto hover:cursor-pointer">
+          <img src={PhoneIcon} alt="Contact" className="float-left h-8 w-8 select-none" />
+          <span className="text-xl font-medium select-none">0975207829</span>
           {user ? (
             <div className="float-right flex gap-4">
               <img
                 src={User}
                 alt="user"
-                className="h-8 w-8 hover:cursor-pointer"
+                className="h-8 w-8 hover:cursor-pointer select-none"
                 onClick={() => {
                   navigate("/profile");
                 }}
@@ -96,7 +96,7 @@ const Header = () => {
             </div>
           ) : (
             <Button
-              className="float-right rounded bg-light-blue-600 px-4 py-2 text-sm text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-500"
+              className="float-right rounded bg-light-blue-700 px-4 py-2 text-sm text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-400 select-none"
               onClick={handleOnLogin}
             >
               Login

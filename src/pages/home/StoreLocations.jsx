@@ -2,7 +2,7 @@ import React from "react";
 
 const StoreLocations = () => {
   return (
-    <div className="mt-8">
+    <div className="mt-8 select-none">
       <div className="relative z-10 mx-auto mt-2 h-auto w-full max-w-6xl rounded-lg bg-[#bdd9fa] p-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-col items-center">
