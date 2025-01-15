@@ -26,6 +26,7 @@ import SearchResultRcm from "../pages/searchResult/ResultRcm";
 import ChangeProfile from "../pages/user/ChangeProfile";
 import EstimateResultPage from "../pages/estimate/estimateResultPage";
 import AdminProfile from "../pages/admin/AdminProfile";
+import DesignInfo from "../pages/info/DesignInfo";
 
 const defaultRoutes = [
   {
@@ -99,6 +100,10 @@ const userRoutes = [
     path: "changeprofile",
     element: <ChangeProfile />,
   },
+  {
+    path: "designinfo/:id",
+    element: <DesignInfo/>
+  },
 ];
 
 const adminRoutes = [
@@ -117,6 +122,10 @@ const adminRoutes = [
   {
     path: "report",
     element: <ReportPage />,
+  },
+  {
+    path: "designinfo/:id",
+    element: <DesignInfo/>
   },
 ];
 

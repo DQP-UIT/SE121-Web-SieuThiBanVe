@@ -94,12 +94,16 @@ const Info = () => {
 
   // Nếu không có dữ liệu sản phẩm
   if (!product) {
-    return <div>Sản phẩm không tồn tại.</div>;
+    return (
+      <div className="flex h-[80vh] w-full mt-12 flex-auto justify-center text-2xl text-blue-300 mix-blend-overlay">
+        Sản phẩm không tồn tại.
+      </div>
+    );
   }
 
   return (
     <div>
-      <div>
+      <div className="w-full mt-4">
         <span className="ml-8 font-sans text-3xl font-semibold">
           {product.name}
         </span>
@@ -116,13 +120,16 @@ const Info = () => {
           )}
         </div>
       </div>
-      <div className="ml-8 mt-6 w-2/3">
-        <ProductTable product={product} />
-      </div>
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold">
-          Mô tả sản phẩm
+          Thông số bản vẽ
         </span>
+        <div className="ml-8 mt-6 w-2/3">
+          <ProductTable product={product} />
+        </div>
+      </div>
+      <div className="ml-8 mt-6">
+        <span className="font-sans text-2xl font-semibold">Mô tả sản phẩm</span>
         <div className="mt-4 pr-40 font-sans text-xl">
           {product.description}
         </div>

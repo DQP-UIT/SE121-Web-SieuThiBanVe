@@ -46,30 +46,30 @@ const ProductCard = ({ banve }) => {
       onClick={handleOnClick}
     >
       <img
-        className="h-[200px] w-full object-cover"
+        className="h-[200px] w-full object-cover select-none"
         src={banve.img}
         alt={banve.name}
       />
 
       <div className="p-4">
-        <p className="mb-2 text-[0.6vw] text-green-500">
+        <p className="mb-2 text-[0.6vw] text-green-500 select-none">
           Được thiết kế bởi designer
         </p>
 
-        <div className="mb-1 text-[1vw] font-bold">{banve.name}</div>
+        <div className="mb-1 text-[1vw] font-bold select-none">{banve.name}</div>
 
-        <div className="mb-1 text-[0.65vw] text-gray-600">
+        <div className="mb-1 text-[0.65vw] text-gray-600 select-none">
           Số tầng {banve.tang} | Số phòng ngủ {banve.phongngu} | Diện tích{" "}
           {banve.dientich} m²
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="text-[1.5vw] text-blue-500">
+          <p className="text-[1.5vw] text-blue-500 select-none">
             {banve.price.toLocaleString()} VND
           </p>
           {!isRootPath && (
             <button
-              className="ml-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
+              className="ml-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700 select-none"
               onClick={(e) => {
                 e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
                 handleDeleteDesign(banve.id);

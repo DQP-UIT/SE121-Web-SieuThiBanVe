@@ -104,7 +104,7 @@ const Home = () => {
               onChange={handleInputChange}
             />
             <button
-              className="mt-8 transform cursor-pointer rounded-full bg-blue-500 px-8 py-3 text-lg font-bold text-white shadow-md transition-transform hover:scale-105 hover:bg-blue-700 focus:outline-none"
+              className="mt-8 transform cursor-pointer rounded-full bg-blue-500 px-8 py-3 text-lg font-bold text-white shadow-md transition-transform hover:scale-105 hover:bg-blue-700 focus:outline-none select-none"
               onClick={handleContactSubmit}
             >
               Liên hệ ngay
