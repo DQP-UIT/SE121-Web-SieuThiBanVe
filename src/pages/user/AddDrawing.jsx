@@ -57,8 +57,7 @@ export default function AddDrawing() {
     // Thêm dữ liệu từ Draft.js Editor vào FormData
     const contentState = editorState.getCurrentContent();
     const rawContentState = convertToRaw(contentState);
-    const description = JSON.stringify(rawContentState); // Convert thành chuỗi JSON
-    data.append("description", description);
+    data.append("description", JSON.stringify(rawContentState));
 
     try {
       // Gọi API upload bản vẽ
