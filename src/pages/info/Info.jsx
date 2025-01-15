@@ -30,8 +30,8 @@ const Info = () => {
   }, []); // Dùng useEffect để chỉ chạy một lần khi component mount
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
-  }, [product])
+    window.scrollTo(0, 0);
+  }, [product]);
 
   // Hàm gọi API để lấy thông tin sản phẩm
   useEffect(() => {
@@ -118,6 +118,14 @@ const Info = () => {
       </div>
       <div className="ml-8 mt-6 w-2/3">
         <ProductTable product={product} />
+      </div>
+      <div className="ml-8 mt-6">
+        <span className="font-sans text-2xl font-semibold">
+          Mô tả sản phẩm
+        </span>
+        <div className="mt-4 pr-40 font-sans text-xl">
+          {product.description}
+        </div>
       </div>
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold">
