@@ -138,3 +138,52 @@ export function findSuitableAges(namSinh) {
   }
   return suitableAges;
 }
+
+// Hàm tính tứ trạch theo mạng của gia chủ
+function getQuaiSo(namSinh, gioiTinh) {
+  // Bước 2: Cộng 2 con số cuối cùng của năm sinh và giản ước đến số có 1 chữ số
+  const lastTwoDigits = namSinh % 100;
+  const sumLastTwoDigits = Math.floor(lastTwoDigits / 10) + (lastTwoDigits % 10);
+  const reducedSum = sumLastTwoDigits % 9 || 9; // Giản ước đến số có 1 chữ số
+
+  let quaiSo;
+  if (namSinh < 2000) {
+    // Trước năm 2000
+    if (gioiTinh === 'Nam') {
+      quaiSo = 10 - reducedSum;
+    } else {
+      quaiSo = 5 + reducedSum;
+    }
+  } else {
+    // Từ năm 2000 trở đi
+    if (gioiTinh === 'Nam') {
+      quaiSo = 9 - reducedSum;
+    } else {
+      quaiSo = 6 + reducedSum;
+    }
+  }
+
+  // Bước 4: Giản ước số vừa tìm được ở bước 3
+  quaiSo = quaiSo % 9 || 9;
+
+  return quaiSo;
+}
+
+export function getHuongNha(namsinh, gioiTinh) {
+  // Tính quái số tứ trạch gia chủ
+  const quaiSo = getQuaiSo(namsinh,gioiTinh);
+  // Bảng Hà Đồ với các hướng nhà tương ứng
+  const huongNhaMap = {
+    1: 'Bắc',
+    2: 'Tây Nam',
+    3: 'Đông',
+    4: 'Đông Nam',
+    5: gioiTinh === 'Nam' ? 'Đông Bắc' : 'Tây Nam', // Trung Cung
+    6: 'Tây Bắc',
+    7: 'Tây',
+    8: 'Đông Bắc',
+    9: 'Nam'
+  };
+
+  return huongNhaMap[quaiSo] || 'Không xác định';
+}

@@ -7,6 +7,7 @@ import {
   chuyenDoiNamAmLich,
   getCungMenh,
   findSuitableAges,
+  getHuongNha,
 } from "./FengShuiAlgorithm";
 
 const FengShuiResult = () => {
@@ -22,6 +23,8 @@ const FengShuiResult = () => {
   const tamTaiResult = checkTamTai(birthYear, houseYear);
   const kimLauResult = checkKimLau(birthYear, houseYear);
   const hoangOcResult = checkHoangOc(birthYear, houseYear);
+  const huongNhaNam = getHuongNha(birthYear, "Nam");
+  const huongNhaNu = getHuongNha(birthYear, "Nu");
 
   const suitableAges = findSuitableAges(birthYear);
 
@@ -125,6 +128,17 @@ const FengShuiResult = () => {
               className={`font-['Inter'] text-lg font-normal ${getResultText(hoangOcResult)}`}
             >
               {hoangOcResult}
+            </div>
+          </div>
+          <div className="mb-8 rounded-lg bg-blue-100 p-4">
+            <div className="mb-2 font-['Inter'] text-lg font-medium text-blue-900">
+              Hướng mặt tiền hợp mạng của gia chủ
+            </div>
+            <div className="mb-2 font-['Inter'] text-lg font-normal text-blue-900">
+              Nam: {huongNhaNam}
+            </div>
+            <div className="font-['Inter'] text-lg font-normal text-blue-900">
+              Nữ: {huongNhaNu}
             </div>
           </div>
           <div className="mb-8 rounded-lg bg-blue-100 p-4">
