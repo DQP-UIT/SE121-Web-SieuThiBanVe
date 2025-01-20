@@ -5,7 +5,9 @@ import axios from "axios";
 
 const ProductCard = ({ banve }) => {
   const navigate = useNavigate();
-  const isRootPath = window.location.pathname === "/"; // Kiểm tra đường dẫn hiện tại
+  // Kiểm tra nếu đường dẫn hiện tại là `/` hoặc `/product`
+  const isRootPath =
+    location.pathname === "/" || location.pathname.startsWith("/product");
 
   useEffect(() => {
     console.log("here");
@@ -42,34 +44,36 @@ const ProductCard = ({ banve }) => {
 
   return (
     <div
-      className="m-4 max-h-28 min-h-fit max-w-80 min-w-72 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
+      className="m-4 max-h-28 min-h-fit min-w-72 max-w-80 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
       onClick={handleOnClick}
     >
       <img
-        className="h-[200px] w-full object-cover select-none"
+        className="h-[200px] w-full select-none object-cover"
         src={banve.img}
         alt={banve.name}
       />
 
       <div className="p-4">
-        <p className="mb-2 text-[0.6vw] text-green-500 select-none">
+        <p className="mb-2 select-none text-[0.6vw] text-green-500">
           Được thiết kế bởi designer
         </p>
 
-        <div className="mb-1 text-[1vw] font-bold select-none">{banve.name}</div>
+        <div className="mb-1 select-none text-[1vw] font-bold">
+          {banve.name}
+        </div>
 
-        <div className="mb-1 text-[0.65vw] text-gray-600 select-none">
+        <div className="mb-1 select-none text-[0.65vw] text-gray-600">
           Số tầng {banve.tang} | Số phòng ngủ {banve.phongngu} | Diện tích{" "}
           {banve.dientich} m²
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="text-[1.5vw] text-blue-500 select-none">
+          <p className="select-none text-[1.5vw] text-blue-500">
             {banve.price.toLocaleString()} VND
           </p>
           {!isRootPath && (
             <button
-              className="ml-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700 select-none"
+              className="ml-4 select-none rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700"
               onClick={(e) => {
                 e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
                 handleDeleteDesign(banve.id);
