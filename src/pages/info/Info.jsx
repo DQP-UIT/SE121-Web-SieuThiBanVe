@@ -78,10 +78,8 @@ const Info = () => {
   }, [id]); // Thêm id vào dependencies để gọi lại khi id thay đổi
 
   // Kiểm tra URL có phải là đường dẫn yêu cầu hay không
-  // Kiểm tra xem đường dẫn có bắt đầu bằng "/drawingmanagement/product"
-  const shouldHideContactCard = location.pathname.startsWith(
-    "/drawingmanagement/product",
-  );
+  // Kiểm tra xem đường dẫn có bắt đầu bằng "/designinfo"
+  const shouldHideContactCard = location.pathname.startsWith("/designinfo");
 
   // Hiển thị loading hoặc lỗi
   if (loading) {
@@ -109,6 +107,8 @@ const Info = () => {
     );
   }
 
+  const files = Array.isArray(product.file) ? product.file : [product.file];
+
   return (
     <div>
       <div className="mt-4 w-full">
@@ -131,7 +131,6 @@ const Info = () => {
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold">
           Thông số bản vẽ
-          Thông số bản vẽ
         </span>
         <div className="ml-8 mt-6 w-2/3">
           <ProductTable product={product} />
@@ -143,6 +142,28 @@ const Info = () => {
           className="mt-4 pr-40 font-sans text-xl"
           dangerouslySetInnerHTML={{ __html: product.description }}
         />
+      </div>
+      <div className="ml-8 mt-6">
+        <span className="font-sans text-2xl font-semibold text-white">
+          File xem trước
+        </span>
+        <div className="mt-4">
+          {files && files.length > 0 ? (
+            files.map((file, index) => (
+              <div key={index} className="mb-2">
+                <a
+                  href={file}
+                  download
+                  className="text-blue-500 hover:underline"
+                >
+                  {file.split("/").pop()}
+                </a>
+              </div>
+            ))
+          ) : (
+            <div className="text-white">Không có file nào để xem trước.</div>
+          )}
+        </div>
       </div>
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold">
