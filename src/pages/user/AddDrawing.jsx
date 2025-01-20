@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../store";
+import { useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
+import { stateToHTML } from "draft-js-export-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 export default function AddDrawing() {
+  const navigate = useNavigate();
   const [files2D, setFiles2D] = useState([]);
   const [filesDetail, setFilesDetail] = useState([]);
   const [files3D, setFiles3D] = useState([]);
@@ -54,10 +57,10 @@ export default function AddDrawing() {
       data.append(key, formData[key]);
     }
 
-    // Thêm dữ liệu từ Draft.js Editor vào FormData
+    // Chuyển đổi dữ liệu từ Draft.js Editor sang HTML
     const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    data.append("description", JSON.stringify(rawContentState));
+    const htmlContent = stateToHTML(contentState);
+    data.append("description", htmlContent);
 
     try {
       // Gọi API upload bản vẽ
@@ -88,6 +91,7 @@ export default function AddDrawing() {
 
           if (updateResponse.status === 200) {
             alert("Số lượng bản vẽ đã được cập nhật thành công!");
+            navigate(`/user/drawingmanagement`);
           }
         } catch (updateError) {
           console.error(
