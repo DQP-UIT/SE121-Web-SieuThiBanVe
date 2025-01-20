@@ -131,6 +131,7 @@ const Info = () => {
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold">
           Thông số bản vẽ
+          Thông số bản vẽ
         </span>
         <div className="ml-8 mt-6 w-2/3">
           <ProductTable product={product} />
