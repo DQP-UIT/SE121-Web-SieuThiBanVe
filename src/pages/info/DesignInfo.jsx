@@ -85,17 +85,25 @@ const DesignInfo = () => {
 
   // Hiển thị loading hoặc lỗi
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
+        {error}
+      </div>
+    );
   }
 
   // Nếu không có dữ liệu sản phẩm
   if (!product) {
     return (
-      <div className="flex h-[80vh] mt-12 w-full flex-auto justify-center text-2xl text-blue-300 mix-blend-overlay">
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
         Sản phẩm không tồn tại.
       </div>
     );
@@ -103,7 +111,7 @@ const DesignInfo = () => {
 
   return (
     <div>
-      <div className="w-full mt-4">
+      <div className="mt-4 w-full">
         <span className="ml-8 font-sans text-3xl font-semibold text-white">
           {product.name}
         </span>
@@ -125,9 +133,10 @@ const DesignInfo = () => {
         <span className="font-sans text-2xl font-semibold text-white">
           Mô tả sản phẩm
         </span>
-        <div className="mt-4 pr-40 font-sans text-xl text-white">
-          {product.description}
-        </div>
+        <div
+          className="mt-4 pr-40 font-sans text-xl text-white"
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        />
       </div>
       <div className="ml-8 mt-6">
         <span className="font-sans text-2xl font-semibold text-white">

@@ -63,7 +63,7 @@ const OrderList = () => {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} padding={2}>
         {paginatedOrders.map((order) => (
           <Grid item key={order.id} xs={3}>
             <OrderTag
