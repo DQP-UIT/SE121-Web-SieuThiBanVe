@@ -88,9 +88,19 @@ const DesignInfo = () => {
         Loading...
       </div>
     );
+    return (
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
+    return (
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
+        {error}
+      </div>
+    );
     return (
       <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
         {error}
@@ -102,6 +112,7 @@ const DesignInfo = () => {
   if (!product) {
     return (
       <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
+      <div className="mt-12 flex h-[80vh] w-full flex-auto justify-center text-3xl uppercase text-blue-300 mix-blend-overlay">
         Sản phẩm không tồn tại.
       </div>
     );
@@ -109,6 +120,7 @@ const DesignInfo = () => {
 
   return (
     <div>
+      <div className="mt-4 w-full">
       <div className="mt-4 w-full">
         <span className="ml-8 font-sans text-3xl font-semibold text-white">
           {product.name}
@@ -162,6 +174,7 @@ const DesignInfo = () => {
         <span className="font-sans text-2xl font-semibold text-white">
           Chi tiết bản vẽ
         </span>
+        <div className="mt-6 flex w-full flex-auto items-start justify-center pb-4">
         <div className="mt-6 flex w-full flex-auto items-start justify-center pb-4">
           <ImageLoader
             images2dct={product.images1}
