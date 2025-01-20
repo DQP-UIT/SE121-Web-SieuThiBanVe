@@ -151,7 +151,7 @@ const DesignInfo = () => {
                   download
                   className="text-blue-500 hover:underline"
                 >
-                  {file.split('/').pop()}
+                  {file.split("/").pop()}
                 </a>
               </div>
             ))
@@ -165,13 +165,11 @@ const DesignInfo = () => {
           Chi tiết bản vẽ
         </span>
         <div className="mt-6 flex w-full flex-auto items-start justify-center pb-4">
-          <div className="mt-6 flex w-full flex-auto items-start justify-center pb-4">
-            <ImageLoader
-              images2dct={product.images1}
-              images2d={product.images}
-              images3d={product.images2}
-            />
-          </div>
+          <ImageLoader
+            images2dct={product.images1}
+            images2d={product.images}
+            images3d={product.images2}
+          />
         </div>
       </div>
     </div>
