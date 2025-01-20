@@ -9,6 +9,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 export default function AddDrawing() {
   const navigate = useNavigate();
+  const [filesDocuments, setFilesDocuments] = useState([]);
   const [files2D, setFiles2D] = useState([]);
   const [filesDetail, setFilesDetail] = useState([]);
   const [files3D, setFiles3D] = useState([]);
@@ -37,6 +38,8 @@ export default function AddDrawing() {
       setFilesDetail((prevFiles) => [...prevFiles, ...uploadedFiles]);
     } else if (type === "3D") {
       setFiles3D((prevFiles) => [...prevFiles, ...uploadedFiles]);
+    } else if (type === "documents") {
+      setFilesDocuments((prevFiles) => [...prevFiles, ...uploadedFiles]);
     }
   };
 
@@ -51,6 +54,7 @@ export default function AddDrawing() {
     files2D.forEach((file) => data.append("images", file));
     filesDetail.forEach((file) => data.append("images1", file));
     files3D.forEach((file) => data.append("images2", file));
+    filesDocuments.forEach((file) => data.append("documents", file)); // Thêm tài liệu
 
     // Thêm các dữ liệu form khác vào FormData
     for (const key in formData) {
@@ -278,6 +282,33 @@ export default function AddDrawing() {
       </div>
       <div className="mb-5 flex flex-wrap gap-2">
         {files3D.map((file, index) => (
+          <div
+            key={index}
+            className="w-36 rounded border border-gray-300 p-2 text-center"
+          >
+            <p className="text-sm">{file.name}</p>
+            <p className="text-xs text-gray-500">
+              {(file.size / 1024 / 1024).toFixed(2)} MB
+            </p>
+          </div>
+        ))}
+      </div>
+      {/* File Upload for Documents */}
+      <div className="mb-5 text-2xl font-bold text-white">
+        Thêm tài liệu (PDF, Word, Excel)
+      </div>
+      <div className="mb-5 rounded border-2 border-dashed border-gray-300 p-5 text-center text-white">
+        <input
+          type="file"
+          onChange={(e) => handleFileUpload(e, "documents")}
+          multiple
+          accept=".pdf, .doc, .docx, .xls, .xlsx"
+          className="mb-2"
+        />
+        <p>PDF, Word, Excel formats. (up to 50MB)</p>
+      </div>
+      <div className="mb-5 flex flex-wrap gap-2">
+        {filesDocuments.map((file, index) => (
           <div
             key={index}
             className="w-36 rounded border border-gray-300 p-2 text-center"
