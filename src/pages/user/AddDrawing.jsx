@@ -54,8 +54,8 @@ export default function AddDrawing() {
     files2D.forEach((file) => data.append("images", file));
     filesDetail.forEach((file) => data.append("images1", file));
     files3D.forEach((file) => data.append("images2", file));
-    filesDocuments.forEach((file) => data.append("documents", file)); // Thêm tài liệu
-
+    filesDocuments.forEach((file) => data.append("documents", file, file.name)); // Thêm tài liệu
+    console.log(filesDocuments);
     // Thêm các dữ liệu form khác vào FormData
     for (const key in formData) {
       data.append(key, formData[key]);

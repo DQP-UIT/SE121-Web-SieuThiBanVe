@@ -107,6 +107,8 @@ const Info = () => {
     );
   }
 
+  const files = Array.isArray(product.file) ? product.file : [product.file];
+
   return (
     <div>
       <div className="mt-4 w-full">
@@ -146,15 +148,15 @@ const Info = () => {
           File xem trước
         </span>
         <div className="mt-4">
-          {product.file && product.file.length > 0 ? (
-            product.file.map((file, index) => (
+          {files && files.length > 0 ? (
+            files.map((file, index) => (
               <div key={index} className="mb-2">
                 <a
-                  href={file.url}
+                  href={file}
                   download
                   className="text-blue-500 hover:underline"
                 >
-                  {file.name}
+                  {file.split("/").pop()}
                 </a>
               </div>
             ))
