@@ -115,7 +115,7 @@ const DrawingManagement = () => {
       </div>
       <Stack
         spacing={2}
-        className="pagination mt-4 flex flex-auto items-center justify-center"
+        className="pagination mt-4 flex flex-auto items-center justify-center p-4"
       >
         <Pagination
           count={totalPages}
