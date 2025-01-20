@@ -142,22 +142,12 @@ const DesignInfo = () => {
         <span className="font-sans text-2xl font-semibold text-white">
           Chi tiết bản vẽ
         </span>
-        <div className="mt-6 flex w-full flex-auto items-start justify-center">
+        <div className="mt-6 flex w-full flex-auto items-start justify-center pb-4">
           <ImageLoader
             images2dct={product.images1}
             images2d={product.images}
             images3d={product.images2}
           />
-        </div>
-      </div>
-      <div>
-        <span className="ml-8 font-sans text-2xl font-semibold text-white">
-          Phù hợp với bạn
-        </span>
-        <div>
-          <div className="flex w-full min-w-fit items-center justify-center pt-10">
-            <ProductList products={products} />
-          </div>
         </div>
       </div>
     </div>
