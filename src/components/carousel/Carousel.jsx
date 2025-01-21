@@ -23,11 +23,11 @@ const Carousel = ({ imglist }) => {
   return (
     <div
       id="indicators-carousel"
-      className="relative h-144 min-h-fit min-w-fit"
+      className="relative w-full"
       data-carousel="static"
     >
       {/* Carousel wrapper */}
-      <div className="relative h-128 w-128 overflow-hidden rounded-lg shadow-lg">
+      <div className="relative w-full overflow-hidden rounded-lg shadow-lg">
         {visibleImages.map((img, index) => (
           <div
             key={index}
@@ -38,7 +38,7 @@ const Carousel = ({ imglist }) => {
           >
             <img
               src={img}
-              className="absolute block h-full w-full object-fill"
+              className="block w-full h-64 md:h-96 lg:h-128 object-fill"
               alt={`Slide ${index + 1}`}
             />
           </div>
@@ -46,7 +46,7 @@ const Carousel = ({ imglist }) => {
       </div>
 
       {/* Thumbnail indicators */}
-      <div className="mt-4 w-128 flex justify-center space-x-4">
+      <div className="mt-4 flex justify-center space-x-4">
         {visibleImages.map((img, index) => (
           <div
             key={index}
@@ -57,7 +57,7 @@ const Carousel = ({ imglist }) => {
           >
             <img
               src={img}
-              className="h-16 w-16 rounded-lg object-cover"
+              className="h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20 rounded-lg object-cover"
               alt={`Thumbnail ${index + 1}`}
             />
           </div>
