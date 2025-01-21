@@ -77,10 +77,6 @@ const DesignInfo = () => {
       });
   }, [id]); // Thêm id vào dependencies để gọi lại khi id thay đổi
 
-  // Kiểm tra URL có phải là đường dẫn yêu cầu hay không
-  // Kiểm tra xem đường dẫn có bắt đầu bằng "/designinfo"
-  const shouldHideContactCard = location.pathname.startsWith("/designinfo");
-
   // Hiển thị loading hoặc lỗi
   if (loading) {
     return (
@@ -107,7 +103,7 @@ const DesignInfo = () => {
     );
   }
 
-  const files = Array.isArray(product.file) ? product.file : [product.file];
+  const files = product.files;
 
   return (
     <div>

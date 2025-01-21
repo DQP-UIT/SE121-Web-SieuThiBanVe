@@ -107,20 +107,20 @@ const Info = () => {
     );
   }
 
-  const files = Array.isArray(product.file) ? product.file : [product.file];
+  const files = product.files;
 
   return (
-    <div>
+    <div className="p-4">
       <div className="mt-4 w-full">
-        <span className="ml-8 font-sans text-3xl font-semibold">
+        <span className="ml-8 font-sans text-2xl md:text-3xl font-semibold">
           {product.name}
         </span>
       </div>
-      <div className="mt-12 flex">
-        <div className="ml-28 basis-2/3">
+      <div className="mt-12 flex flex-col md:flex-row">
+        <div className="md:ml-28 md:basis-2/3">
           <Carousel imglist={product.images} />
         </div>
-        <div>
+        <div className="mt-8 p-8 md:mt-0">
           {/* Truyền id vào ContactCard */}
           {/* Chỉ hiển thị ContactCard nếu đường dẫn không phải là "/drawingmanagement/product/11" */}
           {!shouldHideContactCard && (
@@ -129,22 +129,24 @@ const Info = () => {
         </div>
       </div>
       <div className="ml-8 mt-6">
-        <span className="font-sans text-2xl font-semibold">
+        <span className="font-sans text-xl md:text-2xl font-semibold">
           Thông số bản vẽ
         </span>
-        <div className="ml-8 mt-6 w-2/3">
+        <div className="ml-8 mt-6 w-full md:w-2/3">
           <ProductTable product={product} />
         </div>
       </div>
       <div className="ml-8 mt-6">
-        <span className="font-sans text-2xl font-semibold">Mô tả sản phẩm</span>
+        <span className="font-sans text-xl md:text-2xl font-semibold">
+          Mô tả sản phẩm
+        </span>
         <div
-          className="mt-4 pr-40 font-sans text-xl"
+          className="mt-4 pr-4 md:pr-40 font-sans text-base md:text-xl"
           dangerouslySetInnerHTML={{ __html: product.description }}
         />
       </div>
       <div className="ml-8 mt-6">
-        <span className="font-sans text-2xl font-semibold text-white">
+        <span className="font-sans text-xl md:text-2xl font-semibold">
           File xem trước
         </span>
         <div className="mt-4">
@@ -161,12 +163,14 @@ const Info = () => {
               </div>
             ))
           ) : (
-            <div className="text-white">Không có file nào để xem trước.</div>
+            <div className="font-sans text-base md:text-xl">
+              Không có file nào để xem trước.
+            </div>
           )}
         </div>
       </div>
       <div className="ml-8 mt-6">
-        <span className="font-sans text-2xl font-semibold">
+        <span className="font-sans text-xl md:text-2xl font-semibold">
           Chi tiết bản vẽ
         </span>
         <div className="mt-6 flex w-full flex-auto items-start justify-center">
@@ -178,10 +182,10 @@ const Info = () => {
         </div>
       </div>
       <div>
-        <span className="ml-8 font-sans text-2xl font-semibold">
+        <span className="ml-8 font-sans text-xl md:text-2xl font-semibold">
           Phù hợp với bạn
         </span>
-        <div>
+        <div className="flex w-full">
           <div className="flex w-full min-w-fit items-center justify-center pt-10">
             <ProductList products={products} />
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductTable = ({ product }) => {
   return (
-    <div className="w-2/3 shadow-md select-none">
+    <div className="w-full md:w-2/3 shadow-md select-none">
       <div className="relative z-10 flex overflow-x-auto shadow-md">
         <table className="w-full text-left text-sm text-gray-500">
           <tbody>
@@ -18,7 +18,7 @@ const ProductTable = ({ product }) => {
               <td className="bg-gray-300 px-4 py-2 text-gray-900">
                 {product.floor}
               </td>
-              <td className="w-8"></td>
+              <td className="hidden md:table-cell w-8"></td>
               <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img src="/la_bed.svg" alt="Phòng ngủ" className="h-6 w-6" />
                 <span className="font-medium text-gray-900">Phòng ngủ</span>
@@ -40,7 +40,7 @@ const ProductTable = ({ product }) => {
               <td className="bg-white px-4 py-2 text-gray-900">
                 {product.square}
               </td>
-              <td className="w-8"></td>
+              <td className="hidden md:table-cell w-8"></td>
               <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/hugeicons_web-design-01.svg"
@@ -66,7 +66,7 @@ const ProductTable = ({ product }) => {
               <td className="bg-gray-300 px-4 py-2 text-gray-900">
                 {product.size}
               </td>
-              <td className="w-8"></td>
+              <td className="hidden md:table-cell w-8"></td>
               <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/ph_house-line.svg"
@@ -92,7 +92,7 @@ const ProductTable = ({ product }) => {
               <td className="bg-white px-4 py-2 text-gray-900">
                 {product.style}
               </td>
-              <td className="w-8"></td>
+              <td className="hidden md:table-cell w-8"></td>
               <td className="flex items-center gap-2 bg-white px-4 py-2">
                 <img
                   src="/formkit_dollar.svg"
@@ -118,7 +118,7 @@ const ProductTable = ({ product }) => {
               <td className="bg-gray-300 px-4 py-2 text-gray-900">
                 {product.designedBy}
               </td>
-              <td className="w-8"></td>
+              <td className="hidden md:table-cell w-8"></td>
               <td className="flex items-center gap-2 bg-gray-300 px-4 py-2">
                 <img
                   src="/mdi_pound.svg"
