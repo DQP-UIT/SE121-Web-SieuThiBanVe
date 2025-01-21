@@ -44,7 +44,7 @@ const ProductCard = ({ banve }) => {
 
   return (
     <div
-      className="m-4 max-h-28 min-h-fit min-w-72 max-w-80 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
+      className="m-4 h-24 max-h-28 min-h-fit min-w-72 max-w-80 cursor-pointer overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg transition-transform duration-200 hover:scale-105"
       onClick={handleOnClick}
     >
       <img
@@ -54,21 +54,21 @@ const ProductCard = ({ banve }) => {
       />
 
       <div className="p-4">
-        <p className="mb-2 select-none text-[0.6vw] text-green-500">
+        <p className="mb-2 select-none text-xs text-green-500">
           Được thiết kế bởi designer
         </p>
 
-        <div className="mb-1 select-none text-[1vw] font-bold">
+        <div className="mb-1 select-none text-lg font-bold">
           {banve.name}
         </div>
 
-        <div className="mb-1 select-none text-[0.65vw] text-gray-600">
+        <div className="mb-1 select-none text-xs text-gray-600">
           Số tầng {banve.tang} | Số phòng ngủ {banve.phongngu} | Diện tích{" "}
           {banve.dientich} m²
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="select-none text-[1.5vw] text-blue-500">
+          <p className="select-none text-2xl text-blue-500">
             {banve.price.toLocaleString()} VND
           </p>
           {!isRootPath && (

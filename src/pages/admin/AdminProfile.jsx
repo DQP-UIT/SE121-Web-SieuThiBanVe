@@ -150,7 +150,7 @@ const Profile = () => {
           >
             Loại bỏ bản thiết kế
           </div> */}
-          <div className="flex h-full min-h-[80vh] w-full min-w-fit items-center justify-center pt-10">
+          <div className="flex h-full min-h-[80vh] w-full items-center justify-center pt-10">
             {isLoading ? (
               <div>Loading...</div>
             ) : (
