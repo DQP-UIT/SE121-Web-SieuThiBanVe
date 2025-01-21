@@ -5,22 +5,21 @@ import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 const PopoverBar = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row bg-gradient-to-b from-light-blue-200 to-purple-100 p-4">
-      <div className="grow"></div>
+    <div className="flex flex-wrap bg-gradient-to-b from-light-blue-200 to-purple-100 p-4">
+      <div className="flex-grow"></div>
       <div className="min-w-fit basis-1/12 text-center">
         <span
-          className="cursor-pointer font-sans text-xl hover:text-white select-none"
+          className="cursor-pointer font-sans text-base md:text-lg lg:text-xl hover:text-white select-none"
           onClick={() => {
             navigate(`/`);
           }}
         >
-          {" "}
-          Trang chủ{" "}
+          Trang chủ
         </span>
       </div>
-      <div className="min-w-fit basis-1/12 ps-24 text-center">
+      <div className="min-w-fit basis-1/12 ps-4 md:ps-12 lg:ps-24 text-center">
         <Popover>
-          <PopoverButton className="block text-center font-sans text-xl text-black hover:bg-transparent focus:outline-none data-[active]:text-white data-[hover]:text-white select-none">
+          <PopoverButton className="block text-center font-sans text-base md:text-lg lg:text-xl text-black hover:bg-transparent focus:outline-none data-[active]:text-white data-[hover]:text-white select-none">
             Mẫu nhà đẹp
           </PopoverButton>
           <PopoverPanel
@@ -69,40 +68,37 @@ const PopoverBar = () => {
           </PopoverPanel>
         </Popover>
       </div>
-      <div className="min-w-fit basis-1/12 ps-24 text-center">
+      <div className="min-w-fit basis-1/12 ps-4 md:ps-12 lg:ps-24 text-center">
         <span
-          className="cursor-pointer font-sans text-xl hover:text-white select-none"
+          className="cursor-pointer font-sans text-base md:text-lg lg:text-xl hover:text-white select-none"
           onClick={() => {
             navigate(`/estimatePart1`);
           }}
         >
-          {" "}
           Dự toán
         </span>
       </div>
-      <div className="min-w-fit basis-1/12 ps-24 text-center">
+      <div className="min-w-fit basis-1/12 ps-4 md:ps-12 lg:ps-24 text-center">
         <span
-          className="cursor-pointer font-sans text-xl hover:text-white select-none"
+          className="cursor-pointer font-sans text-base md:text-lg lg:text-xl hover:text-white select-none"
           onClick={() => {
             navigate(`/fengshui`);
           }}
         >
-          {" "}
           Phong thủy
         </span>
       </div>
-      <div className="min-w-fit basis-1/12 ps-24 text-center">
+      <div className="min-w-fit basis-1/12 ps-4 md:ps-12 lg:ps-24 text-center">
         <span 
-          className="cursor-pointer font-sans text-xl hover:text-white select-none"
+          className="cursor-pointer font-sans text-base md:text-lg lg:text-xl hover:text-white select-none"
           onClick={() => {
             navigate(`/aboutus`);
           }}
         >
-          {" "}
           Về Chúng tôi
         </span>
       </div>
-      <div className="grow"></div>
+      <div className="flex-grow"></div>
     </div>
   );
 };

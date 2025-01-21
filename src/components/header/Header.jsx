@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../searchbar/SearchBar";
 import PopoverBar from "./PopoverBar";
@@ -66,37 +66,41 @@ const Header = () => {
 
   return (
     <div className="w-full">
-      <div className="flex h-1/6 min-h-fit items-center justify-between p-4">
-        <div className="ml-12 flex w-1/5 min-w-fit items-center hover:cursor-pointer">
-          <img src={Logo} alt="Logo" className="float-left h-8 w-8 select-none" />
-          <span className="font-serif text-3xl select-none">Siêu thị bản vẽ</span>
+      <div className="flex flex-wrap items-center justify-between p-4">
+        <div className="flex items-center hover:cursor-pointer">
+          <img src={Logo} alt="Logo" className="h-8 w-8 select-none" />
+          <span className="ml-2 text-xl md:text-2xl lg:text-3xl font-serif select-none">
+            Siêu thị bản vẽ
+          </span>
         </div>
-        <div className="ml-36 w-1/3 min-w-fit">
+        <div className="w-full md:w-1/3 mt-4 md:mt-0">
           <SearchBar data={data} />
         </div>
-        <div className="ml-20 w-1/5 min-w-fit flex-auto hover:cursor-pointer">
-          <img src={PhoneIcon} alt="Contact" className="float-left h-8 w-8 select-none" />
-          <span className="text-xl font-medium select-none">0975207829</span>
+        <div className="flex items-center mt-4 md:mt-0">
+          <img src={PhoneIcon} alt="Contact" className="h-6 w-6 md:h-8 md:w-8 select-none" />
+          <span className="ml-2 text-sm md:text-lg lg:text-xl font-medium select-none">
+            0975207829
+          </span>
           {user ? (
-            <div className="float-right flex gap-4">
+            <div className="flex items-center ml-4">
               <img
                 src={User}
                 alt="user"
-                className="h-8 w-8 hover:cursor-pointer select-none"
+                className="h-6 w-6 md:h-8 md:w-8 hover:cursor-pointer select-none"
                 onClick={() => {
                   navigate("/profile");
                 }}
               />
-              {/* <img
+              <img
                 src={Logout}
                 alt="Logout"
-                className="h-8 w-8 hover:cursor-pointer"
+                className="h-6 w-6 md:h-8 md:w-8 ml-4 hover:cursor-pointer select-none"
                 onClick={handleOnLogout}
-              /> */}
+              />
             </div>
           ) : (
             <Button
-              className="float-right rounded bg-light-blue-700 px-4 py-2 text-sm text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-400 select-none"
+              className="ml-4 rounded bg-light-blue-700 px-4 py-2 text-sm md:text-base lg:text-lg text-white data-[active]:bg-blue-700 data-[hover]:bg-blue-400 select-none"
               onClick={handleOnLogin}
             >
               Login

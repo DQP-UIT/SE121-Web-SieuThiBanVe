@@ -39,12 +39,12 @@ const SuggestCardList = () => {
 
   return (
     <div className="relative mb-8 mt-8 flex h-fit items-center justify-center">
-      <div className="flex space-x-20">
+      <div className="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-20">
         {cards.map((card, index) => (
           <div
             key={index}
             onClick={() => handleCardClick(card.param)} // Gọi hàm điều hướng
-            style={{ cursor: "pointer" }} // Biến con trỏ thành bàn tay khi hover
+            className="cursor-pointer"
           >
             <SuggestCard
               imgUrl={card.imgUrl}
